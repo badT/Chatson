@@ -18,6 +18,21 @@ import { styles } from './styles.scss';
 // PROJECTS.map(project => icons.push(require(`./files/${project.name.replace(' ', '')}.jpg`)));
 
 export class DataDisplay extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { message: null };
+  }
+
+  componentWillMount() {
+    this.socket = io();
+    this.socket.on('message', this.handleMessage.bind(this));
+  }
+
+  handleMessage(message) {
+    this.setState({ message });
+  }
+
   render() {
     return (
       <section className={`${styles}`}>
@@ -26,7 +41,7 @@ export class DataDisplay extends Component {
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
               <h2>
-                Something Pithy
+                {this.state.message}
               </h2>
             </div>
           </div>
