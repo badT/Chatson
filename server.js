@@ -27,6 +27,8 @@ app.get(/.*/, function root(req, res) {
 });
 
 const server = http.createServer(app);
+const io = require('./backend/utils/socketio')(server);
+
 server.listen(process.env.PORT || 3000, function onListen() {
   const address = server.address();
   console.log('Listening on: %j', address);
