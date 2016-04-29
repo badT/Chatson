@@ -10,12 +10,12 @@ app.use(require('morgan')('short'));
   const compiler = webpack(webpackConfig);
 
   app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true, 
+    noInfo: true,
     publicPath: webpackConfig.output.publicPath,
   }));
 
   app.use(require('webpack-hot-middleware')(compiler, {
-    log: console.log, 
+    log: console.log,
     path: '/__webpack_hmr', heartbeat: 10 * 1000,
   }));
 

@@ -1,10 +1,10 @@
-var fs = require('fs');
+const fs = require('fs');
 
-var babelrc = fs.readFileSync('./.babelrc');
-var config;
+const babelrc = fs.readFileSync('./.babelrc');
+const config = JSON.parse(babelrc);
 
 try {
-  config = JSON.parse(babelrc);
+  config;
 } catch (err) {
   console.error('==>     ERROR: Error parsing your .babelrc.');
   console.error(err);

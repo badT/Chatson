@@ -2,6 +2,7 @@ const twitchIO = require('socket.io');
 const twitchClient = require('./tmiClient');
 // const Rx = require('rx');
 const eventEmitter = require('./eventEmitter');
+const messageController = require('../db/messageController');
 
 // const messageSource = Rx.Observable.fromEvent(twitchClient, 'chat', () => {
 //   let args = [].slice.call(arguments);
@@ -16,9 +17,17 @@ const eventEmitter = require('./eventEmitter');
 // });
 
 twitchClient.on('chat', (channel, user, msg, self) => {
+  const messageBody = {
+    channel,
+    user,
+    msg,
+  };
+
+  messageController.saveMessage(messageBody);
+
   eventEmitter.emit('chatMessage', {
     user: user.username,
-    message: msg
+    message: msg,
   });
 });
 
