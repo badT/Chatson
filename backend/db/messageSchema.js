@@ -9,4 +9,20 @@ const Message = thinky.thinky.createModel('Messages', {
   id: thinky.type.string(),
 });
 
+Message.ensureIndex('user.user-id');
+// Test for feeds
+Message.changes().then((feed) => {
+  feed.each((error, doc) => {
+    if (error) {
+      console.log(error);
+      process.exit(1);
+    } else {
+      console.log('changes feed: ', doc);
+    }
+  });
+}).error((error) => {
+  console.log(error);
+  process.exit(1);
+});
+
 module.exports = Message;

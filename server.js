@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const app = express();
+const messageController = require('./backend/db/messageController');
 
 app.use(require('morgan')('short'));
 
@@ -21,6 +22,13 @@ app.use(require('morgan')('short'));
 
   app.use(express.static(__dirname + '/'));
 })();
+
+app.get('/messages', function root(req, res) {
+  messageController.getMessages((data) => {
+    res.send(data);
+    res.end();
+  });
+});
 
 app.get(/.*/, function root(req, res) {
   res.sendFile(__dirname + '/index.html');
