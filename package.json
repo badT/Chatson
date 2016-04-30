@@ -81,11 +81,13 @@
     "webpack-merge": "^0.7.3"
   },
   "dependencies": {
+    "axios": "^0.11.0",
     "jquery": "^2.2.0",
     "react": "^0.14.6",
     "react-redux": "^4.0.6",
     "react-router": "^2.0.0-rc5",
     "redux": "^3.1.4",
+    "redux-promise": "^0.5.3",
     "rx": "^4.1.0",
     "socket.io": "^1.4.5",
     "thinky": "^2.3.1",

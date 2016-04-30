@@ -21,3 +21,4 @@ crashlytics-build.properties
 *.iml
 
 backend/.appkeys.json
+rethinkdb_data/
