@@ -15,9 +15,6 @@ class ChannelDropdown extends Component {
     return (
       <li key={name}><a href={url}>{name}</a></li>
     );
-    // <a class="dropdown-item" href="#">Action</a>
-    // <div class="dropdown-divider"></div>
-
   }
 
   render() {
