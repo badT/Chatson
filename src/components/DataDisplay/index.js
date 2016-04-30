@@ -8,7 +8,7 @@ export class DataDisplay extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { 
+    this.state = {
       message: null,
       user: null,
       emotes: null
@@ -21,7 +21,7 @@ export class DataDisplay extends Component {
   }
 
   handleMessage(msgObj) {
-    this.setState({ 
+    this.setState({
       message: msgObj.msg,
       user: msgObj.user.username,
       emotes: msgObj.user.emotes
@@ -91,14 +91,14 @@ export class DataDisplay extends Component {
                 <ReactCSSTransitionGroup className="ticker-user" transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={0}>
                   <h4 key={this.state.message}>
                     {this.state.user}
-                  </h4> 
+                  </h4>
                 </ReactCSSTransitionGroup>
               </div>
               <div className="message-ticker-message">
                 <ReactCSSTransitionGroup className="ticker-message" transitionName="carousel" transitionEnterTimeout={300} transitionLeaveTimeout={200}>
                   <h4 key={this.state.user}>
                     {this.renderMessage(this.parseMessage(this.state.message, this.state.emotes))}
-                  </h4> 
+                  </h4>
                 </ReactCSSTransitionGroup>
               </div>
             </div>
