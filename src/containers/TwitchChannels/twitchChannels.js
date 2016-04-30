@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getChannels } from '../../actions/index';
+import { getChannels } from '../../actions/items';
 
 class ChannelDropdown extends Component {
 
@@ -9,31 +9,37 @@ class ChannelDropdown extends Component {
     this.props.getChannels();
   }
 
-  renderChannels() {
+  renderChannels(channelData) {
+    const name = channelData.channel.name;
+    const url = `https://www.twitch.tv/${name}`;
+    return (
+      <li key={name}><a href={url}>{name}</a></li>
+    );
+    // <a class="dropdown-item" href="#">Action</a>
+    // <div class="dropdown-divider"></div>
 
   }
 
-  render{
-    return(
-      <div class="btn-group">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Action
+  render() {
+    return (
+      <div className="btn-group">
+        <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Top Channels <span className="caret"></span>
         </button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Separated link</a>
-        </div>
+        <ul className="dropdown-menu">
+          {this.props.channels.map(this.renderChannels)}
+        </ul>
       </div>
-
     );
   }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getChannels }, dispatch);
 }
 
 function mapStateToProps({ channels }) {
   return { channels };
 }
 
-export default connect(mapStateToProps)(ChannelDropdown);
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelDropdown);

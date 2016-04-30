@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
+import ChannelDropdown from '../../containers/TwitchChannels/twitchChannels';
+
 /* component styles */
 import { styles } from './styles.scss';
 
@@ -25,9 +27,7 @@ export class Header extends Component {
             </div>
 
             <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 hidden-xs text-right">
-              <a href="https://github.com/badT/twitchBot">
-                Fork us on GitHub
-              </a>
+              <ChannelDropdown />
             </div>
           </div>
         </div>
