@@ -10,7 +10,8 @@ export class DataDisplay extends Component {
 
     this.state = { 
       message: null,
-      user: null
+      user: null,
+      emotes: null
     };
   }
 
@@ -20,10 +21,62 @@ export class DataDisplay extends Component {
   }
 
   handleMessage(msgObj) {
-    console.log('msg received');
     this.setState({ 
-      message: msgObj.message,
-      user: msgObj.user
+      message: msgObj.msg,
+      user: msgObj.user.username,
+      emotes: msgObj.user.emotes
+    });
+  }
+
+  parseMessage(msg, emotes) {
+    let splitText;
+
+    if (emotes) {
+      splitText = msg.split('');
+      for(let i in emotes) {
+        let e = emotes[i];
+        for(let j in e) {
+          let mote = e[j];
+          if(typeof mote === 'string') {
+            mote = mote.split('-');
+            mote = [parseInt(mote[0]), parseInt(mote[1])];
+            let length =  mote[1] - mote[0];
+            let empty = Array.apply(null, new Array(length + 1)).map(function() { return '' });
+            splitText = splitText.slice(0, mote[0]).concat(empty).concat(splitText.slice(mote[1] + 1, splitText.length));
+            splitText.splice(mote[0], 1, parseInt(i));
+          }
+        }
+      }
+      msg = splitText.reduce((msgArr, char, i) => {
+        if (typeof char == 'number') {
+          msgArr[msgArr.length] = parseInt(char);
+        } else {
+          if (typeof msgArr[msgArr.length - 1] == 'number') {
+            msgArr[msgArr.length] = char;
+          } else {
+            msgArr[msgArr.length - 1] += char;
+          }
+        }
+        return msgArr;
+      }, ['']);
+    } else {
+      msg = [msg];
+    }
+
+    return msg;
+  }
+
+  renderMessage(msg) {
+    return msg.map((chunk) => {
+      if (typeof chunk === 'number') {
+        return (
+          <img className="emoticon" src={`http://static-cdn.jtvnw.net/emoticons/v1/${chunk}/3.0`} />
+        );
+      } else {
+        return (
+          <span>{chunk}</span>
+        );
+      }
     });
   }
 
@@ -44,7 +97,7 @@ export class DataDisplay extends Component {
               <div className="message-ticker-message">
                 <ReactCSSTransitionGroup className="ticker-message" transitionName="carousel" transitionEnterTimeout={300} transitionLeaveTimeout={200}>
                   <h4 key={this.state.user}>
-                    {this.state.message}
+                    {this.renderMessage(this.parseMessage(this.state.message, this.state.emotes))}
                   </h4> 
                 </ReactCSSTransitionGroup>
               </div>
