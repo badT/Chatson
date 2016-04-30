@@ -35,10 +35,10 @@ module.exports = server => {
   const io = twitchIO.listen(server);
 
   io.sockets.on('connection', socket => {
-    socket.send('hello world');
+    // socket.send('hello world');
 
     eventEmitter.on('chatMessage', message => {
-      socket.send(message);
+      io.emit('message', message);
     });
   });
 
