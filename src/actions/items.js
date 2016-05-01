@@ -12,6 +12,9 @@ export function getChannels() {
 
 export const GET_MESSAGE = 'GET_MESSAGE';
 
-export function getMessage() {
-  const message =
+export function getMessage(data) {
+  return {
+    type: GET_MESSAGE,
+    payload: data,
+  };
 }
