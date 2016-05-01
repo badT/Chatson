@@ -10,7 +10,7 @@ const messageSource = Rx.Observable.fromEvent(twitchClient, 'chat', (channel, us
 
 const messageSubscription = messageSource.subscribe((msgObj) => {
   eventEmitter.emit('chatMessage', msgObj);
-  messageController.saveMessage(msgObj);
+  // messageController.saveMessage(msgObj);
 });
 
 module.exports = server => {
