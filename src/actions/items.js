@@ -13,5 +13,5 @@ export function getChannels() {
 export const GET_MESSAGE = 'GET_MESSAGE';
 
 export function getMessage() {
-  const message = 
+  const message =
 }
