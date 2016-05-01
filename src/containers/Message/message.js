@@ -22,11 +22,11 @@ export class MessageDisplay extends Component {
 
     if (emotes) {
       splitText = msg.split('');
-      for(let i in emotes) {
+      for (let i in emotes) {
         let e = emotes[i];
-        for(let j in e) {
+        for (let j in e) {
           let mote = e[j];
-          if(typeof mote === 'string') {
+          if (typeof mote === 'string') {
             mote = mote.split('-');
             mote = [parseInt(mote[0]), parseInt(mote[1])];
             let length =  mote[1] - mote[0];
@@ -51,7 +51,6 @@ export class MessageDisplay extends Component {
     } else {
       msg = [msg];
     }
-
     return msg;
   }
 
@@ -78,15 +77,15 @@ export class MessageDisplay extends Component {
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div className="message-ticker-user">
                 <ReactCSSTransitionGroup className="ticker-user" transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={0}>
-                  <h4 key={this.props.message.message}>
-                    {this.props.message.user}
+                  <h4 key={this.props.message}>
+                    {this.props.user}
                   </h4>
                 </ReactCSSTransitionGroup>
               </div>
               <div className="message-ticker-message">
                 <ReactCSSTransitionGroup className="ticker-message" transitionName="carousel" transitionEnterTimeout={300} transitionLeaveTimeout={200}>
-                  <h4 key={this.props.message.user}>
-                    {this.renderMessage(this.parseMessage(this.props.message.message, this.props.message.emotes))}
+                  <h4 key={this.props.user}>
+                    {this.renderMessage(this.parseMessage(this.props.message, this.props.emotes))}
                   </h4>
                 </ReactCSSTransitionGroup>
               </div>
@@ -110,7 +109,14 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({ message }) {
-  return { message };
+  if (message.user) {
+    return {
+      message: message.msg,
+      user: message.user.username,
+      emotes: message.user.emotes,
+    };
+  }
+  return { noMessage: message };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageDisplay);
