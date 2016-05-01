@@ -5,6 +5,7 @@
   width: 100%;
 
   padding: 20px 0;
+  
   opacity: 1;
 
   background: rgba(0, 0, 0, .8);
@@ -19,12 +20,12 @@
       font-weight: bold;
     }
   }
-  
+
   nav {
 
     a {
       margin-right: 20px;
-      
+
       &.active {
         font-weight: bold;
       }

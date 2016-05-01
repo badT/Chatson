@@ -9,3 +9,12 @@ export function getChannels() {
     payload: request,
   };
 }
+
+export const GET_MESSAGE = 'GET_MESSAGE';
+
+export function getMessage(data) {
+  return {
+    type: GET_MESSAGE,
+    payload: data,
+  };
+}
