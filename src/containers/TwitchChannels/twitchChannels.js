@@ -24,7 +24,7 @@ class ChannelDropdown extends Component {
           Top Channels <span className="caret"></span>
         </button>
         <ul className="dropdown-menu">
-          {this.props.channels.map(this.renderChannels)}
+          {this.props.channels.list.map(this.renderChannels)}
         </ul>
       </div>
     );

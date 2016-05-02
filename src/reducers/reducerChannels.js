@@ -1,4 +1,4 @@
-import { GET_CHANNELS } from '../actions/items';
+import { GET_CHANNELS, SET_CHANNEL } from '../actions/items';
 const INITIAL_STATE = { list: [], selected: null };
 
 export default function (state = INITIAL_STATE, action) {
