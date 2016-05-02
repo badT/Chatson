@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Chart from '../../components/Chart/index';
+
 export class ChannelData extends Component {
 
   constructor(props) {
@@ -45,10 +47,22 @@ export class ChannelData extends Component {
   render() {
     return (
       <div>
+        <table className="table table-hover">
+          <thead>
+            <tr>
+              <th>Messages per minute: {this.state.msgPerMin}</th>
+              <th>Average message length: {this.state.avgLength}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr key={name}>
+              <td><Chart data={this.state.msgPerMin} color="red" /></td>
+              <td><Chart data={this.state.avgLength} color="blue" /></td>
+            </tr>
+          </tbody>
+        </table>
         <ul>
           <li>Channel: {this.props.channel}</li>
-          <li>Messages per minute: {this.state.msgPerMin}</li>
-          <li>Average message length: {this.state.avgLength}</li>
           <li>Total Messages since arrival: {this.state.msgCount}</li>
         </ul>
       </div>

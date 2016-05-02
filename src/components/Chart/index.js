@@ -10,7 +10,7 @@ export default (props) => {
         <SparklinesLine color={props.color} />
         <SparklinesSpots />
       </Sparklines>
-      <div>{Math.round(props.data)}</div>
+      <div>Data: {Math.round(props.data)}</div>
     </div>
   );
 };
