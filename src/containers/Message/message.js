@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getMessage } from '../../actions/items';
+import { getMessage } from '../../actions/index';
 
 /* component styles */
 import { styles } from './styles.scss';
