@@ -56,7 +56,7 @@ export class ChannelData extends Component {
     return (
       <div>
         <ul>
-          <li>Channel: {this.props.channel.substr(1)}</li>
+          <li>Channel: {this.props.channel}</li>
           <li>Messages per minute: {this.state.msgPerMin}</li>
           <li>Average message length: {this.state.avgLength}</li>
           <li>Total Messages since arrival: {this.state.msgCount}</li>
