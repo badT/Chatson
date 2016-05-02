@@ -9,11 +9,15 @@ class ChannelDropdown extends Component {
     this.props.getChannels();
   }
 
+  setChannel(channel) {
+    this.props.setChannel(channel);
+  }
+
   renderChannels(channelData) {
     const name = channelData.channel.name;
     const url = `https://www.twitch.tv/${name}`;
     return (
-      <li key={name}><a href={url}>{name}</a></li>
+      <li key={name} onClick={this.setChannel(name).bind(this)}><a href={url}>{name}</a></li>
     );
   }
 
