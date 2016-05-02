@@ -10,8 +10,16 @@ export function getChannels() {
   };
 }
 
-export const GET_MESSAGE = 'GET_MESSAGE';
+// set the currently active channel
+export const SET_CHANNEL = 'SET_CHANNEL';
+export function setChannel(channel) {
+  return {
+    type: SET_CHANNEL,
+    payload: channel,
+  };
+}
 
+export const GET_MESSAGE = 'GET_MESSAGE';
 export function getMessage(data) {
   return {
     type: GET_MESSAGE,
