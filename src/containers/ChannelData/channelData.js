@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-
-// import { bindActionCreators } from 'redux';
-// import {  } from '../../actions/items';
-/* component styles */
-// import { styles } from './styles.scss';
-
 export class ChannelData extends Component {
 
   constructor(props) {
@@ -22,9 +16,6 @@ export class ChannelData extends Component {
     };
   }
 
-  // componentWillMount() {
-  //
-  // }
   componentWillReceiveProps(props) {
     let newCount;
     let newAvgLength;
@@ -41,8 +32,7 @@ export class ChannelData extends Component {
       newAvgLength = this.state.avgLength;
     }
     const newMsgPerMin = newCount / elapsedMinutes;
-    // set last msg to check for diff when this gets called again
-    // because this sometimes runs when props haven't actually changed
+
     this.setState({
       msgCount: newCount,
       msgPerMin: newMsgPerMin,
@@ -65,13 +55,6 @@ export class ChannelData extends Component {
     );
   }
 }
-
-// any action creators to map??
-  // don't forget to add dispatch to export/connect
-
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({  }, dispatch);
-// }
 
 function mapStateToProps({ message }) {
   if (message.user) {
