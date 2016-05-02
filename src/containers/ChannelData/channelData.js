@@ -15,6 +15,8 @@ export class ChannelData extends Component {
       avgLength: 0,
       lastMsg: '',
       time: new Date(),
+      msgPerMinArray: [],
+      avgLengthArray: [],
     };
   }
 
@@ -34,6 +36,8 @@ export class ChannelData extends Component {
       newAvgLength = this.state.avgLength;
     }
     const newMsgPerMin = newCount / elapsedMinutes;
+    const newMsgPerMinArray = this.state.msgPerMinArray.push(newMsgPerMin);
+    const newAvgLengthArray = this.state.avgLengthArray.push(newAvgLength);
 
     this.setState({
       msgCount: newCount,
@@ -41,6 +45,8 @@ export class ChannelData extends Component {
       charCount: newCharCount,
       avgLength: newAvgLength,
       lastMsg: props.message,
+      msgPerMinArray: newMsgPerMinArray,
+      avgLengthArray: newAvgLengthArray,
     });
   }
 
@@ -55,9 +61,9 @@ export class ChannelData extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr key={name}>
-              <td><Chart data={this.state.msgPerMin} color="red" /></td>
-              <td><Chart data={this.state.avgLength} color="blue" /></td>
+            <tr>
+              <td><Chart data={this.state.msgPerMinArray} color="red" /></td>
+              <td><Chart data={this.state.avgLengthArray} color="blue" /></td>
             </tr>
           </tbody>
         </table>
