@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
-import ChannelDropdown from '../../containers/TwitchChannels/twitchChannels';
+import ChannelDropdown from '../../containers/ChannelDropdown/ChannelDropdown';
 
 /* component styles */
 import { styles } from './styles.scss';
