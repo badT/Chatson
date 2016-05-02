@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import './styles/app.scss';
 
 /* application components */
-import { Header } from 'components/Header';
-import { Footer } from 'components/Footer';
+import { Header } from '../../components/Header';
+import { Footer } from '../../components/Footer';
 
 export class App extends Component {
   static propTypes = {

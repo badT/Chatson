@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getChannels } from '../../actions/items';
+import { getChannels, setChannel } from '../../actions/index';
 
 class ChannelDropdown extends Component {
-
   componentWillMount() {
     this.props.getChannels();
   }
 
   renderChannels(channelData) {
     const name = channelData.channel.name;
-    const url = `https://www.twitch.tv/${name}`;
+    // const url = `https://www.twitch.tv/${name}`;
     return (
-      <li key={name}><a href={url}>{name}</a></li>
+      <li key={name} onClick={() => this.props.setChannel(name)}>{name}</li>
     );
   }
 
@@ -24,7 +23,7 @@ class ChannelDropdown extends Component {
           Top Channels <span className="caret"></span>
         </button>
         <ul className="dropdown-menu">
-          {this.props.channels.map(this.renderChannels)}
+          {this.props.channels.list.map(this.renderChannels, this)}
         </ul>
       </div>
     );
@@ -32,7 +31,7 @@ class ChannelDropdown extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getChannels }, dispatch);
+  return bindActionCreators({ getChannels, setChannel }, dispatch);
 }
 
 function mapStateToProps({ channels }) {
