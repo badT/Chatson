@@ -3,28 +3,12 @@ const tmi = require('tmi.js');
 const chooseChannel = require('./tmiConfig');
 
 const eventEmitter = require('./eventEmitter');
-const Tone = require('../db/schemas/toneSchema');
 const analyzer = require('../watson/analyzer');
 
 
 // Listenes for a new chat message and moves the message into the analyzer file
 eventEmitter.on('chatMessage', (msgObj) => {
   analyzer.intoTones(msgObj);
-});
-
-// Listens for chanes to Tone table and console logs it
-Tone.changes().then((feed) => {
-  feed.each((error, doc) => {
-    if (error) {
-      console.log(error);
-      process.exit(1);
-    } else {
-      console.log('changes feed: ', doc);
-    }
-  });
-}).error((error) => {
-  console.log(error);
-  process.exit(1);
 });
 
 exports.establishConnection = () => {
