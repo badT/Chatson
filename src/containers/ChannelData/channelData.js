@@ -75,7 +75,7 @@ export class ChannelData extends Component {
           </tbody>
         </table>
         <ul>
-          <li>Channel: {this.props.channel}</li>
+          <li>Channel: {this.props.selectedChannel}</li>
           <li>Total Messages since arrival: {this.state.msgCount}</li>
         </ul>
       </div>
@@ -83,13 +83,13 @@ export class ChannelData extends Component {
   }
 }
 
-function mapStateToProps({ message }) {
+function mapStateToProps({ message, channels }) {
   if (message.user) {
     return {
-      channel: message.channel.substr(1),
       message: message.msg,
       user: message.user.username,
       emotes: message.user.emotes,
+      selectedChannel: channels.selected,
     };
   }
   return { noMessage: message };
