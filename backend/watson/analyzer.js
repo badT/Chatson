@@ -11,11 +11,13 @@ const tone_analyzer = watson.tone_analyzer({
 });
 
 const storedMessages = [];
+let channel = '';
 
 // Takes in the chat message, puts it into the storedMessages array,
 // once there are enough messages converts it into a string watson tone
 // analyzer will accept and calls getTone
 exports.intoTones = (message) => {
+  channel = message.channel;
   storedMessages.push(message.msg);
 //  console.log(storedMessages);
   if (storedMessages.length === 10) {
@@ -62,18 +64,18 @@ function getTones(tone) {
 // Success callback for tone alaysis POST request
 function toneCallback(data) {
   const tone = {
-    document: {},
-    sentence: {},
+    toneData: {},
+    channel,
   };
 
   // Results for the updated full transcript's tone
-  tone.document = getTones(data.document_tone);
+  tone.toneData = getTones(data.document_tone);
 
   // Results for the latest sentence's tone
   // if (data.sentences_tone && data.sentences_tone[data.sentences_tone.length - 1].tone_categories.length)
   //     tone.sentence = getTones(data.sentences_tone[data.sentences_tone.length - 1]);
 
-  console.log('inside toneCallback', tone);
+  // console.log('inside toneCallback', tone);
   // calls rethinkdb and saves the tone results
   toneController.saveTone(tone);
 }
