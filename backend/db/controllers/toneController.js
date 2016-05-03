@@ -1,4 +1,5 @@
 const Tone = require('../schemas/toneSchema');
+const eventEmitter = require('../../utils/eventEmitter');
 
 
 exports.saveTone = (tone) => {
@@ -17,7 +18,8 @@ Tone.changes().then((feed) => {
       console.log(error);
       process.exit(1);
     } else {
-      console.log('changes feed: ', doc);
+      // console.log('changes feed: ', doc);
+      eventEmitter.emit('toneUpdate', doc);
     }
   });
 }).error((error) => {
