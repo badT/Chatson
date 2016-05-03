@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const ROOT_URL = 'http://localhost:3000/api';
+
 // get top twitch channels
 export const GET_CHANNELS = 'GET_CHANNELS';
 export function getChannels() {
@@ -13,9 +15,10 @@ export function getChannels() {
 // set the currently active channel
 export const SET_CHANNEL = 'SET_CHANNEL';
 export function setChannel(channel) {
+  const request = axios.post(`${ROOT_URL}/channels/subscribe`, channel);
   return {
     type: SET_CHANNEL,
-    payload: channel,
+    payload: request,
   };
 }
 

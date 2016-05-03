@@ -17,6 +17,16 @@ export class MessageDisplay extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.selectedChannel === this.props.selectedChannel) return;
+    // emit unsubscribe message
+    if (this.props.selectedChannel) {
+      this.socket.emit('channel:unsubscribe', this.props.selectedChannel);
+    }
+    // emit subscribe message
+    this.socket.emit('channel:subscribe', nextProps.selectedChannel);
+  }
+
   parseMessage(msg, emotes) {
     let splitText;
 
@@ -72,7 +82,7 @@ export class MessageDisplay extends Component {
     return (
       <section className={`${styles}`}>
         <div className="container">
-
+          {this.props.selectedChannel}
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div className="message-ticker-user">
@@ -108,15 +118,16 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ getMessage }, dispatch);
 }
 
-function mapStateToProps({ message }) {
+function mapStateToProps({ message, channels }) {
   if (message.user) {
     return {
       message: message.msg,
       user: message.user.username,
       emotes: message.user.emotes,
+      selectedChannel: channels.selected
     };
   }
-  return { noMessage: message };
+  return { noMessage: message, selectedChannel: channels.selected };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageDisplay);

@@ -6,7 +6,7 @@ export default function (state = INITIAL_STATE, action) {
     case GET_CHANNELS:
       return { ...state, list: action.payload.data.streams };
     case SET_CHANNEL:
-      return { ...state, selected: action.payload };
+      return { ...state, selected: action.payload.data.channel };
     default:
       return state;
   }
