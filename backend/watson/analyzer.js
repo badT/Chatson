@@ -13,20 +13,20 @@ const tone_analyzer = watson.tone_analyzer({
 const storedMessages = [];
 let channel = '';
 
-// Takes in the chat message, puts it into the storedMessages array,
-// once there are enough messages converts it into a string watson tone
-// analyzer will accept and calls getTone
+// Takes in the chat message, puts it into the storedMessages array
 exports.intoTones = (message) => {
   channel = message.channel;
   storedMessages.push(message.msg);
-//  console.log(storedMessages);
-  if (storedMessages.length === 10) {
-    console.log('we hit 10 messages');
+};
+
+// Timer for pushing messages to watson for analysis
+setInterval(() => {
+  if (storedMessages.length) {
     const arrayToText = { text: "'" + storedMessages.join('') + "'" };
     getTone(arrayToText);
     storedMessages.splice(0, storedMessages.length);
   }
-};
+}, 3000);
 
 // Passes string text to watson for analysis
 function getTone(message) {
