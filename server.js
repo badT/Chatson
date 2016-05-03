@@ -1,7 +1,7 @@
 const http = require('http');
 const express = require('express');
 const app = express();
-const messageController = require('./backend/db/messageController');
+const messageController = require('./backend/db/controllers/messageController');
 
 app.use(require('morgan')('short'));
 

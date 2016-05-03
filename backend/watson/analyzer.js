@@ -1,5 +1,6 @@
 const watson = require('watson-developer-cloud');
 const toneKey = require('../.appkeys.json');
+const toneController = require('../db/controllers/toneController');
 
 const tone_analyzer = watson.tone_analyzer({
   username: toneKey.tone_analyzer.username,
@@ -9,17 +10,33 @@ const tone_analyzer = watson.tone_analyzer({
   sentences: 'false',
 });
 
-exports.getTone = (message) => {
+const storedMessages = [];
+
+// Takes in the chat message, puts it into the storedMessages array,
+// once there are enough messages converts it into a string watson tone
+// analyzer will accept and calls getTone
+exports.intoTones = (message) => {
+  storedMessages.push(message.msg);
+//  console.log(storedMessages);
+  if (storedMessages.length === 10) {
+    console.log('we hit 10 messages');
+    const arrayToText = { text: "'" + storedMessages.join('') + "'" };
+    getTone(arrayToText);
+    storedMessages.splice(0, storedMessages.length);
+  }
+};
+
+// Passes string text to watson for analysis
+function getTone(message) {
   tone_analyzer.tone(message, (err, tone) => {
     if (err) {
       console.log(err);
     } else {
       // console.log(JSON.stringify(tone, null, 2));
-      console.log('should be going into toneCallback');
       toneCallback(tone);
     }
   });
-};
+}
 
  // Converts a tone category into a flat object with tone values
 function getToneValues(toneCategory) {
@@ -56,5 +73,7 @@ function toneCallback(data) {
   // if (data.sentences_tone && data.sentences_tone[data.sentences_tone.length - 1].tone_categories.length)
   //     tone.sentence = getTones(data.sentences_tone[data.sentences_tone.length - 1]);
 
-  console.log(tone);
+  console.log('inside toneCallback', tone);
+  // calls rethinkdb and saves the tone results
+  toneController.saveTone(tone);
 }
