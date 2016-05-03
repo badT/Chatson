@@ -1,6 +1,7 @@
 'use strict';
-const toneAnalyzer = require('../watson/analyzer');
-const Message = require('./messageSchema');
+const path = require('path');
+const toneAnalyzer = require(path.resolve(__dirname, '../', '../watson/analyzer.js'));
+const Message = require('../schemas/messageSchema');
 
 exports.saveMessage = (message) => {
   const newMessage = new Message(message);
