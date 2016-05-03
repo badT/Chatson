@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Chart from '../../components/Chart/index';
+
 export class ChannelData extends Component {
 
   constructor(props) {
@@ -13,10 +15,16 @@ export class ChannelData extends Component {
       avgLength: 0,
       lastMsg: '',
       time: new Date(),
+      msgPerMinArray: [],
+      avgLengthArray: [],
     };
   }
 
   componentWillReceiveProps(props) {
+    this.calculateAverages(props);
+  }
+
+  calculateAverages(props) {
     let newCount;
     let newAvgLength;
     let newCharCount;
@@ -32,23 +40,42 @@ export class ChannelData extends Component {
       newAvgLength = this.state.avgLength;
     }
     const newMsgPerMin = newCount / elapsedMinutes;
-
+    const newMsgPerMinArray = this.state.msgPerMinArray.concat([newMsgPerMin]);
+    const newAvgLengthArray = this.state.avgLengthArray.concat([newAvgLength]);
+    if (newMsgPerMinArray.length > 200) {
+      newMsgPerMinArray.shift();
+      newAvgLengthArray.shift();
+    }
     this.setState({
       msgCount: newCount,
       msgPerMin: newMsgPerMin,
       charCount: newCharCount,
       avgLength: newAvgLength,
       lastMsg: props.message,
+      msgPerMinArray: newMsgPerMinArray,
+      avgLengthArray: newAvgLengthArray,
     });
   }
 
   render() {
     return (
       <div>
+        <table className="table table-hover">
+          <thead>
+            <tr>
+              <th>Messages per minute: {Math.round(this.state.msgPerMin)}</th>
+              <th>Average message length: {Math.round(this.state.avgLength)}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><Chart data={this.state.msgPerMinArray} color="red" /></td>
+              <td><Chart data={this.state.avgLengthArray} color="blue" /></td>
+            </tr>
+          </tbody>
+        </table>
         <ul>
           <li>Channel: {this.props.channel}</li>
-          <li>Messages per minute: {this.state.msgPerMin}</li>
-          <li>Average message length: {this.state.avgLength}</li>
           <li>Total Messages since arrival: {this.state.msgCount}</li>
         </ul>
       </div>
