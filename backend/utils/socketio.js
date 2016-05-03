@@ -18,7 +18,8 @@ exports.establishConnection = () => {
   return {
     connect: (channel) => {
       if (channelList.indexOf(channel) !== -1) return;
-      channelList.push(channel);
+      // channelList.push(channel);
+      channelList[0] = channel;
 
       if (twitchClient) {
         twitchClient.disconnect().then(() => {
