@@ -86,7 +86,7 @@ export class ChannelData extends Component {
 function mapStateToProps({ message }) {
   if (message.user) {
     return {
-      channel: message.channel,
+      channel: message.channel.substr(1),
       message: message.msg,
       user: message.user.username,
       emotes: message.user.emotes,
