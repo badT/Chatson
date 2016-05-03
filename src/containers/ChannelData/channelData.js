@@ -21,6 +21,10 @@ export class ChannelData extends Component {
   }
 
   componentWillReceiveProps(props) {
+    this.calculateAverages(props);
+  }
+
+  calculateAverages(props) {
     let newCount;
     let newAvgLength;
     let newCharCount;
@@ -36,9 +40,12 @@ export class ChannelData extends Component {
       newAvgLength = this.state.avgLength;
     }
     const newMsgPerMin = newCount / elapsedMinutes;
-    const newMsgPerMinArray = this.state.msgPerMinArray.push(newMsgPerMin);
-    const newAvgLengthArray = this.state.avgLengthArray.push(newAvgLength);
-
+    const newMsgPerMinArray = this.state.msgPerMinArray.concat([newMsgPerMin]);
+    const newAvgLengthArray = this.state.avgLengthArray.concat([newAvgLength]);
+    if (newMsgPerMinArray.length > 200) {
+      newMsgPerMinArray.shift();
+      newAvgLengthArray.shift();
+    }
     this.setState({
       msgCount: newCount,
       msgPerMin: newMsgPerMin,
@@ -56,8 +63,8 @@ export class ChannelData extends Component {
         <table className="table table-hover">
           <thead>
             <tr>
-              <th>Messages per minute: {this.state.msgPerMin}</th>
-              <th>Average message length: {this.state.avgLength}</th>
+              <th>Messages per minute: {Math.round(this.state.msgPerMin)}</th>
+              <th>Average message length: {Math.round(this.state.avgLength)}</th>
             </tr>
           </thead>
           <tbody>
