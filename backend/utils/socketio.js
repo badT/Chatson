@@ -1,19 +1,11 @@
 const twitchIO = require('socket.io');
-const twitchClient = require('./tmiClient');
-const Rx = require('rx');
+const tmi = require('tmi.js');
+const chooseChannel = require('./tmiConfig');
+
 const eventEmitter = require('./eventEmitter');
-// const messageController = require('../db/controllers/messageController');
 const Tone = require('../db/schemas/toneSchema');
 const analyzer = require('../watson/analyzer');
 
-
-const messageSource = Rx.Observable.fromEvent(twitchClient, 'chat', (channel, user, msg) => {
-  return { channel, user, msg };
-});
-
-const messageSubscription = messageSource.subscribe((msgObj) => {
-  eventEmitter.emit('chatMessage', msgObj);
-});
 
 // Listenes for a new chat message and moves the message into the analyzer file
 eventEmitter.on('chatMessage', (msgObj) => {
@@ -35,7 +27,38 @@ Tone.changes().then((feed) => {
   process.exit(1);
 });
 
-module.exports = server => {
+exports.establishConnection = () => {
+  let twitchClient = null;
+  let channelList = [];
+
+  return {
+    connect: (channel) => {
+      if (channelList.indexOf(channel) !== -1) return;
+      channelList.push(channel);
+
+      if (twitchClient) {
+        twitchClient.disconnect().then(() => {
+          console.log('Connecting to: ', channelList);
+          twitchClient = new tmi.client(chooseChannel(channelList));
+          twitchClient.connect();
+
+          twitchClient.on('chat', (channel, user, msg) => {
+            eventEmitter.emit('chatMessage', { channel, user, msg });
+          });
+        });
+      } else {
+        twitchClient = new tmi.client(chooseChannel(channelList));
+        twitchClient.connect();
+
+        twitchClient.on('chat', (channel, user, msg) => {
+          eventEmitter.emit('chatMessage', { channel, user, msg });
+        });
+      }
+    }
+  }
+}
+
+exports.ioConnect = server => {
   const io = twitchIO.listen(server);
 
   io.sockets.on('connection', socket => {
