@@ -77,7 +77,7 @@ exports.ioConnect = server => {
       let channel = message.channel.substr(1);
       io.to(channel).emit('message', message);
     });
-    
+
   });
 
   return io;
