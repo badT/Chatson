@@ -63,10 +63,21 @@ exports.ioConnect = server => {
 
   io.sockets.on('connection', socket => {
 
-    eventEmitter.on('chatMessage', message => {
-      io.emit('message', message);
+    socket.on('channel:subscribe', channel => {
+      console.log('subscribe to: ', channel);
+      socket.join(channel);
     });
 
+    socket.on('channel:unsubscribe', channel => {
+      console.log('unsubscribe from: ', channel);
+      socket.leave(channel);
+    });
+
+    eventEmitter.on('chatMessage', message => {
+      let channel = message.channel.substr(1);
+      io.to(channel).emit('message', message);
+    });
+    
   });
 
   return io;
