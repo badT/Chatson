@@ -11,8 +11,7 @@ import { styles } from './styles.scss';
 export class MessageDisplay extends Component {
 
   componentWillMount() {
-    this.socket = io();
-    this.socket.on('message', data => {
+    this.props.socket.on('message', data => {
       this.props.getMessage(data);
     });
   }
@@ -21,10 +20,10 @@ export class MessageDisplay extends Component {
     if (nextProps.selectedChannel === this.props.selectedChannel) return;
     // emit unsubscribe message
     if (this.props.selectedChannel) {
-      this.socket.emit('channel:unsubscribe', this.props.selectedChannel);
+      this.props.socket.emit('channel:unsubscribe', this.props.selectedChannel);
     }
     // emit subscribe message
-    this.socket.emit('channel:subscribe', nextProps.selectedChannel);
+    this.props.socket.emit('channel:subscribe', nextProps.selectedChannel);
   }
 
   parseMessage(msg, emotes) {
