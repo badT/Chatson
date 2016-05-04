@@ -112,12 +112,6 @@ export class MessageDisplay extends Component {
             </div>
           </div>
         </div>
-
-        <div className="row">
-          <div className="col-lg-12 text-center">
-            <h2>Insert Graph Here</h2>
-          </div>
-        </div>
       </section>
     );
   }

@@ -29,3 +29,11 @@ export function getMessage(data) {
     payload: data,
   };
 }
+
+export const GET_TONE = 'GET_TONE';
+export function getTone(data) {
+  return {
+    type: GET_MESSAGE,
+    payload: data,
+  };
+}
