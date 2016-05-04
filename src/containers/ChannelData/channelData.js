@@ -31,12 +31,6 @@ export class ChannelData extends Component {
     setInterval(() => { this.msgRateEverySecond(); }, 1000);
   }
 
-  componentWillMount() {
-    this.props.socket.on('tone:update', toneData => {
-      console.log(toneData);
-    });
-  }
-
   componentWillReceiveProps(props) {
     this.calculateAverages(props);
   }
