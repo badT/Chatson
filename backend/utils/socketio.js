@@ -63,6 +63,11 @@ exports.ioConnect = server => {
       io.to(channel).emit('message', message);
     });
 
+    eventEmitter.on('toneUpdate', tone => {
+      let channel = tone.channel.substr(1);
+      io.to(channel).emit('tone:update', tone);
+    });
+
   });
 
   return io;
