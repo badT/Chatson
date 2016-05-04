@@ -9,11 +9,23 @@ import { getMessage } from '../../actions/index';
 import { styles } from './styles.scss';
 
 export class MessageDisplay extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { blurClass: 'row blurred' };
+  }
 
   componentWillMount() {
     this.props.socket.on('message', data => {
       this.props.getMessage(data);
     });
+  }
+
+  toggleBlur() {
+    if (this.state.blurClass === 'row') {
+      this.setState({ blurClass: 'row blurred' });
+    } else {
+      this.setState({ blurClass: 'row' });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -80,8 +92,9 @@ export class MessageDisplay extends Component {
   render() {
     return (
       <section className={`${styles}`}>
-        {this.props.selectedChannel}
-        <div className="row">
+        <span>{this.props.selectedChannel}</span>
+        <button className="btn btn-danger pull-right" onClick={this.toggleBlur.bind(this)}>Toggle Blur</button>
+        <div className={this.state.blurClass}>
           <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div className="message-ticker-user">
               <ReactCSSTransitionGroup className="ticker-user" transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={0}>
