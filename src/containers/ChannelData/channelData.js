@@ -106,21 +106,21 @@ export class ChannelData extends Component {
 
   render() {
     return (
-      <div className="container">
+      <section>
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-4 col-md-push-8">
             <table className="table table-hover">
               <thead>
                 <tr>
-                  <th>Average Messages per Minute: {Math.round(this.state.avgMsgPerMin)}</th>
+                  <th>Average message length: {Math.round(this.state.avgLength)}</th>
                 </tr>
                 <tr>
-                  <th>Last minute's total: {this.state.lastMinTotal}</th>
+                  <th>Last message length: {this.state.lastMsg.length}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><Chart data={this.state.msgPerMinArray} color="red" limit={60} /></td>
+                  <td><Chart data={this.state.msgLengthArray} color="blue" limit={200} /></td>
                 </tr>
               </tbody>
             </table>
@@ -142,19 +142,19 @@ export class ChannelData extends Component {
               </tbody>
             </table>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 col-md-pull-8">
             <table className="table table-hover">
               <thead>
                 <tr>
-                  <th>Average message length: {Math.round(this.state.avgLength)}</th>
+                  <th>Average Messages per Minute: {Math.round(this.state.avgMsgPerMin)}</th>
                 </tr>
                 <tr>
-                  <th>Last message length: {this.state.lastMsg.length}</th>
+                  <th>Last minute's total: {this.state.lastMinTotal}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><Chart data={this.state.msgLengthArray} color="blue" limit={200} /></td>
+                  <td><Chart data={this.state.msgPerMinArray} color="red" limit={60} /></td>
                 </tr>
               </tbody>
             </table>
@@ -166,7 +166,7 @@ export class ChannelData extends Component {
             <li>Total Messages since arrival: {this.state.currentMsgCount}</li>
           </ul>
         </div>
-      </div>
+      </section>
     );
   }
 }
