@@ -80,33 +80,30 @@ export class MessageDisplay extends Component {
   render() {
     return (
       <section className={`${styles}`}>
-        <div className="container">
-          {this.props.selectedChannel}
-          <div className="row">
-            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <div className="message-ticker-user">
-                <ReactCSSTransitionGroup className="ticker-user" transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={0}>
-                  <h4 key={this.props.message}>
-                    {this.props.user}
-                  </h4>
-                </ReactCSSTransitionGroup>
-              </div>
-              <div className="message-ticker-message">
-                <ReactCSSTransitionGroup className="ticker-message" transitionName="carousel" transitionEnterTimeout={300} transitionLeaveTimeout={200}>
-                  <h4 key={this.props.user}>
-                    {this.renderMessage(this.parseMessage(this.props.message, this.props.emotes))}
-                  </h4>
-                </ReactCSSTransitionGroup>
-              </div>
+        {this.props.selectedChannel}
+        <div className="row">
+          <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div className="message-ticker-user">
+              <ReactCSSTransitionGroup className="ticker-user" transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={0}>
+                <h4 key={this.props.message}>
+                  {this.props.user}
+                </h4>
+              </ReactCSSTransitionGroup>
+            </div>
+            <div className="message-ticker-message">
+              <ReactCSSTransitionGroup className="ticker-message" transitionName="carousel" transitionEnterTimeout={300} transitionLeaveTimeout={200}>
+                <h4 key={this.props.user}>
+                  {this.renderMessage(this.parseMessage(this.props.message, this.props.emotes))}
+                </h4>
+              </ReactCSSTransitionGroup>
             </div>
           </div>
+        </div>
 
-          <div className="row">
-            <div className="col-lg-12 text-center">
-              <h2>Insert Graph Here</h2>
-            </div>
+        <div className="row">
+          <div className="col-lg-12 text-center">
+            <h2>Insert Graph Here</h2>
           </div>
-
         </div>
       </section>
     );
