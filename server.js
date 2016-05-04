@@ -2,7 +2,7 @@ const http = require('http');
 const express = require('express');
 const app = express();
 
-const chatChannels = require('./backend/utils/socketio');
+const chatChannels = require('./app/utils/socketio');
 
 app.use(require('morgan')('short'));
 
@@ -29,7 +29,7 @@ app.get(/.*/, function root(req, res) {
 });
 
 // API routes
-require('./backend/routes')(app, express);
+require('./app/routes')(app, express);
 
 const server = http.createServer(app);
 const io = chatChannels.ioConnect(server);
