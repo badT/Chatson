@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getChannels, setChannel } from '../../actions/index';
+import { Link } from 'react-router';
 
 /* component styles */
 import { styles } from './styles.scss';
@@ -14,7 +15,9 @@ class ChannelDropdown extends Component {
   renderChannels(channelData) {
     const name = channelData.channel.name;
     return (
-      <li key={name} className="dropdown-menu-item" onClick={() => this.props.setChannel(name)}>{name}</li>
+      <li key={name} className="dropdown-menu-item" onClick={() => this.props.setChannel(name)}>
+        <Link className="dropdown-menu-link" to="/chat">{name}</Link>
+      </li>
     );
   }
 
