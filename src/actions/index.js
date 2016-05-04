@@ -5,7 +5,7 @@ const ROOT_URL = 'http://localhost:3000/api';
 // get top twitch channels
 export const GET_CHANNELS = 'GET_CHANNELS';
 export function getChannels() {
-  const request = axios.get('https://api.twitch.tv/kraken/streams?api_version=3&limit=10');
+  const request = axios.get('https://api.twitch.tv/kraken/streams?api_version=3&limit=25');
   return {
     type: GET_CHANNELS,
     payload: request,

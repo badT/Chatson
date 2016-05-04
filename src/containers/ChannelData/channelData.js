@@ -9,15 +9,26 @@ export class ChannelData extends Component {
     super(props);
 
     this.state = {
-      msgCount: 0,
-      msgPerMin: 0,
+      currentMsgCount: 0,
+      prevMinMsgCount: 0,
+      prevSecMsgCount: 0,
+      avgMsgPerMin: 0,
+      avgMsgPerSec: 0,
       charCount: 0,
       avgLength: 0,
       lastMsg: '',
       time: new Date(),
       msgPerMinArray: [],
-      avgLengthArray: [],
+      msgLengthArray: [],
+      msgPerSecArray: [],
+      lastMinTotal: 0,
+      lastSecTotal: 0,
     };
+  }
+
+  componentDidMount() {
+    setInterval(() => { this.msgRateEveryMinute(); }, 60000);
+    setInterval(() => { this.msgRateEverySecond(); }, 1000);
   }
 
   componentWillMount() {
@@ -30,36 +41,66 @@ export class ChannelData extends Component {
     this.calculateAverages(props);
   }
 
+  msgRateEveryMinute() {
+    const newCurrentCount = this.state.currentMsgCount;
+    const lastMinMsgCount = newCurrentCount - this.state.prevMinMsgCount;
+    const newMsgPerMinArray = this.state.msgPerMinArray.concat([lastMinMsgCount]);
+    if (newMsgPerMinArray.length > 60) {
+      newMsgPerMinArray.shift();
+    }
+    this.setState({
+      prevMinMsgCount: newCurrentCount,
+      msgPerMinArray: newMsgPerMinArray,
+      lastMinTotal: lastMinMsgCount,
+    });
+  }
+
+  msgRateEverySecond() {
+    const newCurrentCount = this.state.currentMsgCount;
+    const lastSecMsgCount = newCurrentCount - this.state.prevSecMsgCount;
+    const newMsgPerSecArray = this.state.msgPerSecArray.concat([lastSecMsgCount]);
+    if (newMsgPerSecArray.length > 60) {
+      newMsgPerSecArray.shift();
+    }
+    this.setState({
+      prevSecMsgCount: newCurrentCount,
+      msgPerSecArray: newMsgPerSecArray,
+      lastSecTotal: lastSecMsgCount,
+    });
+  }
+
   calculateAverages(props) {
     let newCount;
     let newAvgLength;
     let newCharCount;
     const elapsedMinutes = (Math.abs(new Date() - this.state.time)) / 60000;
+    const elapsedSeconds = (Math.abs(new Date() - this.state.time)) / 1000;
 
     if (this.state.lastMsg !== props.message) {
-      newCount = this.state.msgCount + 1;
+      newCount = this.state.currentMsgCount + 1;
       newCharCount = this.state.charCount + props.message.length;
       newAvgLength = newCharCount / newCount;
     } else {
-      newCount = this.state.msgCount;
+      newCount = this.state.currentMsgCount;
       newCharCount = this.state.charCount;
       newAvgLength = this.state.avgLength;
     }
     const newMsgPerMin = newCount / elapsedMinutes;
-    const newMsgPerMinArray = this.state.msgPerMinArray.concat([newMsgPerMin]);
-    const newAvgLengthArray = this.state.avgLengthArray.concat([newAvgLength]);
-    if (newMsgPerMinArray.length > 200) {
-      newMsgPerMinArray.shift();
-      newAvgLengthArray.shift();
+    const newMsgPerSec = newCount / elapsedSeconds;
+    const newMsgLengthArray = this.state.msgLengthArray.concat([props.message.length]);
+
+    if (newMsgLengthArray.length > 200) {
+      newMsgLengthArray.shift();
     }
+
     this.setState({
-      msgCount: newCount,
-      msgPerMin: newMsgPerMin,
+      currentMsgCount: newCount,
+      avgMsgPerMin: newMsgPerMin,
+      avgMsgPerSec: newMsgPerSec,
       charCount: newCharCount,
       avgLength: newAvgLength,
       lastMsg: props.message,
-      msgPerMinArray: newMsgPerMinArray,
-      avgLengthArray: newAvgLengthArray,
+      msgLengthArray: newMsgLengthArray,
     });
   }
 
@@ -69,33 +110,45 @@ export class ChannelData extends Component {
         <table className="table table-hover">
           <thead>
             <tr>
-              <th>Messages per minute: {Math.round(this.state.msgPerMin)}</th>
+              <th>Average Messages per Minute: {Math.round(this.state.avgMsgPerMin)}</th>
+              <th>Average Messages per Second: {(this.state.avgMsgPerSec).toFixed(2)}</th>
               <th>Average message length: {Math.round(this.state.avgLength)}</th>
+            </tr>
+            <tr>
+              <th>Last minute's total: {this.state.lastMinTotal}</th>
+              <th>Last second's total: {this.state.lastSecTotal}</th>
+              <th>Last message length: {this.state.lastMsg.length}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><Chart data={this.state.msgPerMinArray} color="red" /></td>
-              <td><Chart data={this.state.avgLengthArray} color="blue" /></td>
+              <td><Chart data={this.state.msgPerMinArray} color="red" limit={60} /></td>
+              <td><Chart data={this.state.msgPerSecArray} color="green" limit={60} /></td>
+              <td><Chart data={this.state.msgLengthArray} color="blue" limit={200} /></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
           </tbody>
         </table>
         <ul>
-          <li>Channel: {this.props.channel}</li>
-          <li>Total Messages since arrival: {this.state.msgCount}</li>
+          <li>Channel: {this.props.selectedChannel}</li>
+          <li>Total Messages since arrival: {this.state.currentMsgCount}</li>
         </ul>
       </div>
     );
   }
 }
 
-function mapStateToProps({ message }) {
+function mapStateToProps({ message, channels }) {
   if (message.user) {
     return {
-      channel: message.channel.substr(1),
       message: message.msg,
       user: message.user.username,
       emotes: message.user.emotes,
+      selectedChannel: channels.selected,
     };
   }
   return { noMessage: message };
