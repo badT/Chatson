@@ -1,22 +1,14 @@
 const expect = require('expect');
-const routes = require('../routes.js');
-const supertest = require('supertest');
+const tone = require('../db/controllers/toneController.js');
 
-const server = supertest.agent('http://localhost:3000');
+// add = (a, b) => { return a + b; };
 
-describe('test suite', () => {
-  // console.log(routes.app.post)
-  it('should expose a function', () => {
-    expect(routes).toExist('function');
+describe('test suite', function () {
+  it('should expose a function', function () {
+    expect(tonefunction).toExist('function');
   });
 
-  it('should respond to POST requests', (done) => {
-    server
-      .post('/api/channels/subscribe')
-      .send('nl_kripp')
-      .end((err, res) => {
-        expect(res.body).toEqual({ channel: 'nl_kripp' });
-        done();
-      });
-  });
+  // it('should do math', function () {
+  //   expect(add(1, 3)).to.equal(4);
+  // });
 });
