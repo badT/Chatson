@@ -28,16 +28,6 @@ class MessageDisplay extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedChannel === this.props.selectedChannel) return;
-    // emit unsubscribe message
-    if (this.props.selectedChannel) {
-      this.props.socket.emit('channel:unsubscribe', this.props.selectedChannel);
-    }
-    // emit subscribe message
-    this.props.socket.emit('channel:subscribe', nextProps.selectedChannel);
-  }
-
   parseMessage(msg, emotes) {
     let splitText;
 
