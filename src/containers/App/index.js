@@ -12,11 +12,19 @@ export class App extends Component {
     children: React.PropTypes.any,
   };
 
+  constructor(props) {
+    super(props);
+
+    this.socket = io();
+  }
+
   render() {
     return (
       <section>
         <Header />
-        {this.props.children}
+        {this.props.children && React.cloneElement(this.props.children, {
+          socket: this.socket
+        })}
         <Footer />
       </section>
     );

@@ -21,7 +21,7 @@ export class Home extends Component {
     return (
       <section>
         <DocumentMeta {...metaData} />
-        <DataDisplay />
+        <DataDisplay socket={this.props.socket}/>
       </section>
     );
   }
