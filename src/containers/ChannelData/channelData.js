@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Chart from '../../components/Chart/index';
 
-export class ChannelData extends Component {
+class ChannelData extends Component {
 
   constructor(props) {
     super(props);
@@ -27,8 +27,13 @@ export class ChannelData extends Component {
   }
 
   componentDidMount() {
-    setInterval(() => { this.msgRateEveryMinute(); }, 60000);
-    setInterval(() => { this.msgRateEverySecond(); }, 1000);
+    this.minuteInt = setInterval(() => { this.msgRateEveryMinute(); }, 60000);
+    this.secondInt = setInterval(() => { this.msgRateEverySecond(); }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.minuteInt);
+    clearInterval(this.secondInt);
   }
 
   componentWillReceiveProps(props) {
