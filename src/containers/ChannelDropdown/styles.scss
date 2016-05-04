@@ -1,0 +1,25 @@
+:local(.styles) {
+
+  .dropdown-menu {
+    padding: 0;
+  }
+
+  .dropdown-menu-item {
+    cursor: pointer;
+    padding: 4px 2px;
+  }
+
+  .dropdown-menu-item:first-of-type {
+    border-radius: 3px 3px 0 0;
+  }
+
+  .dropdown-menu-item:last-of-type {
+    border-radius: 0 0 3px 3px;
+  }
+
+  .dropdown-menu-item:hover {
+    background: gray;
+    color: white;
+  }
+
+}

@@ -106,38 +106,67 @@ export class ChannelData extends Component {
 
   render() {
     return (
-      <div>
-        <table className="table table-hover">
-          <thead>
-            <tr>
-              <th>Average Messages per Minute: {Math.round(this.state.avgMsgPerMin)}</th>
-              <th>Average Messages per Second: {(this.state.avgMsgPerSec).toFixed(2)}</th>
-              <th>Average message length: {Math.round(this.state.avgLength)}</th>
-            </tr>
-            <tr>
-              <th>Last minute's total: {this.state.lastMinTotal}</th>
-              <th>Last second's total: {this.state.lastSecTotal}</th>
-              <th>Last message length: {this.state.lastMsg.length}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><Chart data={this.state.msgPerMinArray} color="red" limit={60} /></td>
-              <td><Chart data={this.state.msgPerSecArray} color="green" limit={60} /></td>
-              <td><Chart data={this.state.msgLengthArray} color="blue" limit={200} /></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-        <ul>
-          <li>Channel: {this.props.selectedChannel}</li>
-          <li>Total Messages since arrival: {this.state.currentMsgCount}</li>
-        </ul>
-      </div>
+      <section>
+        <div className="row">
+          <div className="col-md-4 col-md-push-8">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th>Average message length: {Math.round(this.state.avgLength)}</th>
+                </tr>
+                <tr>
+                  <th>Last message length: {this.state.lastMsg.length}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><Chart data={this.state.msgLengthArray} color="blue" limit={200} /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="col-md-4">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th>Average Messages per Second: {(this.state.avgMsgPerSec).toFixed(2)}</th>
+                </tr>
+                <tr>
+                  <th>Last second's total: {this.state.lastSecTotal}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><Chart data={this.state.msgPerSecArray} color="green" limit={60} /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="col-md-4 col-md-pull-8">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th>Average Messages per Minute: {Math.round(this.state.avgMsgPerMin)}</th>
+                </tr>
+                <tr>
+                  <th>Last minute's total: {this.state.lastMinTotal}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><Chart data={this.state.msgPerMinArray} color="red" limit={60} /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="row">
+          <ul>
+            <li>Channel: {this.props.selectedChannel}</li>
+            <li>Total Messages since arrival: {this.state.currentMsgCount}</li>
+          </ul>
+        </div>
+      </section>
     );
   }
 }

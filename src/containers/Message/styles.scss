@@ -1,28 +1,11 @@
 :local(.styles) {
-  position: relative;
-
-  padding: 50px 0;
-
-  border-top: 1px solid #CCC;
-
-  h2 {
-    margin-bottom: 50px;
-  }
-
-  a {
-    font-size: 12px;
-  }
-
-  p {
-    font-size: 14px;
-    padding: 0 10%;
-  }
 
   .message-ticker-message {
     position: relative;
     width: 100%;
-    height: 32px;
+    height: 40px;
     overflow: hidden;
+    // filter: blur(3px);
   }
 
   .message-ticker-user {
@@ -30,13 +13,15 @@
     width: 100%;
     height: 32px;
     overflow: hidden;
+    // filter: blur(3px);
   }
 
   .ticker-message {
     position: absolute;
-    left: 0;
+    left: 5px;
     top: 0;
     width: 500%;
+    line-height: 5em;
   }
 
   .emoticon {
@@ -45,7 +30,7 @@
 
   .ticker-user {
     position: absolute;
-    left: 0;
+    left: 5px;
     top: 0;
     width: 500%;
   }
