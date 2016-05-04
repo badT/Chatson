@@ -8,8 +8,7 @@
     "build:production": "npm run clean && npm run build",
     "lint": "eslint src",
     "start": "node bin/server.js",
-    "test": "karma start",
-    "testserver": "mocha app/test"
+    "test": "./node_modules/.bin/mocha --reporter spec app/test"
   },
   "repository": {
     "type": "git",
