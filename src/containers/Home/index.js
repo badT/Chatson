@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import DocumentMeta from 'react-document-meta';
 
-/* components */
-import { DataDisplay } from 'components/DataDisplay';
+/* component styles */
+import { styles } from './styles.scss';
 
 const metaData = {
   title: 'Twitch Chat Visualizer',
@@ -19,9 +19,10 @@ const metaData = {
 export class Home extends Component {
   render() {
     return (
-      <section>
+      <section className={`${styles}`}>
         <DocumentMeta {...metaData} />
-        <DataDisplay socket={this.props.socket}/>
+        <p>Welcome to the Twitch Chat Visualizer. Select one of the currently active channels to see an analysis of its chat activity.</p>
+        
       </section>
     );
   }

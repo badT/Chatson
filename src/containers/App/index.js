@@ -21,7 +21,7 @@ export class App extends Component {
   render() {
     return (
       <section>
-        <Header />
+        <Header socket={this.socket}/>
           <main className="container">
           {this.props.children && React.cloneElement(this.props.children, {
             socket: this.socket

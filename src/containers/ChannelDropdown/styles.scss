@@ -20,6 +20,14 @@
   .dropdown-menu-item:hover {
     background: gray;
     color: white;
+    .dropdown-menu-link {
+      background: gray;
+      color: white;
+    }
+  }
+
+  .dropdown-menu-link {
+    cursor: pointer;
   }
 
 }

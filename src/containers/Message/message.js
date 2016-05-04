@@ -8,7 +8,7 @@ import { getMessage } from '../../actions/index';
 /* component styles */
 import { styles } from './styles.scss';
 
-export class MessageDisplay extends Component {
+class MessageDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = { blurClass: 'row blurred' };
@@ -26,16 +26,6 @@ export class MessageDisplay extends Component {
     } else {
       this.setState({ blurClass: 'row' });
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedChannel === this.props.selectedChannel) return;
-    // emit unsubscribe message
-    if (this.props.selectedChannel) {
-      this.props.socket.emit('channel:unsubscribe', this.props.selectedChannel);
-    }
-    // emit subscribe message
-    this.props.socket.emit('channel:subscribe', nextProps.selectedChannel);
   }
 
   parseMessage(msg, emotes) {
