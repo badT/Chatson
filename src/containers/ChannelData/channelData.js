@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Chart from '../../components/Chart/index';
 
-export class ChannelData extends Component {
+class ChannelData extends Component {
 
   constructor(props) {
     super(props);

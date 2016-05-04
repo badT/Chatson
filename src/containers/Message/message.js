@@ -8,7 +8,7 @@ import { getMessage } from '../../actions/index';
 /* component styles */
 import { styles } from './styles.scss';
 
-export class MessageDisplay extends Component {
+class MessageDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = { blurClass: 'row blurred' };
