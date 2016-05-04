@@ -3,7 +3,7 @@
   .message-ticker-message {
     position: relative;
     width: 100%;
-    height: 32px;
+    height: 40px;
     overflow: hidden;
   }
 
@@ -19,6 +19,7 @@
     left: 0;
     top: 0;
     width: 500%;
+    line-height: 5em;
   }
 
   .emoticon {
