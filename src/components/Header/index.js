@@ -18,14 +18,6 @@ export class Header extends Component {
               </Link>
             </div>
 
-            <div className="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-              <nav>
-                <Link to="/home" activeClassName="active">
-                  Home
-                </Link>
-              </nav>
-            </div>
-
             <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 hidden-xs text-right">
               <ChannelDropdown />
             </div>
