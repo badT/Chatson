@@ -22,9 +22,11 @@ export class App extends Component {
     return (
       <section>
         <Header />
-        {this.props.children && React.cloneElement(this.props.children, {
-          socket: this.socket
-        })}
+          <main className="container">
+          {this.props.children && React.cloneElement(this.props.children, {
+            socket: this.socket
+          })}
+          </main>
         <Footer />
       </section>
     );
