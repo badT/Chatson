@@ -1,13 +1,10 @@
 :local(.styles) {
-  position: fixed;
-  z-index: 1;
-
-  width: 100%;
-
-  padding: 20px 0;
   
+  // position: fixed;
+  z-index: 1;
+  width: 100%;
+  padding: 20px 0;
   opacity: 1;
-
   background: rgba(0, 0, 0, .8);
 
   a, a:hover {
@@ -15,7 +12,6 @@
   }
 
   .logo {
-
     a {
       font-weight: bold;
     }
@@ -30,5 +26,9 @@
         font-weight: bold;
       }
     }
+  }
+
+  @media only screen and (min-width : 768px) {
+    position: fixed;
   }
 }
