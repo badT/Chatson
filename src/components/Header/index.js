@@ -12,13 +12,13 @@ export class Header extends Component {
       <header className={`${styles}`}>
         <div className="container">
           <div className="row">
-            <div className="col-xs-5 col-sm-3 col-md-3 col-lg-3 logo">
-              <Link to="/">
-                Twitch Chat Visualizer
+            <div className="col-sm-6">
+              <Link to="/" className="logo">
+                <h1>Twitch Chat Visualizer</h1>
               </Link>
             </div>
 
-            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 hidden-xs text-right">
+            <div className="col-sm-6 text-right">
               <ChannelDropdown socket={this.props.socket}/>
             </div>
           </div>
