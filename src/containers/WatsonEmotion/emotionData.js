@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -24,7 +23,7 @@ export class EmotionDisplay extends Component {
     return (
       <div className="row">
         <div className="col-lg-12 text-center">
-          <h2>{this.props.tone}</h2>
+          <h2>Anger: {this.props.emotion.anger}</h2>
         </div>
       </div>
     );
@@ -36,8 +35,14 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({ tone }) {
-  console.log(tone);
-  return { tone };
+  if (tone.toneData) {
+    return {
+      emotion: tone.toneData.emotion,
+    };
+  }
+  return {
+    emotion: tone,
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmotionDisplay);

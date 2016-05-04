@@ -33,7 +33,7 @@ export function getMessage(data) {
 export const GET_TONE = 'GET_TONE';
 export function getTone(data) {
   return {
-    type: GET_MESSAGE,
+    type: GET_TONE,
     payload: data,
   };
 }
