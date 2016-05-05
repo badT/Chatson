@@ -1,6 +1,7 @@
 :local(.styles) {
 
   z-index: 1;
+  height: 120px;
   width: 100%;
   padding: 20px 0;
   opacity: 1;
@@ -24,6 +25,7 @@
 
   @media only screen and (min-width : 768px) {
     position: fixed;
+    height: 74px;
 
     .channel-dropdown-container {
       text-align: right;
