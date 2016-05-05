@@ -11,7 +11,11 @@ import { styles } from './styles.scss';
 class MessageDisplay extends Component {
   constructor(props) {
     super(props);
-    this.state = { blurClass: 'row blurred' };
+    this.state = { 
+      blurClass: 'row blurred',
+      blurBtn: 'Show Chat',
+      blurMsg: 'Twitch channel chats can be a scary place. Unblur at your own risk!'
+    };
   }
 
   componentWillMount() {
@@ -22,9 +26,17 @@ class MessageDisplay extends Component {
 
   toggleBlur() {
     if (this.state.blurClass === 'row') {
-      this.setState({ blurClass: 'row blurred' });
+      this.setState({
+        blurClass: 'row blurred',
+        blurBtn: 'Show Chat',
+        blurMsg: 'Twitch channel chats can be a scary place. Unblur at your own risk!'
+      });
     } else {
-      this.setState({ blurClass: 'row' });
+      this.setState({
+        blurClass: 'row',
+        blurBtn: 'Blur Chat',
+        blurMsg: ''
+      });
     }
   }
 
@@ -82,8 +94,7 @@ class MessageDisplay extends Component {
   render() {
     return (
       <section className={`${styles}`}>
-        <span>{this.props.selectedChannel}</span>
-        <button className="btn btn-danger pull-right" onClick={this.toggleBlur.bind(this)}>Toggle Blur</button>
+        <button className="btn btn-danger" onClick={this.toggleBlur.bind(this)}>{this.state.blurBtn}</button><span>&nbsp;&nbsp;{this.state.blurMsg}</span>
         <div className={this.state.blurClass}>
           <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div className="message-ticker-user">

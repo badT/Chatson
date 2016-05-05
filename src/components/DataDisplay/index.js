@@ -8,7 +8,7 @@ import { styles } from './styles.scss';
 export class DataDisplay extends Component {
   render() {
     return (
-      <div>
+      <div className={`${styles}`}>
         <DataContainer socket={this.props.socket}/>
       </div>
     );

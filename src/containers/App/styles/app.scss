@@ -11,9 +11,13 @@
     width: 100%;
   }
 
+  main {
+    padding-bottom: 140px;
+  }
+
   @media only screen and (min-width : 768px) {
     main {
-      padding-top: 78px;
+      padding-top: 74px;
     }
   }
 }
