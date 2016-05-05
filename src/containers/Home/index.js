@@ -21,8 +21,9 @@ export class Home extends Component {
     return (
       <section className={`${styles}`}>
         <DocumentMeta {...metaData} />
-        <p>Welcome to the Twitch Chat Visualizer. Select one of the currently active channels to see an analysis of its chat activity.</p>
-        
+        <div className="home-container">
+          <p>Welcome to the Twitch Chat Visualizer. Select one of the currently active channels to see an analysis of its chat activity.</p>
+        </div>
       </section>
     );
   }

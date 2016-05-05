@@ -2,7 +2,16 @@
 
   min-height: 100vh;
   margin-bottom: -140px;
-  margin-top: -88px;
-  padding-top: 88px;
+  margin-top: -130px;
+  padding-top: 130px;
+
+  .home-container {
+    margin-top: 1em;
+  }
+
+  @media only screen and (min-width : 768px) {
+    margin-top: -88px;
+    padding-top: 88px;
+  }
 
 }

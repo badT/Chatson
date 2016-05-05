@@ -18,7 +18,7 @@ export class Header extends Component {
               </Link>
             </div>
 
-            <div className="col-sm-6 text-right">
+            <div className="col-sm-6 channel-dropdown-container">
               <ChannelDropdown socket={this.props.socket}/>
             </div>
           </div>

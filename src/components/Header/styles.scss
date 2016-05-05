@@ -1,6 +1,7 @@
 :local(.styles) {
 
   z-index: 1;
+  height: 120px;
   width: 100%;
   padding: 20px 0;
   opacity: 1;
@@ -18,7 +19,20 @@
     font-size: 2.2em;
   }
 
+  .btn-group {
+    margin-top: 1em;
+  }
+
   @media only screen and (min-width : 768px) {
     position: fixed;
+    height: 74px;
+
+    .channel-dropdown-container {
+      text-align: right;
+    }
+
+    .btn-group {
+      margin-top: 0;
+    }
   }
 }
