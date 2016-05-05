@@ -11,17 +11,17 @@ module.exports = (app, express) => {
       res.end();
     });
   });
-  
-  app.post('/api/channels/subscribe', (req, res) => {
-    var data = '';
 
-    req.on('data', function(chunk) {
+  app.post('/api/channels/subscribe', (req, res) => {
+    let data = '';
+
+    req.on('data', (chunk) => {
       data += chunk;
     });
 
     req.on('end', () => {
       const channel = data.toString();
-      
+
       // add the new channel to the list of connected channels, if it is not included already
       establishConnection.connect(channel);
       // send the channel name back to the client. client leaves current socket room and joins this one
