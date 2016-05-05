@@ -17,7 +17,7 @@ class DataContainer extends Component {
               <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th>Emotional Attributes</th>
+                    <th><h2>Emotional Attributes</h2></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -29,6 +29,10 @@ class DataContainer extends Component {
                 </tbody>
               </table>
             </div>
+          </div>
+        </section>
+        <section>
+          <div className="row">
             <div className="col-md-6">
               <table className="table table-hover">
                 <thead>

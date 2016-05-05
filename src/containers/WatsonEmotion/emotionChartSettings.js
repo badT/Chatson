@@ -1,9 +1,9 @@
-const width = 700;
-const height = 300;
+const width = 1000;
+const height = 500;
 const marginOther = 70;
 const marginLeft = 100;
 
-export const chartSettings = {
+export default {
   width,
   height,
   margins: { top: marginOther, right: marginOther, bottom: marginOther, left: marginLeft },
@@ -12,7 +12,7 @@ export const chartSettings = {
   titleClassName: 'test-chart-title-class',
   legendClassName: 'test-legend',
   showLegend: true,
-  showXAxis: false,
+  showXAxis: true,
   showYAxis: true,
   chartSeries: [
     {
@@ -33,7 +33,7 @@ export const chartSettings = {
     {
       field: 'joy',
       name: 'Joy',
-      color: '#f4ff77',
+      color: '#000000',
     },
     {
       field: 'sadness',
@@ -47,11 +47,11 @@ export const chartSettings = {
   },
   xOrient: 'bottom',
   xTickOrient: 'bottom',
-  xDomain: [0, 5],
+  xDomain: [0, 30],
   xRange: [0, width - marginOther - marginOther],
   xScale: 'linear',
   xAxisClassName: 'x-axis',
-  xLabel: 'Minutes',
+  xLabel: '',
   y: (d) => {
     return d;
   },
@@ -61,11 +61,11 @@ export const chartSettings = {
   yRange: [height - marginOther - marginOther, 0],
   yScale: 'linear',
   yAxisClassName: 'y-axis',
-  yLabel: 'something',
+  yLabel: 'Level of Emotion',
   labelOffset: 60,
   legendPosition: 'right',
-  showXGrid: true,
-  showYGrid: true,
+  showXGrid: false,
+  showYGrid: false,
   xLabelPosition: 'bottom',
   yLabelPosition: 'left',
 };
