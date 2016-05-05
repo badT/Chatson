@@ -1,6 +1,15 @@
 :local(.styles) {
+  position: absolute;
+  width: 100%;
+  height: 140px;
+  bottom: 0;
+  left: 0;
   text-align: center;
   background: rgba(0,0,0,0.8);
-  padding: 60px 0 60px;
-  margin: 50px 0 0;
+
+  .container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }

@@ -1,33 +1,38 @@
 :local(.styles) {
 
   z-index: 1;
+  height: 120px;
   width: 100%;
   padding: 20px 0;
   opacity: 1;
   background: rgba(0, 0, 0, .8);
 
-  a, a:hover {
-    color: #FFF;
-  }
-
   .logo {
-    a {
-      font-weight: bold;
-    }
+    color: #fff;
+    text-decoration: none;
   }
 
-  nav {
+  .logo h1 {
+    margin: 0;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 700;
+    font-size: 2.2em;
+  }
 
-    a {
-      margin-right: 20px;
-
-      &.active {
-        font-weight: bold;
-      }
-    }
+  .btn-group {
+    margin-top: 1em;
   }
 
   @media only screen and (min-width : 768px) {
     position: fixed;
+    height: 74px;
+
+    .channel-dropdown-container {
+      text-align: right;
+    }
+
+    .btn-group {
+      margin-top: 0;
+    }
   }
 }

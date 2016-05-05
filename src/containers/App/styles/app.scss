@@ -1,6 +1,6 @@
 /* global styles */
 
-@import 'fonts/roboto';
+@import 'fonts/fonts';
 @import 'typography';
 @import 'links';
 
@@ -11,9 +11,13 @@
     width: 100%;
   }
 
+  main {
+    padding-bottom: 140px;
+  }
+
   @media only screen and (min-width : 768px) {
     main {
-      padding-top: 75px;
+      padding-top: 74px;
     }
   }
 }
