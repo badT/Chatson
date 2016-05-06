@@ -1,0 +1,27 @@
+:local(.styles) {
+
+  .line-graph-container {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .x-axis-label {
+    position: absolute;
+    font-size: 0.8em;
+    top: 100%;
+  }
+
+  .x-axis-label.start {
+    left: 0;
+    text-align: center;
+    transform-origin: 100% 50%;
+    transform: rotate(-90deg) translateY(-18%) translateX(25px);
+  }
+
+  .x-axis-label.end {
+    right: 0;
+    text-align: center;
+    transform-origin: 100% 50%;
+    transform: rotate(-90deg) translateY(-134%) translateX(15px);
+  }
+}

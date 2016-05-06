@@ -13,7 +13,7 @@ class DataContainer extends Component {
         <MessageDisplay socket={this.props.socket}/>
         <section>
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-lg-12">
               <table className="table table-hover">
                 <thead>
                   <tr>
