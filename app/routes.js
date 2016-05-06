@@ -1,7 +1,7 @@
 const messageController = require('./db/controllers/messageController');
 const chatChannels = require('./utils/socketio');
 const establishConnection = chatChannels.establishConnection();
-import { analyzeTone } from './watson/analyzer';
+import runAnalysis from './watson/analyzer';
 
 establishConnection.connect('imaqtpie');
 
@@ -40,14 +40,12 @@ module.exports = (app, express) => {
     });
 
     req.on('end', () => {
-      analyzeTone(data)
-        .then((tone) => {
+      runAnalysis(data)
+        .then((tone, err) => {
+          if (err) {
+            console.error(err);
+          }
           res.send(tone);
-          res.end();
-        })
-        .catch(err => {
-          console.error(err);
-          res.sendStatus(409);
           res.end();
         });
     });

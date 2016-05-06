@@ -10,7 +10,7 @@ const toneAnalyzer = watson.tone_analyzer({
 });
 
 // Returns a promise for the watson analysis
-export function analyzeTone(messages) {
+export default (messages) => {
   return new Promise((resolve, reject) => {
     // Passes string text to watson for analysis
     toneAnalyzer.tone(messages, (err, tone) => {
@@ -21,7 +21,7 @@ export function analyzeTone(messages) {
       }
     });
   });
-}
+};
 
  // Converts a tone category into a flat object with tone values
 function getToneValues(toneCategory) {
