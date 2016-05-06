@@ -30,4 +30,12 @@ module.exports = (app, express) => {
     });
 
   });
+  app.put('/api/watson/tone', (req, res) => {
+    console.log('helllllooo watson');
+    res.send(req.data);
+    res.end();
+    //run watson callback
+    //return response
+    //if a put doesn't return data as we'd like. axios has axios.all for running multiple reqs at same time
+  });
 };
