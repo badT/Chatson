@@ -105,7 +105,6 @@ class ChannelData extends Component {
     if (newMsgLengthArray.length > 200) {
       newMsgLengthArray.shift();
     }
-
     this.setState({
       currentMsgCount: newCount,
       avgMsgPerMin: newMsgPerMin,

@@ -45,7 +45,7 @@ class EmotionDisplay extends Component {
     const currentAnger = props.emotion.anger;
     if (currentAnger !== this.state.lastAnger) {
       const newEmotionData = this.state.emotionData.concat([props.emotion]);
-      
+
       if (newEmotionData.length > 30) {
         newEmotionData.shift();
       }
@@ -185,6 +185,7 @@ class EmotionDisplay extends Component {
 }
 
 function mapStateToProps({ tone }) {
+  console.log(tone);
   if (tone.toneData) {
     return {
       emotion: tone.toneData.emotion,
