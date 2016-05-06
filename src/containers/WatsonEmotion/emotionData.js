@@ -185,7 +185,6 @@ class EmotionDisplay extends Component {
 }
 
 function mapStateToProps({ tone }) {
-  console.log(tone);
   if (tone.toneData) {
     return {
       emotion: tone.toneData.emotion,
