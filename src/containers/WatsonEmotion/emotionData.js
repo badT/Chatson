@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { LineChart } from 'react-d3-basic';
 
-
-import { getTone } from '../../actions/index';
 import chartSettings from './emotionChartSettings';
 /* component styles */
 // import { styles } from './styles.scss';
@@ -16,12 +13,6 @@ export class EmotionDisplay extends Component {
       emotionData: [],
       lastAnger: 0,
     };
-  }
-
-  componentWillMount() {
-    this.props.socket.on('tone:update', toneData => {
-      this.props.getTone(toneData);
-    });
   }
 
   componentWillReceiveProps(props) {
@@ -80,10 +71,6 @@ export class EmotionDisplay extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getTone }, dispatch);
-}
-
 function mapStateToProps({ tone }) {
   if (tone.toneData) {
     return {
@@ -95,4 +82,4 @@ function mapStateToProps({ tone }) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmotionDisplay);
+export default connect(mapStateToProps)(EmotionDisplay);

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Chart from '../../components/Chart/index';
+import { getTone } from '../../actions/index';
+
 
 class ChannelData extends Component {
 
@@ -23,21 +26,29 @@ class ChannelData extends Component {
       msgPerSecArray: [],
       lastMinTotal: 0,
       lastSecTotal: 0,
+      watsonString: '',
     };
   }
 
   componentDidMount() {
     this.minuteInt = setInterval(() => { this.msgRateEveryMinute(); }, 60000);
     this.secondInt = setInterval(() => { this.msgRateEverySecond(); }, 1000);
+    this.watsonInt = setInterval(() => {
+      const currentWatsonString = this.state.watsonString;
+      this.setState({ watsonString: '' });
+      this.props.getTone(currentWatsonString);
+    }, 3000);
+  }
+
+
+  componentWillReceiveProps(props) {
+    this.calculateAverages(props);
   }
 
   componentWillUnmount() {
     clearInterval(this.minuteInt);
     clearInterval(this.secondInt);
-  }
-
-  componentWillReceiveProps(props) {
-    this.calculateAverages(props);
+    clearInterval(this.watsonInt);
   }
 
   msgRateEveryMinute() {
@@ -72,14 +83,17 @@ class ChannelData extends Component {
     let newCount;
     let newAvgLength;
     let newCharCount;
+    let newWatsonString;
     const elapsedMinutes = (Math.abs(new Date() - this.state.time)) / 60000;
     const elapsedSeconds = (Math.abs(new Date() - this.state.time)) / 1000;
 
     if (this.state.lastMsg !== props.message) {
+      newWatsonString = this.state.watsonString.concat(props.message);
       newCount = this.state.currentMsgCount + 1;
       newCharCount = this.state.charCount + props.message.length;
       newAvgLength = newCharCount / newCount;
     } else {
+      newWatsonString = this.state.watsonString;
       newCount = this.state.currentMsgCount;
       newCharCount = this.state.charCount;
       newAvgLength = this.state.avgLength;
@@ -100,6 +114,7 @@ class ChannelData extends Component {
       avgLength: newAvgLength,
       lastMsg: props.message,
       msgLengthArray: newMsgLengthArray,
+      watsonString: newWatsonString,
     });
   }
 
@@ -170,6 +185,10 @@ class ChannelData extends Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getTone }, dispatch);
+}
+
 function mapStateToProps({ message, channels }) {
   if (message.user) {
     return {
@@ -182,4 +201,4 @@ function mapStateToProps({ message, channels }) {
   return { noMessage: message };
 }
 
-export default connect(mapStateToProps)(ChannelData);
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelData);
