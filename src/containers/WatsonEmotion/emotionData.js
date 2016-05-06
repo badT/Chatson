@@ -32,11 +32,11 @@ class EmotionDisplay extends Component {
       xCoord: 440,
       emotionPaths: null,
       emotionKey: {
-        anger: 0.3,
-        sadness: 0.3,
-        disgust: 0.3,
-        fear: 0.3,
-        joy: 0.3,
+        anger: 0.15,
+        sadness: 0.15,
+        disgust: 0.15,
+        fear: 0.15,
+        joy: 0.15,
       },
     };
   }
@@ -60,14 +60,14 @@ class EmotionDisplay extends Component {
         emotionKey: transformedData.avgs,
       });
 
-      console.log(this.state.emotionPaths);
-
       TweenMax.to('#line-container', 3, { x: '-=40', ease: Power0.easeNone });
       TweenMax.to('#anger-splotch', 0.5, { scale: this.state.emotionKey.anger });
       TweenMax.to('#sadness-splotch', 0.5, { scale: this.state.emotionKey.sadness });
       TweenMax.to('#joy-splotch', 0.5, { scale: this.state.emotionKey.joy });
       TweenMax.to('#fear-splotch', 0.5, { scale: this.state.emotionKey.fear });
       TweenMax.to('#disgust-splotch', 0.5, { scale: this.state.emotionKey.disgust });
+
+      TweenMax.to('#graph-bg', 0.5, { fill: emoColors[transformedData.diff.emo], fillOpacity: (transformedData.diff.magnitude / 2) + 0.5 })
     }
   }
 
@@ -90,6 +90,7 @@ class EmotionDisplay extends Component {
     const transformed = {};
     const paths = {};
     const avgs = {};
+    const avgDiff = [];
 
     for (let emo in emos) {
       if (emo === 'id') continue;
@@ -115,17 +116,27 @@ class EmotionDisplay extends Component {
       if (transformed.hasOwnProperty(emo)) {
         paths[emo] = transformed[emo].path;
         avgs[emo] = transformed[emo].avg;
+        avgDiff.push({ emo: emo, avg: avgs[emo] });
         avgs[emo] = ((Math.round(avgs[emo] * 100) / 100) * 0.0085) + 0.15;
       }
     }
 
-    return { paths, avgs };
+    avgDiff.sort((a, b) => b.avg - a.avg);
+    const diff = { emo: avgDiff[0].emo, magnitude: (avgDiff[0].avg - avgDiff[1].avg) / 100 };
+
+    return { paths, avgs, diff };
   }
 
   renderLines(paths) {
     if (!paths) return;
     return (
       <g>
+        <path stroke="#FFF" className="stroke-outline" fill="none" d={paths.anger} />
+        <path stroke="#FFF" className="stroke-outline" fill="none" d={paths.disgust} />
+        <path stroke="#FFF" className="stroke-outline" fill="none" d={paths.fear} />
+        <path stroke="#FFF" className="stroke-outline" fill="none" d={paths.joy} />
+        <path stroke="#FFF" className="stroke-outline" fill="none" d={paths.sadness} />
+
         <path stroke={emoColors.anger} fill="none" d={paths.anger} />
         <path stroke={emoColors.disgust} fill="none" d={paths.disgust} />
         <path stroke={emoColors.fear} fill="none" d={paths.fear} />
@@ -169,11 +180,12 @@ class EmotionDisplay extends Component {
         <div className="row">
           <div className="col-lg-12 line-graph-container">
             <svg width="100%" height="400" viewBox="0 0 400 103" preserveAspectRatio="none">
+              <rect id="graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="1" />
               <g id="line-container">
                 {this.renderLines(this.state.emotionPaths)}
               </g>
-              <path stroke="#ddd" fill="none" d="M 0.5 0 l 0 100 z" />
-              <path stroke="#ddd" fill="none" d="M 0.5 103 l 0 -3 l 399 0 l 0 3" />
+              <path stroke="#ddd" fill="none" d="M 0.3 0 l 0 100 z" />
+              <path stroke="#ddd" fill="none" d="M 0.3 103 l 0 -3 l 399.4 0 l 0 3" />
             </svg>
             <span className="x-axis-label start">30 Sec<br/>Ago</span>
             <span className="x-axis-label end">Now</span>
