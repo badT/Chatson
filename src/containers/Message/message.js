@@ -11,7 +11,7 @@ import { styles } from './styles.scss';
 class MessageDisplay extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       blurClass: 'row blurred',
       blurBtn: 'Show Chat',
       blurMsg: 'Twitch channel chats can be a scary place. Unblur at your own risk!'

@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { LineChart } from 'react-d3-basic';
 import gsap from 'gsap';
 
-import { getTone } from '../../actions/index';
-// import chartSettings from './emotionChartSettings';
-
+import chartSettings from './emotionChartSettings';
 /* component styles */
 import { styles } from './styles.scss';
 
@@ -44,23 +41,11 @@ class EmotionDisplay extends Component {
     };
   }
 
-  componentWillMount() {
-    this.props.socket.on('tone:update', toneData => {
-      this.props.getTone(toneData);
-    });
-
-    // because the incoming data is continuous, need to disable
-    // requestAnimationFrame so that moving to a new window doesn't
-    // get the data animation out of whack
-    TweenMax.ticker.useRAF(false);
-    TweenMax.lagSmoothing(0);
-  }
-
   componentWillReceiveProps(props) {
     const currentAnger = props.emotion.anger;
     if (currentAnger !== this.state.lastAnger) {
       const newEmotionData = this.state.emotionData.concat([props.emotion]);
-      
+
       if (newEmotionData.length > 30) {
         newEmotionData.shift();
       }
@@ -199,10 +184,6 @@ class EmotionDisplay extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getTone }, dispatch);
-}
-
 function mapStateToProps({ tone }) {
   if (tone.toneData) {
     return {
@@ -214,4 +195,4 @@ function mapStateToProps({ tone }) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmotionDisplay);
+export default connect(mapStateToProps)(EmotionDisplay);

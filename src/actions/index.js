@@ -32,8 +32,9 @@ export function getMessage(data) {
 
 export const GET_TONE = 'GET_TONE';
 export function getTone(data) {
+  const request = axios.put(`${ROOT_URL}/watson/tone`, data);
   return {
     type: GET_TONE,
-    payload: data,
+    payload: request,
   };
 }
