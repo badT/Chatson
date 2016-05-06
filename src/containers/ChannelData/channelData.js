@@ -34,9 +34,11 @@ class ChannelData extends Component {
     this.minuteInt = setInterval(() => { this.msgRateEveryMinute(); }, 60000);
     this.secondInt = setInterval(() => { this.msgRateEverySecond(); }, 1000);
     this.watsonInt = setInterval(() => {
-      const currentWatsonString = this.state.watsonString;
-      this.setState({ watsonString: '' });
-      this.props.getTone(currentWatsonString);
+      if (this.state.watsonString.length) {
+        const currentWatsonString = this.state.watsonString;
+        this.setState({ watsonString: '' });
+        this.props.getTone(currentWatsonString);
+      }
     }, 3000);
   }
 

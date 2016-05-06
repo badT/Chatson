@@ -3,7 +3,7 @@ const tmi = require('tmi.js');
 const chooseChannel = require('./tmiConfig');
 
 const eventEmitter = require('./eventEmitter');
-const storedChannel = require('./storedChannels');
+// const storedChannel = require('./storedChannels');
 
 
 // Listenes for a new chat message and moves the message into the analyzer file
@@ -14,13 +14,12 @@ const storedChannel = require('./storedChannels');
 
 exports.establishConnection = () => {
   let twitchClient = null;
-  let channelList = [];
+  const channelList = [];
 
   return {
     connect: (channel) => {
       if (channelList.indexOf(channel) !== -1) return;
-      // channelList.push(channel);
-      channelList[0] = channel;
+      channelList.push(channel);
 
       if (twitchClient) {
         twitchClient.disconnect().then(() => {
@@ -40,9 +39,9 @@ exports.establishConnection = () => {
           eventEmitter.emit('chatMessage', { channel, user, msg });
         });
       }
-    }
-  }
-}
+    },
+  };
+};
 
 exports.ioConnect = server => {
   const io = twitchIO.listen(server);
@@ -60,7 +59,7 @@ exports.ioConnect = server => {
     });
 
     eventEmitter.on('chatMessage', message => {
-      let channel = message.channel.substr(1);
+      const channel = message.channel.substr(1);
       io.to(channel).emit('message', message);
     });
 
