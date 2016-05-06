@@ -1,8 +1,51 @@
 :local(.styles) {
 
+  .splotch-holder {
+    position: relative;
+  }
+
+  .color-splotch {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    transform: scale(0.15);
+  }
+
+  #anger-splotch {
+    background-color: #F42602;
+  }
+  #sadness-splotch {
+    background-color: #4B74A3;
+  }
+  #disgust-splotch {
+    background-color: #772B49;
+  }
+  #fear-splotch {
+    background-color: #F9AEB8;
+  }
+  #joy-splotch {
+    background-color: #44A5E5;
+  }
+
+  .splotch-label {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
   .line-graph-container {
     position: relative;
     margin-bottom: 20px;
+  }
+
+  .line-graph-container path {
+    stroke-width: 0.6;
+  }
+
+  #line-container path {
+    stroke-width: 0.5;
   }
 
   .x-axis-label {
