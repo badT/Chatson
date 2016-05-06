@@ -14,7 +14,7 @@ class DataContainer extends Component {
         <section>
           <div className="row">
             <div className="col-lg-12">
-              <table className="table table-hover">
+              <table className="table">
                 <thead>
                   <tr>
                     <th><h2>Emotional Attributes</h2></th>
