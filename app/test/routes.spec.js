@@ -4,10 +4,10 @@ const supertest = require('supertest');
 
 const server = supertest.agent('http://localhost:3000');
 
-describe('test suite', () => {
+describe('routes test suite', () => {
   // console.log(routes.app.post)
-  it('should expose a function', () => {
-    expect(routes).toExist('function');
+  it('should expose functions', () => {
+    expect(routes).toBeA('function');
   });
 
   it('should respond to POST requests', (done) => {
