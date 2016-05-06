@@ -1,6 +1,7 @@
 const messageController = require('./db/controllers/messageController');
 const chatChannels = require('./utils/socketio');
 const establishConnection = chatChannels.establishConnection();
+import runAnalysis from './watson/analyzer';
 
 establishConnection.connect('imaqtpie');
 
@@ -32,17 +33,21 @@ module.exports = (app, express) => {
   });
 
   app.put('/api/watson/tone', (req, res) => {
-    let data = '';
+    const data = { text: '' };
 
     req.on('data', (chunk) => {
-      data += chunk;
+      data.text += chunk;
     });
 
     req.on('end', () => {
-      // run watson callback
-      // return response
-      res.send('waaaaatsooooon');
-      res.end();
+      runAnalysis(data)
+        .then((tone, err) => {
+          if (err) {
+            console.error(err);
+          }
+          res.send(tone);
+          res.end();
+        });
     });
   });
 };
