@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { LineChart } from 'react-d3-basic';
+import gsap from 'gsap';
 
 import chartSettings from './emotionChartSettings';
 /* component styles */
-// import { styles } from './styles.scss';
+import { styles } from './styles.scss';
 
-export class EmotionDisplay extends Component {
+class EmotionDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
       emotionData: [],
       lastAnger: 0,
+      xCoord: 400,
     };
   }
 
@@ -25,46 +27,77 @@ export class EmotionDisplay extends Component {
       this.setState({
         emotionData: newEmotionData,
         lastAnger: currentAnger,
+        xCoord: this.state.xCoord + 40,
       });
+
+      TweenMax.to('#line-container', 3, { x: '-=40', ease: Power0.easeNone });
     }
+  }
+
+  renderLines(emotionData, xCoord) {
+    if (emotionData.length === 0) return;
+
+    const emos = Object.keys(emotionData[0]).reduce((list, emo) => {
+      list[emo] = [];
+      return list;
+    }, {});
+
+    emotionData.forEach(datum => {
+      for (let emo in datum) {
+        if (datum.hasOwnProperty(emo)) {
+          emos[emo].push(datum[emo]);
+        }
+      }
+    });
+
+    const paths = {};
+
+    for (let emo in emos) {
+      if (emos.hasOwnProperty(emo)) {
+        paths[emo] = emos[emo].reduceRight((res, reading, i, coll) => {
+          if (i === coll.length - 1) {
+            res.path += `${res.x} ${100 - reading}`;
+          } else {
+            if (reading >= coll[i + 1]) {
+              res.path += `C ${res.x + 20} ${100 - (coll[i + 1])} ${res.x + 20} ${100 - (reading)} ${res.x} ${100 - reading}`
+            } else {
+              res.path += `C ${res.x + 20} ${100 - (coll[i + 1])} ${res.x + 20} ${100 - (reading)} ${res.x} ${100 - reading}`
+            }
+          }
+          res.x -= 40;
+          return res;
+        }, { path: 'M', x: xCoord });
+      }
+    }
+
+    console.log(paths);
+
+    return (
+      <g>
+        <path stroke="#FF0000" fill="none" d={paths.anger.path}></path>
+        <path stroke="#A52A2A" fill="none" d={paths.disgust.path}></path>
+        <path stroke="#FF8000" fill="none" d={paths.fear.path}></path>
+        <path stroke="#800080" fill="none" d={paths.joy.path}></path>
+        <path stroke="#0000FF" fill="none" d={paths.sadness.path}></path>
+      </g>
+    );
   }
 
   render() {
     return (
-      <div className="row">
-        <div className="col-lg-12 text-center">
-          <LineChart
-            title={chartSettings.title}
-            data={this.state.emotionData}
-            width={chartSettings.width}
-            height={chartSettings.height}
-            margins={chartSettings.margins}
-            labelOffset={chartSettings.labelOffset}
-            legendPosition={chartSettings.legendPosition}
-            chartSeries={chartSettings.chartSeries}
-            interpolate={chartSettings.interpolate}
-            showLegend={chartSettings.showLegend}
-            showXAxis={false}
-            showYAxis={chartSettings.howYAxis}
-            showXGrid={false}
-            showYGrid={false}
-            x={(d) => { return this.state.emotionData.indexOf(d); }}
-            xDomain={chartSettings.xDomain}
-            xRange={chartSettings.xRange}
-            xScale={chartSettings.xScale}
-            xOrient={chartSettings.xOrient}
-            xTickOrient={chartSettings.xTickOrient}
-            xLabel={chartSettings.xLabel}
-            xLabelPosition={chartSettings.xLabelPosition}
-            y={chartSettings.y}
-            yOrient={chartSettings.yOrient}
-            yDomain={chartSettings.yDomain}
-            yRange={chartSettings.yRange}
-            yScale={chartSettings.yScale}
-            yTickOrient={chartSettings.yTickOrient}
-            yLabel={chartSettings.yLabel}
-            yLabelPosition={chartSettings.yLabelPosition}
-          />
+      <div className={`${styles}`}>
+        <div className="row">
+          <div className="col-lg-12 line-graph-container">
+            <svg width="100%" height="400" viewBox="0 0 400 103" preserveAspectRatio="none">
+              <g id="line-container">
+                {this.renderLines(this.state.emotionData, this.state.xCoord)}
+              </g>
+              <path stroke="#000" fill="none" d="M 0.5 0 l 0 100 z"></path>
+              <path stroke="#000" fill="none" d="M 0.5 103 l 0 -3 l 399 0 l 0 3"></path>
+            </svg>
+            <span className="x-axis-label start">30 Sec<br/>Ago</span>
+            <span className="x-axis-label end">Now</span>
+          </div>
         </div>
       </div>
     );
