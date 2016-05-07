@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-
-// import { getMessage } from '../../actions/index';
 
 /* component styles */
 import { styles } from './styles.scss';
@@ -17,12 +13,6 @@ export default class MessageDisplay extends Component {
       blurMsg: 'Twitch channel chats can be a scary place. Unblur at your own risk!'
     };
   }
-
-  // componentWillMount() {
-  //   this.props.socket.on('message', data => {
-  //     this.props.getMessage(data);
-  //   });
-  // }
 
   toggleBlur() {
     if (this.state.blurClass === 'row') {
