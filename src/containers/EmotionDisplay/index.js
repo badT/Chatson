@@ -29,6 +29,8 @@ class EmotionDisplay extends Component {
         fear: 0.15,
         joy: 0.15,
       },
+      topRef: false,
+      btmRef: false,
     };
   }
 
@@ -145,6 +147,16 @@ class EmotionDisplay extends Component {
     );
   }
 
+  handleMouseEnter(line) {
+    if (line === 'top') this.setState({ topRef: true });
+    if (line === 'btm') this.setState({ btmRef: true });
+  }
+
+  handleMouseLeave(line) {
+    if (line === 'top') this.setState({ topRef: false });
+    if (line === 'btm') this.setState({ btmRef: false });
+  }
+
   render() {
     return (
       <div className={`${styles}`}>
@@ -174,11 +186,24 @@ class EmotionDisplay extends Component {
         </div>
         <div className="row">
           <div className="col-lg-12 line-graph-container">
+            <span className={`graph-explanation ${this.state.topRef ? 'visible' : ''}`}>Values above this line indicate strong emotion</span>
+            <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate weak emotion</span>
             <svg width="100%" height="400" viewBox="0 0 400 103" preserveAspectRatio="none">
               <rect id="graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="1" />
+
+              <path className="reference-line" d="M 0.3 25 l 399.7 0" />
+              <rect id="upper-ref" x="0" y="0" width="400" height="25" fill="#fff" className={`ref-box ${this.state.topRef ? 'visible' : ''}`} />
+
+              <path className="reference-line" d="M 0.3 50 l 399.7 0" />
+              <rect id="lower-ref" x="0" y="50" width="400" height="50" fill="#fff" className={`ref-box ${this.state.btmRef ? 'visible' : ''}`} />
+
               <g id="line-container">
                 {this.renderLines(this.state.emotionPaths)}
               </g>
+
+              <path id="reference-line-top" stroke="transparent" d="M 0.3 25 l 399.7 0" onMouseEnter={() => this.handleMouseEnter('top')} onMouseLeave={() => this.handleMouseLeave('top')} />
+              <path id="reference-line-btm" stroke="transparent" d="M 0.3 50 l 399.7 0" onMouseEnter={() => this.handleMouseEnter('btm')} onMouseLeave={() => this.handleMouseLeave('btm')} />
+
               <path stroke="#ddd" fill="none" d="M 0.3 0 l 0 100 z" />
               <path stroke="#ddd" fill="none" d="M 0.3 103 l 0 -3 l 399.4 0 l 0 3" />
             </svg>
