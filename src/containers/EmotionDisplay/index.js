@@ -32,6 +32,14 @@ class EmotionDisplay extends Component {
     };
   }
 
+  componentWillMount() {
+    // because the incoming data is continuous, need to disable
+    // requestAnimationFrame so that moving to a new window doesn't
+    // get the data animation out of whack
+    TweenMax.ticker.useRAF(false);
+    TweenMax.lagSmoothing(0);
+  }
+
   componentWillReceiveProps(props) {
     const currentAnger = props.emotion.anger;
     if (currentAnger !== this.state.lastAnger) {
