@@ -189,7 +189,7 @@ class EmotionDisplay extends Component {
             <span className={`graph-explanation ${this.state.topRef ? 'visible' : ''}`}>Values above this line indicate strong emotion</span>
             <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate weak emotion</span>
             <svg width="100%" height="400" viewBox="0 0 400 103" preserveAspectRatio="none">
-              <rect id="graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="1" />
+              <rect id="graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
 
               <path className="reference-line" d="M 0.3 25 l 399.7 0" />
               <rect id="upper-ref" x="0" y="0" width="400" height="25" fill="#fff" className={`ref-box ${this.state.topRef ? 'visible' : ''}`} />
