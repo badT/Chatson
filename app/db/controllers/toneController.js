@@ -19,7 +19,7 @@ Tone.changes().then((feed) => {
       process.exit(1);
     } else {
       // console.log('changes feed: ', doc);
-      eventEmitter.emit('toneUpdate', doc);
+      // eventEmitter.emit('toneUpdate', doc);
     }
   });
 }).error((error) => {
