@@ -35,6 +35,18 @@
     transform: translateY(-50%);
   }
 
+  .graph-explanation {
+    display: block;
+    position: absolute;
+    bottom: 100%;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .graph-explanation.visible {
+    opacity: 1;
+  }
+
   .line-graph-container {
     position: relative;
     margin-bottom: 20px;
@@ -44,6 +56,22 @@
     stroke-width: 0.6;
   }
 
+  path.reference-line {
+    stroke: #666;
+    stroke-width: 0.4;
+    stroke-dasharray: 3 5;
+    stroke-linecap: round;
+  }
+
+  .ref-box {
+    fill-opacity: 0;
+    transition: all 0.3s;
+  }
+
+  .ref-box.visible {
+    fill-opacity: 0.4;
+  }
+
   #line-container path.stroke-outline {
     stroke-width: 1.2;
   }
@@ -51,6 +79,11 @@
   #line-container path {
     stroke-width: 0.5;
     stroke-linecap: round;
+  }
+
+  path#reference-line-top,
+  path#reference-line-btm {
+    stroke-width: 6;
   }
 
   .x-axis-label {
