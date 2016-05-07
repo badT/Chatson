@@ -3,6 +3,7 @@ const chatChannels = require('./utils/socketio');
 const establishConnection = chatChannels.establishConnection();
 const analyzer = require('./watson/analyzer');
 
+
 establishConnection.connect('imaqtpie');
 
 module.exports = (app, express) => {
@@ -41,11 +42,13 @@ module.exports = (app, express) => {
 
     req.on('end', () => {
       analyzer.runAnalysis(data)
-        .then((tone, err) => {
-          if (err) {
-            console.error(err);
-          }
+        .then((tone) => {
           res.send(tone);
+          res.end();
+        })
+        .catch(err => {
+          console.error(err);
+          res.sendStatus(409);
           res.end();
         });
     });
