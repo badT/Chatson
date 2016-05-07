@@ -67,19 +67,36 @@ export default class MessageDisplay extends Component {
     return msg;
   }
 
-  renderMessage(msg) {
+  mapMessage(msg) {
     if (!msg) return;
     return msg.map((chunk) => {
+      const rand = parseInt(Math.random() * 1000000);
       if (typeof chunk === 'number') {
         return (
-          <img className="emoticon" src={`http://static-cdn.jtvnw.net/emoticons/v1/${chunk}/3.0`} />
+          <img className="emoticon" key={rand} src={`http://static-cdn.jtvnw.net/emoticons/v1/${chunk}/3.0`} />
         );
       } else {
         return (
-          <span>{chunk}</span>
+          <span key={rand}>{chunk}</span>
         );
       }
     });
+  }
+
+  renderUser(user) {
+    return (
+      <h4 key={user}>
+        {user}
+      </h4>
+    );
+  }
+
+  renderMessage(user, msg) {
+    return (
+      <h4 key={user}>
+        {msg}
+      </h4>
+    );
   }
 
   render() {
@@ -90,16 +107,12 @@ export default class MessageDisplay extends Component {
           <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div className="message-ticker-user">
               <ReactCSSTransitionGroup className="ticker-user" transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={0}>
-                <h4 key={this.props.msg.message}>
-                  {this.props.msg.user.username}
-                </h4>
+                {this.renderUser(this.props.msg.user.username)}
               </ReactCSSTransitionGroup>
             </div>
             <div className="message-ticker-message">
               <ReactCSSTransitionGroup className="ticker-message" transitionName="carousel" transitionEnterTimeout={300} transitionLeaveTimeout={200}>
-                <h4 key={this.props.user}>
-                  {this.renderMessage(this.parseMessage(this.props.msg.msg, this.props.msg.user.emotes))}
-                </h4>
+                {this.renderMessage(this.props.user, this.mapMessage(this.parseMessage(this.props.msg.msg, this.props.msg.user.emotes)))}
               </ReactCSSTransitionGroup>
             </div>
           </div>
