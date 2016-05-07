@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import Chart from '../../components/Chart/index';
 import { getTone } from '../../actions/index';
 
-
 class ChannelData extends Component {
 
   constructor(props) {
@@ -190,16 +189,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ getTone }, dispatch);
 }
 
-function mapStateToProps({ message, channels }) {
-  if (message.user) {
-    return {
-      message: message.msg,
-      user: message.user.username,
-      emotes: message.user.emotes,
-      selectedChannel: channels.selected,
-    };
-  }
-  return { noMessage: message };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChannelData);
+export default connect(null, mapDispatchToProps)(ChannelData);

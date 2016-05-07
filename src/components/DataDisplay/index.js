@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import DataContainer from '../../containers/DataContainer/DataContainer';
 
@@ -9,7 +10,7 @@ export class DataDisplay extends Component {
   render() {
     return (
       <div className={`${styles}`}>
-        <DataContainer socket={this.props.socket}/>
+        <DataContainer />
       </div>
     );
   }

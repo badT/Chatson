@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
 
-import { getMessage } from '../../actions/index';
+// import { getMessage } from '../../actions/index';
 
 /* component styles */
 import { styles } from './styles.scss';
 
-class MessageDisplay extends Component {
+export default class MessageDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,11 +18,11 @@ class MessageDisplay extends Component {
     };
   }
 
-  componentWillMount() {
-    this.props.socket.on('message', data => {
-      this.props.getMessage(data);
-    });
-  }
+  // componentWillMount() {
+  //   this.props.socket.on('message', data => {
+  //     this.props.getMessage(data);
+  //   });
+  // }
 
   toggleBlur() {
     if (this.state.blurClass === 'row') {
@@ -78,6 +78,7 @@ class MessageDisplay extends Component {
   }
 
   renderMessage(msg) {
+    if (!msg) return;
     return msg.map((chunk) => {
       if (typeof chunk === 'number') {
         return (
@@ -99,15 +100,15 @@ class MessageDisplay extends Component {
           <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div className="message-ticker-user">
               <ReactCSSTransitionGroup className="ticker-user" transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={0}>
-                <h4 key={this.props.message}>
-                  {this.props.user}
+                <h4 key={this.props.msg.message}>
+                  {this.props.msg.user.username}
                 </h4>
               </ReactCSSTransitionGroup>
             </div>
             <div className="message-ticker-message">
               <ReactCSSTransitionGroup className="ticker-message" transitionName="carousel" transitionEnterTimeout={300} transitionLeaveTimeout={200}>
                 <h4 key={this.props.user}>
-                  {this.renderMessage(this.parseMessage(this.props.message, this.props.emotes))}
+                  {this.renderMessage(this.parseMessage(this.props.msg.msg, this.props.msg.user.emotes))}
                 </h4>
               </ReactCSSTransitionGroup>
             </div>
@@ -117,21 +118,3 @@ class MessageDisplay extends Component {
     );
   }
 }
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getMessage }, dispatch);
-}
-
-function mapStateToProps({ message, channels }) {
-  if (message.user) {
-    return {
-      message: message.msg,
-      user: message.user.username,
-      emotes: message.user.emotes,
-      selectedChannel: channels.selected
-    };
-  }
-  return { noMessage: message, selectedChannel: channels.selected };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MessageDisplay);

@@ -22,14 +22,6 @@ export function setChannel(channel) {
   };
 }
 
-export const GET_MESSAGE = 'GET_MESSAGE';
-export function getMessage(data) {
-  return {
-    type: GET_MESSAGE,
-    payload: data,
-  };
-}
-
 export const GET_TONE = 'GET_TONE';
 export function getTone(data) {
   const request = axios.put(`${ROOT_URL}/watson/tone`, data);

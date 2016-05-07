@@ -7,10 +7,50 @@ import EmotionDisplay from '../WatsonEmotion/emotionData';
 import SocialDisplay from '../WatsonSocial/socialData';
 
 class DataContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      msg: {
+        message: '',
+        user: '',
+        emotes: null,
+      }
+    };
+  }
+
+  componentWillMount() {
+    this.socket = io();
+
+    this.socket.on('message', data => {
+      this.setState({ msg: data });
+    });
+  }
+
+  componentWillUnmount() {
+    this.socket.disconnect();
+  }
+
+  
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.selected === this.props.selected) return;
+    // emit unsubscribe message
+    if (this.props.selected) {
+      console.log('Unsubscribing from: ', this.props.selected);
+      this.socket.emit('channel:unsubscribe', this.props.selected);
+    }
+
+    // emit subscribe message
+    if (nextProps.selected) {
+      console.log('Subscribing to: ', nextProps.selected);
+      this.socket.emit('channel:subscribe', nextProps.selected);
+    }
+  }
+
   render() {
     return (
       <div key={this.props.selected}>
-        <MessageDisplay socket={this.props.socket}/>
+        <MessageDisplay msg={this.state.msg} />
         <section>
           <div className="row">
             <div className="col-lg-12">
@@ -23,7 +63,7 @@ class DataContainer extends Component {
                 <tbody>
                   <tr>
                     <td>
-                      <EmotionDisplay socket={this.props.socket} />
+                      <EmotionDisplay />
                     </td>
                   </tr>
                 </tbody>
@@ -51,7 +91,7 @@ class DataContainer extends Component {
             </div>
           </div>
         </section>
-        <ChannelData socket={this.props.socket}/>
+        <ChannelData message={this.state.msg.msg} />
         <div>Selected Channel: {this.props.selected}</div>
       </div>
     );

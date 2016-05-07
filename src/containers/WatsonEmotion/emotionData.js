@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { LineChart } from 'react-d3-basic';
+
 import gsap from 'gsap';
 
-import chartSettings from './emotionChartSettings';
 /* component styles */
 import { styles } from './styles.scss';
 
@@ -136,10 +135,6 @@ class EmotionDisplay extends Component {
         <path stroke={emoColors.sadness} fill="none" d={paths.sadness} />
       </g>
     );
-  }
-
-  renderKey(emotionKey) {
-
   }
 
   render() {

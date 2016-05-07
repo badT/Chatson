@@ -10,20 +10,6 @@ import { styles } from './styles.scss';
 class ChannelDropdown extends Component {
   componentWillMount() {
     this.props.getChannels();
-    console.log('DROPDOWN PROPS: ', this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.channels.selected === this.props.channels.selected) return;
-    // emit unsubscribe message
-    if (this.props.channels.selected) {
-      this.props.socket.emit('channel:unsubscribe', this.props.channels.selected);
-    }
-
-    // emit subscribe message
-    if (nextProps.channels.selected) {
-      this.props.socket.emit('channel:subscribe', nextProps.channels.selected);
-    }
   }
 
   renderChannels(channelData) {
