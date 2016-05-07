@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-
 import ChannelDropdown from '../../containers/ChannelDropdown/ChannelDropdown';
 
 /* component styles */

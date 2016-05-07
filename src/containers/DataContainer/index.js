@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import MessageDisplay from '../Message/message';
-import ChannelData from '../ChannelData/channelData';
-import EmotionDisplay from '../WatsonEmotion/emotionData';
-import SocialDisplay from '../WatsonSocial/socialData';
+import MessageDisplay from '../MessageDisplay';
+import ChannelData from '../ChannelData';
+import EmotionDisplay from '../EmotionDisplay';
+import SocialDisplay from '../SocialDisplay';
 
 class DataContainer extends Component {
   constructor(props) {
