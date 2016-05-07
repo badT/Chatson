@@ -4,12 +4,12 @@ const analyzer = require('../watson/analyzer.js');
 describe('analyzer test suite', () => {
   // console.log(routes.app.post)
   it('should expose a function', () => {
-    expect(analyzer.intoTones).toBeA('function');
+    expect(analyzer.runAnalysis).toBeA('function');
   });
-  describe('calling intoTones', () => {
+  describe('calling runAnalysis', () => {
 
     beforeEach(() => {
-      expect.spyOn(analyzer, 'intoTones');
+      expect.spyOn(analyzer, 'runAnalysis');
     });
 
     afterEach(() => {
@@ -17,8 +17,8 @@ describe('analyzer test suite', () => {
     });
 
     it('is called', (done) => {
-      analyzer.intoTones();
-      expect(analyzer.intoTones).toHaveBeenCalled();
+      analyzer.runAnalysis();
+      expect(analyzer.runAnalysis).toHaveBeenCalled();
       done();
     });
   });
