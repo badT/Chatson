@@ -63,7 +63,7 @@ class DataContainer extends Component {
                 <tbody>
                   <tr>
                     <td>
-                      <EmotionDisplay socket={this.socket} />
+                      <EmotionDisplay />
                     </td>
                   </tr>
                 </tbody>
