@@ -7,7 +7,6 @@ import chartSettings from './emotionChartSettings';
 /* component styles */
 import { styles } from './styles.scss';
 
-// Dan's special color selections. Non-puky.
 const emoColors = {
   anger: '#FF3F39',
   sadness: '#2B56B2',
@@ -15,15 +14,6 @@ const emoColors = {
   fear: '#4ACC68',
   joy: '#FFF348',
 };
-
-// Mrs. Terry's colors
-// const emoColors = {
-//   anger: '#FF7F4F',
-//   sadness: '#2B56B2',
-//   disgust: '#46CC61',
-//   fear: '#9D69B2',
-//   joy: '#F7C64A',
-// };
 
 class EmotionDisplay extends Component {
   constructor(props) {
