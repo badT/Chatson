@@ -7,20 +7,12 @@ import chartSettings from './emotionChartSettings';
 /* component styles */
 import { styles } from './styles.scss';
 
-// const emoColors = {
-//   anger: '#C2E812',
-//   sadness: '#8B9EB7',
-//   disgust: '#745296',
-//   fear: '#632A50',
-//   joy: '#91F5AD',
-// };
-
 const emoColors = {
-  anger: '#F42602',
-  sadness: '#4B74A3',
-  disgust: '#772B49',
-  fear: '#F9AEB8',
-  joy: '#44A5E5',
+  anger: '#FF3F39',
+  sadness: '#2B56B2',
+  disgust: '#AC35B2',
+  fear: '#4ACC68',
+  joy: '#FFF348',
 };
 
 class EmotionDisplay extends Component {
@@ -67,7 +59,7 @@ class EmotionDisplay extends Component {
       TweenMax.to('#fear-splotch', 0.5, { scale: this.state.emotionKey.fear });
       TweenMax.to('#disgust-splotch', 0.5, { scale: this.state.emotionKey.disgust });
 
-      TweenMax.to('#graph-bg', 0.5, { fill: emoColors[transformedData.diff.emo], fillOpacity: (transformedData.diff.magnitude / 2) + 0.5 })
+      TweenMax.to('#graph-bg', 0.5, { fill: emoColors[transformedData.diff.emo], fillOpacity: (transformedData.diff.magnitude) })
     }
   }
 
