@@ -29,6 +29,7 @@ class EmotionDisplay extends Component {
         fear: 0.15,
         joy: 0.15,
       },
+      dominantEmo: '',
       topRef: false,
       btmRef: false,
     };
@@ -59,6 +60,7 @@ class EmotionDisplay extends Component {
         xCoord: this.state.xCoord + 40,
         emotionPaths: transformedData.paths,
         emotionKey: transformedData.avgs,
+        dominantEmo: transformedData.diff.emo,
       });
 
       TweenMax.to('#line-container', 3, { x: '-=40', ease: Power0.easeNone });
@@ -160,7 +162,7 @@ class EmotionDisplay extends Component {
   render() {
     return (
       <div className={`${styles}`}>
-        <div className="row">
+        <div className={`row dom-emo-${this.state.dominantEmo}`}>
           <div className="block-grid-md-5 block-grid-sm-3 block-grid-xs-2">
             <div className="block-grid-item splotch-holder">
               <span id="anger-splotch" className="color-splotch"></span>
