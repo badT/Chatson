@@ -92,7 +92,6 @@ class DataContainer extends Component {
           </div>
         </section>
         <ChannelData message={this.state.msg.msg} />
-        <div>Selected Channel: {this.props.selected}</div>
       </div>
     );
   }

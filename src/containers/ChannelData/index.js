@@ -175,10 +175,7 @@ class ChannelData extends Component {
           </div>
         </div>
         <div className="row">
-          <ul>
-            <li>Channel: {this.props.selectedChannel}</li>
-            <li>Total Messages since arrival: {this.state.currentMsgCount}</li>
-          </ul>
+          <span>Total Messages since arrival: {this.state.currentMsgCount}</span>
         </div>
       </section>
     );
