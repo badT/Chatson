@@ -50,7 +50,7 @@ class DataContainer extends Component {
   render() {
     return (
       <div key={this.props.selected}>
-        <MessageDisplay msg={this.state.msg} />
+        <MessageDisplay msg={this.state.msg} channel={this.props.selected} />
         <section>
           <div className="row">
             <div className="col-lg-12">
