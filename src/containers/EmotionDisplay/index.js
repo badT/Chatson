@@ -29,6 +29,7 @@ class EmotionDisplay extends Component {
         fear: 0.15,
         joy: 0.15,
       },
+      dominantEmo: '',
       topRef: false,
       btmRef: false,
     };
@@ -59,6 +60,7 @@ class EmotionDisplay extends Component {
         xCoord: this.state.xCoord + 40,
         emotionPaths: transformedData.paths,
         emotionKey: transformedData.avgs,
+        dominantEmo: transformedData.diff.emo,
       });
 
       TweenMax.to('#line-container', 3, { x: '-=40', ease: Power0.easeNone });
@@ -160,7 +162,7 @@ class EmotionDisplay extends Component {
   render() {
     return (
       <div className={`${styles}`}>
-        <div className="row">
+        <div className={`row dom-emo-${this.state.dominantEmo}`}>
           <div className="block-grid-md-5 block-grid-sm-3 block-grid-xs-2">
             <div className="block-grid-item splotch-holder">
               <span id="anger-splotch" className="color-splotch"></span>
@@ -189,7 +191,7 @@ class EmotionDisplay extends Component {
             <span className={`graph-explanation ${this.state.topRef ? 'visible' : ''}`}>Values above this line indicate strong emotion</span>
             <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate weak emotion</span>
             <svg width="100%" height="400" viewBox="0 0 400 103" preserveAspectRatio="none">
-              <rect id="graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="1" />
+              <rect id="graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
 
               <path className="reference-line" d="M 0.3 25 l 399.7 0" />
               <rect id="upper-ref" x="0" y="0" width="400" height="25" fill="#fff" className={`ref-box ${this.state.topRef ? 'visible' : ''}`} />

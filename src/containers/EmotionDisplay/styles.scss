@@ -10,6 +10,16 @@
     height: 60px;
     border-radius: 50%;
     transform: scale(0.15);
+    border: 5px solid transparent;
+    transition: border 0.3s;
+  }
+
+  .dom-emo-anger #anger-splotch,
+  .dom-emo-sadness #sadness-splotch,
+  .dom-emo-disgust #disgust-splotch,
+  .dom-emo-fear #fear-splotch,
+  .dom-emo-joy #joy-splotch {
+    border: 5px solid #000;
   }
 
   #anger-splotch {

@@ -10,7 +10,7 @@ export default class MessageDisplay extends Component {
     this.state = {
       blurClass: 'row blurred',
       blurBtn: 'Show Chat',
-      blurMsg: 'Twitch channel chats can be a scary place. Unblur at your own risk!'
+      blurMsg: 'Twitch channel chats can be scary places. Unblur at your own risk!'
     };
   }
 
@@ -19,7 +19,7 @@ export default class MessageDisplay extends Component {
       this.setState({
         blurClass: 'row blurred',
         blurBtn: 'Show Chat',
-        blurMsg: 'Twitch channel chats can be a scary place. Unblur at your own risk!'
+        blurMsg: 'Twitch channel chats can be scary places. Unblur at your own risk!'
       });
     } else {
       this.setState({
@@ -102,18 +102,29 @@ export default class MessageDisplay extends Component {
   render() {
     return (
       <section className={`${styles}`}>
-        <button className="btn btn-danger" onClick={this.toggleBlur.bind(this)}>{this.state.blurBtn}</button><span>&nbsp;&nbsp;{this.state.blurMsg}</span>
-        <div className={this.state.blurClass}>
+        <div className="row">
+          <div className="col-sm-4">
+            <h2 className="channel-name">{this.props.channel}</h2>
+          </div>
+          <div className="col-sm-8 text-right">
+            <span>{this.state.blurMsg}&nbsp;&nbsp;</span><button className="btn btn-danger" onClick={this.toggleBlur.bind(this)}>{this.state.blurBtn}</button>
+          </div>
+        </div>
+        <div className={`row ${this.state.blurClass}`}>
           <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div className="message-ticker-user">
-              <ReactCSSTransitionGroup className="ticker-user" transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={0}>
+            <div className="ticker-user">
+              {/*<ReactCSSTransitionGroup className="ticker-user" transitionName="fade" transitionEnterTimeout={300} transitionLeaveTimeout={0}>*/}
                 {this.renderUser(this.props.msg.user.username)}
-              </ReactCSSTransitionGroup>
+              {/*</ReactCSSTransitionGroup>*/}
+              </div>
             </div>
             <div className="message-ticker-message">
-              <ReactCSSTransitionGroup className="ticker-message" transitionName="carousel" transitionEnterTimeout={300} transitionLeaveTimeout={200}>
+              <div className="ticker-message">
+              {/*<ReactCSSTransitionGroup className="ticker-message" transitionName="carousel" transitionEnterTimeout={300} transitionLeaveTimeout={200}>*/}
                 {this.renderMessage(this.props.user, this.mapMessage(this.parseMessage(this.props.msg.msg, this.props.msg.user.emotes)))}
-              </ReactCSSTransitionGroup>
+              {/*</ReactCSSTransitionGroup>*/}
+              </div>
             </div>
           </div>
         </div>
