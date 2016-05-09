@@ -16,8 +16,10 @@ export class App extends Component {
     return (
       <section>
         <Header />
-          <main className="container">
-          {this.props.children}
+          <main>
+            <div className="container">
+              {this.props.children}
+            </div>
           </main>
         <Footer />
       </section>

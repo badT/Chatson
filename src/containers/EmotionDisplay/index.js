@@ -243,51 +243,52 @@ class EmotionDisplay extends Component {
           </div>
         </div>
 
-        <section className={`graph-key dom-emo-${this.state.dominantEmo} dom-soc-${this.state.dominantSoc}`}>
-          <div className={`row splotch-row ${this.state.activeGraph === 'emotion' ? 'splotch-row-active' : ''}`}>
-            {this.renderSplotches(emoColors)}
-          </div>
-          <div className={`row splotch-row ${this.state.activeGraph === 'social' ? 'splotch-row-active' : ''}`}>
-            {this.renderSplotches(socColors)}
+        <section className="graph-main row">
+          <section className={`graph-key dom-emo-${this.state.dominantEmo} dom-soc-${this.state.dominantSoc}`}>
+            <div className={`row splotch-row ${this.state.activeGraph === 'emotion' ? 'splotch-row-active' : ''}`}>
+              {this.renderSplotches(emoColors)}
+            </div>
+            <div className={`row splotch-row ${this.state.activeGraph === 'social' ? 'splotch-row-active' : ''}`}>
+              {this.renderSplotches(socColors)}
+            </div>
+          </section>
+          
+          <div className="graph-row">
+            <div className="col-lg-12 line-graph-container">
+              <span className={`graph-explanation ${this.state.topRef ? 'visible' : ''}`}>Values above this line indicate strong emotion</span>
+              <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate weak emotion</span>
+              
+              <svg width="100%" height="400" viewBox="0 0 400 100" preserveAspectRatio="none">
+                
+                <rect className={`graph-bg ${this.state.activeGraph === 'emotion' ? 'bg-active' : ''}`} id="emo-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
+                <rect className={`graph-bg ${this.state.activeGraph === 'social' ? 'bg-active' : ''}`} id="soc-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
+
+                <path className="reference-line" d="M 0.3 25 l 399.7 0" />
+                <rect id="upper-ref" x="0" y="0" width="400" height="25" fill="#fff" className={`ref-box ${this.state.topRef ? 'visible' : ''}`} />
+
+                <path className="reference-line" d="M 0.3 50 l 399.7 0" />
+                <rect id="lower-ref" x="0" y="50" width="400" height="50" fill="#fff" className={`ref-box ${this.state.btmRef ? 'visible' : ''}`} />
+
+                <g id="line-container">
+                  <g className={`graph-lines ${this.state.activeGraph === 'emotion' ? 'lines-active' : ''}`}>
+                    {this.renderOutlines(this.state.emotionPaths)}
+                    {this.renderLines(emoColors, this.state.emotionPaths)}
+                  </g>
+                  <g className={`graph-lines ${this.state.activeGraph === 'social' ? 'lines-active' : ''}`}>
+                    {this.renderOutlines(this.state.socialPaths)}
+                    {this.renderLines(socColors, this.state.socialPaths)}
+                  </g>
+                </g>
+
+                <path id="reference-line-top" stroke="transparent" d="M 0.3 25 l 399.7 0" onMouseEnter={() => this.handleMouseEnter('top')} onMouseLeave={() => this.handleMouseLeave('top')} />
+                <path id="reference-line-btm" stroke="transparent" d="M 0.3 50 l 399.7 0" onMouseEnter={() => this.handleMouseEnter('btm')} onMouseLeave={() => this.handleMouseLeave('btm')} />
+
+              </svg>
+              <span className="x-axis-label start">30 Sec<br/>Ago</span>
+              <span className="x-axis-label end">Now</span>
+            </div>
           </div>
         </section>
-        
-        <div className="row graph-row">
-          <div className="col-lg-12 line-graph-container">
-            <span className={`graph-explanation ${this.state.topRef ? 'visible' : ''}`}>Values above this line indicate strong emotion</span>
-            <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate weak emotion</span>
-            <svg width="100%" height="400" viewBox="0 0 400 103" preserveAspectRatio="none">
-              
-              <rect className={`graph-bg ${this.state.activeGraph === 'emotion' ? 'bg-active' : ''}`} id="emo-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
-              <rect className={`graph-bg ${this.state.activeGraph === 'social' ? 'bg-active' : ''}`} id="soc-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
-
-              <path className="reference-line" d="M 0.3 25 l 399.7 0" />
-              <rect id="upper-ref" x="0" y="0" width="400" height="25" fill="#fff" className={`ref-box ${this.state.topRef ? 'visible' : ''}`} />
-
-              <path className="reference-line" d="M 0.3 50 l 399.7 0" />
-              <rect id="lower-ref" x="0" y="50" width="400" height="50" fill="#fff" className={`ref-box ${this.state.btmRef ? 'visible' : ''}`} />
-
-              <g id="line-container">
-                <g className={`graph-lines ${this.state.activeGraph === 'emotion' ? 'lines-active' : ''}`}>
-                  {this.renderOutlines(this.state.emotionPaths)}
-                  {this.renderLines(emoColors, this.state.emotionPaths)}
-                </g>
-                <g className={`graph-lines ${this.state.activeGraph === 'social' ? 'lines-active' : ''}`}>
-                  {this.renderOutlines(this.state.socialPaths)}
-                  {this.renderLines(socColors, this.state.socialPaths)}
-                </g>
-              </g>
-
-              <path id="reference-line-top" stroke="transparent" d="M 0.3 25 l 399.7 0" onMouseEnter={() => this.handleMouseEnter('top')} onMouseLeave={() => this.handleMouseLeave('top')} />
-              <path id="reference-line-btm" stroke="transparent" d="M 0.3 50 l 399.7 0" onMouseEnter={() => this.handleMouseEnter('btm')} onMouseLeave={() => this.handleMouseLeave('btm')} />
-
-              <path stroke="#ddd" fill="none" d="M 0.3 0 l 0 100 z" />
-              <path stroke="#ddd" fill="none" d="M 0.3 103 l 0 -3 l 399.4 0 l 0 3" />
-            </svg>
-            <span className="x-axis-label start">30 Sec<br/>Ago</span>
-            <span className="x-axis-label end">Now</span>
-          </div>
-        </div>
       </div>
     );
   }

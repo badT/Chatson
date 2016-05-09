@@ -1,6 +1,12 @@
 :local(.styles) {
 
   $bg-color: rgba(255,255,255,0.2);
+  $shadow: rgba(0,0,0,0.6);
+
+  margin: 0 15px;
+  @media only screen and (min-width : 768px) {
+    margin: 0;
+  }
 
   .graph-tab-holder {
     position: relative;
@@ -17,22 +23,45 @@
     display: inline-block;
     padding: 15px;
     margin: 0;
-    border-radius: 5px 5px 0 0;
+    border-radius: 3px 3px 0 0;
+    box-shadow: 1px 1px 3px $shadow inset;
     cursor: pointer;
+    background-color: #bbb;
+    transition: color 0.2s, background-color 0.2s;
+  }
+
+  .graph-tab:hover {
+    background-color: #555;
+    color: #fff;
   }
 
   .graph-tab.tab-active {
     background-color: $bg-color;
+    box-shadow: 1px 1px 3px $shadow;
     cursor: default;
+  }
+
+  .graph-tab.tab-active:hover {
+    color: inherit;
+  }
+
+  .graph-main {
+    background-color: $bg-color;
+    border-radius: 0 0 3px 3px;
+    box-shadow: 1px 1px 3px $shadow;
   }
 
   .graph-key {
     position: relative;
-    background-color: $bg-color;
+    // background-color: $bg-color;
     border-top: 2px solid #ddd;
     border-bottom: 2px solid #ddd;
-    margin: 0 -15px;
-    padding: 0 30px;
+    padding: 0 15px;
+  }
+
+  .splotches-grid {
+    margin: 0;
+    padding: 0;
   }
 
   .splotch-row {
@@ -43,8 +72,8 @@
   .splotch-row:last-of-type {
     position: absolute;
     top: 0;
-    left: 30px;
-    right: 30px;
+    left: 15px;
+    right: 15px;
   }
 
   .splotch-row.splotch-row-active {
@@ -53,6 +82,7 @@
 
   .splotch-holder {
     position: relative;
+    padding: 5px 15px;
   }
 
   .color-splotch {
@@ -109,11 +139,6 @@
     transform: translateY(-50%);
   }
 
-  .graph-row {
-    background-color: $bg-color;
-    border-radius: 0 0 5px 5px;
-  }
-
   .graph-explanation {
     display: block;
     position: absolute;
@@ -128,7 +153,11 @@
 
   .line-graph-container {
     position: relative;
-    margin: 25px 0 40px;
+    margin: 25px 0 50px;
+  }
+
+  svg {
+    box-shadow: 0 1px 2px $shadow;
   }
 
   .graph-bg {
@@ -186,20 +215,15 @@
   .x-axis-label {
     position: absolute;
     font-size: 0.8em;
+    margin-top: 3px;
     top: 100%;
   }
 
   .x-axis-label.start {
-    left: 0;
-    text-align: center;
-    transform-origin: 100% 50%;
-    transform: rotate(-90deg) translateY(-18%) translateX(25px);
+    left: 15px;
   }
 
   .x-axis-label.end {
-    right: 0;
-    text-align: center;
-    transform-origin: 100% 50%;
-    transform: rotate(-90deg) translateY(-134%) translateX(15px);
+    right: 15px;
   }
 }
