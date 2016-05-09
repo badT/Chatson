@@ -4,8 +4,10 @@ const INITIAL_STATE = { list: [], selected: null };
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_CHANNELS:
+    console.log(action.payload);
       return { ...state, list: action.payload.data.streams };
     case SET_CHANNEL:
+    console.log(action.payload);
       return { ...state, selected: action.payload.data.channel };
     case UNSET_CHANNEL:
       return { ...state, selected: action.payload };

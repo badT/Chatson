@@ -1,9 +1,10 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import ReduxPromise from 'redux-promise';
-import * as actions from '../../actions/index';
 import nock from 'nock';
 import expect from 'expect';
+
+import * as actions from '../../actions/index';
 // import axios from 'axios';
 
 const middlewares = [thunk, ReduxPromise];
@@ -44,7 +45,6 @@ describe('action creators', () => {
     return store.dispatch(actions.setChannel('someChannel'))
       .then(() => { // return of async actions
         const createdActions = store.getActions();
-        console.log(store.getState().channels.selected);
         expect(createdActions[0].type).toEqual(actions.SET_CHANNEL);
       });
   });
