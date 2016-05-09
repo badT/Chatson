@@ -54,40 +54,7 @@ class DataContainer extends Component {
         <section>
           <div className="row">
             <div className="col-lg-12">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th><h2>Emotional Attributes</h2></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <EmotionDisplay />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-        <section>
-          <div className="row">
-            <div className="col-md-6">
-              <table className="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Social Attributes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <SocialDisplay />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <EmotionDisplay />
             </div>
           </div>
         </section>

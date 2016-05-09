@@ -1,5 +1,56 @@
 :local(.styles) {
 
+  $bg-color: rgba(255,255,255,0.2);
+
+  .graph-tab-holder {
+    position: relative;
+  }
+  .graph-tab-holder:first-of-type {
+    padding-left: 0;
+  }
+
+  .graph-tab-holder:last-of-type {
+    padding-right: 0;
+  }
+
+  .graph-tab {
+    display: inline-block;
+    padding: 15px;
+    margin: 0;
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+  }
+
+  .graph-tab.tab-active {
+    background-color: $bg-color;
+    cursor: default;
+  }
+
+  .graph-key {
+    position: relative;
+    background-color: $bg-color;
+    border-top: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+    margin: 0 -15px;
+    padding: 0 30px;
+  }
+
+  .splotch-row {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .splotch-row:last-of-type {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    right: 30px;
+  }
+
+  .splotch-row.splotch-row-active {
+    opacity: 1;
+  }
+
   .splotch-holder {
     position: relative;
   }
@@ -22,19 +73,32 @@
     border: 5px solid #000;
   }
 
-  #anger-splotch {
+  .dom-soc-openness #openness-splotch,
+  .dom-soc-conscientiousness #conscientiousness-splotch,
+  .dom-soc-extraversion #extraversion-splotch,
+  .dom-soc-agreeableness #agreeableness-splotch,
+  .dom-soc-neuroticism #neuroticism-splotch {
+    border: 5px solid #000;
+  }
+
+  #anger-splotch,
+  #openness-splotch {
     background-color: #FF3F39;
   }
-  #sadness-splotch {
+  #sadness-splotch,
+  #conscientiousness-splotch {
     background-color: #2B56B2;
   }
-  #disgust-splotch {
+  #disgust-splotch,
+  #extraversion-splotch {
     background-color: #AC35B2;
   }
-  #fear-splotch {
+  #fear-splotch,
+  #agreeableness-splotch {
     background-color: #4ACC68;
   }
-  #joy-splotch {
+  #joy-splotch,
+  #neuroticism-splotch {
     background-color: #FFF348;
   }
 
@@ -43,6 +107,11 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+  }
+
+  .graph-row {
+    background-color: $bg-color;
+    border-radius: 0 0 5px 5px;
   }
 
   .graph-explanation {
@@ -59,11 +128,29 @@
 
   .line-graph-container {
     position: relative;
-    margin-bottom: 20px;
+    margin: 25px 0 40px;
+  }
+
+  .graph-bg {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .graph-bg.bg-active {
+    opacity: 1;
   }
 
   .line-graph-container path {
     stroke-width: 0.6;
+  }
+
+  .graph-lines {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .graph-lines.lines-active {
+    opacity: 1;
   }
 
   path.reference-line {
