@@ -24,14 +24,25 @@
     padding: 15px;
     margin: 0;
     border-radius: 3px 3px 0 0;
-    box-shadow: 0;
+    box-shadow: 1px 1px 3px $shadow inset;
     cursor: pointer;
+    background-color: #bbb;
+    transition: color 0.2s, background-color 0.2s;
+  }
+
+  .graph-tab:hover {
+    background-color: #555;
+    color: #fff;
   }
 
   .graph-tab.tab-active {
     background-color: $bg-color;
     box-shadow: 1px 1px 3px $shadow;
     cursor: default;
+  }
+
+  .graph-tab.tab-active:hover {
+    color: inherit;
   }
 
   .graph-main {
