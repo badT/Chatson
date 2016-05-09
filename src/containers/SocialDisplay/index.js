@@ -10,12 +10,12 @@ export class SocialDisplay extends Component {
     super(props);
     this.state = {};
   }
-
+  
   render() {
     return (
       <div className="row">
         <div className="col-lg-12 text-center">
-          <h2>Neuroticism: {this.props.social.neuroticism_big5}</h2>
+          <h2>Neuroticism:{this.props.social.neuroticism_big5}</h2>
         </div>
       </div>
     );

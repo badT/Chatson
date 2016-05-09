@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import DocumentMeta from 'react-document-meta';
+import { TopChannels } from '../../containers/TopChannels';
+
 
 /* component styles */
 import { styles } from './styles.scss';
@@ -24,6 +26,7 @@ export class Home extends Component {
         <div className="home-container">
           <p>Welcome to the Twitch Chat Visualizer. Select one of the currently active channels to see an analysis of its chat activity.</p>
         </div>
+        <TopChannels />
       </section>
     );
   }
