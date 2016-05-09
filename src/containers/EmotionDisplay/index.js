@@ -257,7 +257,8 @@ class EmotionDisplay extends Component {
             <div className="col-lg-12 line-graph-container">
               <span className={`graph-explanation ${this.state.topRef ? 'visible' : ''}`}>Values above this line indicate strong emotion</span>
               <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate weak emotion</span>
-              <svg width="100%" height="400" viewBox="0 0 400 103" preserveAspectRatio="none">
+              
+              <svg width="100%" height="400" viewBox="0 0 400 100" preserveAspectRatio="none">
                 
                 <rect className={`graph-bg ${this.state.activeGraph === 'emotion' ? 'bg-active' : ''}`} id="emo-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
                 <rect className={`graph-bg ${this.state.activeGraph === 'social' ? 'bg-active' : ''}`} id="soc-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
@@ -282,8 +283,6 @@ class EmotionDisplay extends Component {
                 <path id="reference-line-top" stroke="transparent" d="M 0.3 25 l 399.7 0" onMouseEnter={() => this.handleMouseEnter('top')} onMouseLeave={() => this.handleMouseLeave('top')} />
                 <path id="reference-line-btm" stroke="transparent" d="M 0.3 50 l 399.7 0" onMouseEnter={() => this.handleMouseEnter('btm')} onMouseLeave={() => this.handleMouseLeave('btm')} />
 
-                <path stroke="#ddd" fill="none" d="M 0.3 0 l 0 100 z" />
-                <path stroke="#ddd" fill="none" d="M 0.3 103 l 0 -3 l 399.4 0 l 0 3" />
               </svg>
               <span className="x-axis-label start">30 Sec<br/>Ago</span>
               <span className="x-axis-label end">Now</span>

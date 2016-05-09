@@ -142,7 +142,11 @@
 
   .line-graph-container {
     position: relative;
-    margin: 25px 0 40px;
+    margin: 25px 0 50px;
+  }
+
+  svg {
+    box-shadow: 0 1px 2px $shadow;
   }
 
   .graph-bg {
@@ -200,20 +204,15 @@
   .x-axis-label {
     position: absolute;
     font-size: 0.8em;
+    margin-top: 3px;
     top: 100%;
   }
 
   .x-axis-label.start {
-    left: 0;
-    text-align: center;
-    transform-origin: 100% 50%;
-    transform: rotate(-90deg) translateY(-18%) translateX(25px);
+    left: 15px;
   }
 
   .x-axis-label.end {
-    right: 0;
-    text-align: center;
-    transform-origin: 100% 50%;
-    transform: rotate(-90deg) translateY(-134%) translateX(15px);
+    right: 15px;
   }
 }
