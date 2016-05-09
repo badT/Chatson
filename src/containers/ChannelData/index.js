@@ -5,6 +5,9 @@ import { bindActionCreators } from 'redux';
 import Chart from '../../components/Chart/index';
 import { getTone } from '../../actions/index';
 
+/* component styles */
+import { styles } from './styles.scss';
+
 class ChannelData extends Component {
 
   constructor(props) {
@@ -120,58 +123,28 @@ class ChannelData extends Component {
 
   render() {
     return (
-      <section>
+      <section className={`${styles}`}>
         <div className="row">
           <div className="col-md-4 col-md-push-8">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th>Average message length: {Math.round(this.state.avgLength)}</th>
-                </tr>
-                <tr>
-                  <th>Last message length: {this.state.lastMsg.length}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><Chart data={this.state.msgLengthArray} color="blue" limit={200} /></td>
-                </tr>
-              </tbody>
-            </table>
+            <section className="msg-data">
+              <h5>Average message length: {Math.round(this.state.avgLength)}</h5>
+              <h5>Last message length: {this.state.lastMsg.length}</h5>
+              <div className="msg-chart"><Chart data={this.state.msgLengthArray} color="blue" limit={200} /></div>
+            </section>
           </div>
           <div className="col-md-4">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th>Average Messages per Second: {(this.state.avgMsgPerSec).toFixed(2)}</th>
-                </tr>
-                <tr>
-                  <th>Last second's total: {this.state.lastSecTotal}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><Chart data={this.state.msgPerSecArray} color="green" limit={60} /></td>
-                </tr>
-              </tbody>
-            </table>
+            <section className="msg-data">
+              <h5>Average Messages per Second: {(this.state.avgMsgPerSec).toFixed(2)}</h5>
+              <h5>Last second's total: {this.state.lastSecTotal}</h5>
+              <div className="msg-chart"><Chart data={this.state.msgPerSecArray} color="green" limit={60} /></div>
+            </section>
           </div>
           <div className="col-md-4 col-md-pull-8">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th>Average Messages per Minute: {Math.round(this.state.avgMsgPerMin)}</th>
-                </tr>
-                <tr>
-                  <th>Last minute's total: {this.state.lastMinTotal}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><Chart data={this.state.msgPerMinArray} color="red" limit={60} /></td>
-                </tr>
-              </tbody>
-            </table>
+            <section className="msg-data">
+              <h5>Average Messages per Minute: {Math.round(this.state.avgMsgPerMin)}</h5>
+              <h5>Last minute's total: {this.state.lastMinTotal}</h5>
+              <div className="msg-chart"><Chart data={this.state.msgPerMinArray} color="red" limit={60} /></div>
+            </section>
           </div>
         </div>
         <div className="row">
