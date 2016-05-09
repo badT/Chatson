@@ -1,11 +1,14 @@
 :local(.styles) {
 
-  z-index: 1;
+  $shadow: rgba(0,0,0,0.6);
+
+  z-index: 2;
   height: 120px;
   width: 100%;
   padding: 20px 0;
   opacity: 1;
-  background: rgba(0, 0, 0, .8);
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 1px 3px $shadow;
 
   .logo {
     color: #fff;
