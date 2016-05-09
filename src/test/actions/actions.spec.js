@@ -4,7 +4,7 @@ import ReduxPromise from 'redux-promise';
 import * as actions from '../../actions/index';
 import nock from 'nock';
 import expect from 'expect';
-import axios from 'axios';
+// import axios from 'axios';
 
 const middlewares = [thunk, ReduxPromise];
 const mockStore = configureMockStore(middlewares);
@@ -15,41 +15,54 @@ describe('action creators', () => {
   });
 
   it('creates GET_CHANNELS action when getChannels is called', () => {
-    nock()
-      .get('https://api.twitch.tv/kraken/streams?api_version=3&limit=25')
-      .reply(200, { body: { channels: ['blumpkinBros', 'blumpkinPals'] } });
-      console.log('here');
-    const expectedActions = [
-      { type: actions.GET_CHANNELS, body: { channels: ['blumpkinBros', 'blumpkinPals'] } },
-    ];
-    const store = mockStore({ channels: [] });
+
+    const store = mockStore({
+      channels: {
+        list: [],
+        selected: null,
+      },
+      tone: {},
+    });
 
     return store.dispatch(actions.getChannels())
       .then(() => { // return of async actions
-        expect(store.getActions()).toEqual(expectedActions);
+        const createdActions = store.getActions();
+        expect(createdActions[0].type).toEqual(actions.GET_CHANNELS);
+      });
+  });
+
+  it('creates SET_CHANNEL action when setChannel is called', () => {
+
+    const store = mockStore({
+      channels: {
+        list: [],
+        selected: null,
+      },
+      tone: {},
+    });
+
+    return store.dispatch(actions.setChannel('someChannel'))
+      .then(() => { // return of async actions
+        const createdActions = store.getActions();
+        console.log(store.getState().channels.selected);
+        expect(createdActions[0].type).toEqual(actions.SET_CHANNEL);
+      });
+  });
+
+  it('creates GET_TONE action when getTone is called', () => {
+
+    const store = mockStore({
+      channels: {
+        list: [],
+        selected: null,
+      },
+      tone: {},
+    });
+
+    return store.dispatch(actions.getTone())
+      .then(() => { // return of async actions
+        const createdActions = store.getActions();
+        expect(createdActions[0].type).toEqual(actions.GET_TONE);
       });
   });
 });
-
-// describe('async actions', () => {
-//   afterEach(() => {
-//     nock.cleanAll();
-//   });
-//
-//   it('creates FETCH_TODOS_SUCCESS when fetching todos has been done', () => {
-//     nock('http://example.com/')
-//       .get('/todos')
-//       .reply(200, { body: { todos: ['do something'] } });
-//
-//     const expectedActions = [
-//       { type: types.FETCH_TODOS_REQUEST },
-//       { type: types.FETCH_TODOS_SUCCESS, body: { todos: ['do something'] } },
-//     ];
-//     const store = mockStore({ todos: [] });
-//
-//     return store.dispatch(actions.fetchTodos())
-//       .then(() => { // return of async actions
-//         expect(store.getActions()).toEqual(expectedActions);
-//       });
-//   });
-// });
