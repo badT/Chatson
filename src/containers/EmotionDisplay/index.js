@@ -14,13 +14,22 @@ const emoColors = {
   joy: '#FFF348',
 };
 
+const socColors = {
+  openness: '#FF3F39',
+  conscientiousness: '#2B56B2',
+  extraversion: '#AC35B2',
+  agreeableness: '#4ACC68',
+  neuroticism: '#FFF348',
+};
+
 class EmotionDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      emotionData: [],
       lastAnger: 0,
       xCoord: 440,
+      activeGraph: 'emotion',
+      emotionData: [],
       emotionPaths: null,
       emotionKey: {
         anger: 0.15,
@@ -30,6 +39,16 @@ class EmotionDisplay extends Component {
         joy: 0.15,
       },
       dominantEmo: '',
+      socialData: [],
+      socialPaths: null,
+      socialKey: {
+        openness: 0.15,
+        conscientiousness: 0.15,
+        extraversion: 0.15,
+        agreeableness: 0.15,
+        neuroticism: 0.15,
+      },
+      dominantSoc: '',
       topRef: false,
       btmRef: false,
     };
@@ -46,46 +65,67 @@ class EmotionDisplay extends Component {
   componentWillReceiveProps(props) {
     const currentAnger = props.emotion.anger;
     if (currentAnger !== this.state.lastAnger) {
+      const altSocialKeys = {};
+      delete props.social.id;
+      for (let key in props.social) {
+        altSocialKeys[key.split('_')[0]] = props.social[key];
+      }
+
       const newEmotionData = this.state.emotionData.concat([props.emotion]);
+      const newSocialData = this.state.socialData.concat([altSocialKeys]);
 
       if (newEmotionData.length > 30) {
         newEmotionData.shift();
+        newSocialData.shift();
       }
 
-      const transformedData = this.transformEmotionData(newEmotionData, this.state.xCoord);
+      const emoData = this.transformData(newEmotionData, this.state.xCoord);
+      const socData = this.transformData(newSocialData, this.state.xCoord);
 
       this.setState({
-        emotionData: newEmotionData,
         lastAnger: currentAnger,
         xCoord: this.state.xCoord + 40,
-        emotionPaths: transformedData.paths,
-        emotionKey: transformedData.avgs,
-        dominantEmo: transformedData.diff.emo,
+        emotionData: newEmotionData,
+        emotionPaths: emoData.paths,
+        emotionKey: emoData.avgs,
+        dominantEmo: emoData.diff.key,
+        socialData: newSocialData,
+        socialPaths: socData.paths,
+        socialKey: socData.avgs,
+        dominantSoc: socData.diff.key,
       });
 
       TweenMax.to('#line-container', 3, { x: '-=40', ease: Power0.easeNone });
+
       TweenMax.to('#anger-splotch', 0.5, { scale: this.state.emotionKey.anger });
       TweenMax.to('#sadness-splotch', 0.5, { scale: this.state.emotionKey.sadness });
       TweenMax.to('#joy-splotch', 0.5, { scale: this.state.emotionKey.joy });
       TweenMax.to('#fear-splotch', 0.5, { scale: this.state.emotionKey.fear });
       TweenMax.to('#disgust-splotch', 0.5, { scale: this.state.emotionKey.disgust });
 
-      TweenMax.to('#graph-bg', 0.5, { fill: emoColors[transformedData.diff.emo], fillOpacity: (transformedData.diff.magnitude) })
+      TweenMax.to('#openness-splotch', 0.5, { scale: this.state.socialKey.openness });
+      TweenMax.to('#conscientiousness-splotch', 0.5, { scale: this.state.socialKey.conscientiousness });
+      TweenMax.to('#extraversion-splotch', 0.5, { scale: this.state.socialKey.extraversion });
+      TweenMax.to('#agreeableness-splotch', 0.5, { scale: this.state.socialKey.agreeableness });
+      TweenMax.to('#neuroticism-splotch', 0.5, { scale: this.state.socialKey.neuroticism });
+
+      TweenMax.to('#emo-graph-bg', 0.5, { fill: emoColors[emoData.diff.key], fillOpacity: (emoData.diff.magnitude) });
+      TweenMax.to('#soc-graph-bg', 0.5, { fill: socColors[socData.diff.key], fillOpacity: (socData.diff.magnitude) });
     }
   }
 
-  transformEmotionData(emotionData, xCoord) {
-    if (emotionData.length === 0) return;
+  transformData(data, xCoord) {
+    if (data.length === 0) return;
 
-    const emos = Object.keys(emotionData[0]).reduce((list, emo) => {
-      list[emo] = [];
+    const readings = Object.keys(data[0]).reduce((list, reading) => {
+      list[reading] = [];
       return list;
     }, {});
 
-    emotionData.forEach(datum => {
-      for (let emo in datum) {
-        if (datum.hasOwnProperty(emo)) {
-          emos[emo].push(datum[emo]);
+    data.forEach(datum => {
+      for (let key in datum) {
+        if (datum.hasOwnProperty(key)) {
+          readings[key].push(datum[key]);
         }
       }
     });
@@ -95,10 +135,10 @@ class EmotionDisplay extends Component {
     const avgs = {};
     const avgDiff = [];
 
-    for (let emo in emos) {
-      if (emo === 'id') continue;
-      if (emos.hasOwnProperty(emo)) {
-        transformed[emo] = emos[emo].reduceRight((res, reading, i, coll) => {
+    for (let key in readings) {
+      if (key === 'id') continue;
+      if (readings.hasOwnProperty(key)) {
+        transformed[key] = readings[key].reduceRight((res, reading, i, coll) => {
           if (i === coll.length - 1) {
             res.path += `${res.x} ${100 - reading}`;
           } else {
@@ -115,38 +155,57 @@ class EmotionDisplay extends Component {
       }
     }
 
-    for (let emo in transformed) {
-      if (transformed.hasOwnProperty(emo)) {
-        paths[emo] = transformed[emo].path;
-        avgs[emo] = transformed[emo].avg;
-        avgDiff.push({ emo: emo, avg: avgs[emo] });
-        avgs[emo] = ((Math.round(avgs[emo] * 100) / 100) * 0.0085) + 0.15;
+    for (let key in transformed) {
+      if (transformed.hasOwnProperty(key)) {
+        paths[key] = transformed[key].path;
+        avgs[key] = transformed[key].avg;
+        avgDiff.push({ key: key, avg: avgs[key] });
+        avgs[key] = ((Math.round(avgs[key] * 100) / 100) * 0.0085) + 0.15;
       }
     }
 
     avgDiff.sort((a, b) => b.avg - a.avg);
-    const diff = { emo: avgDiff[0].emo, magnitude: (avgDiff[0].avg - avgDiff[1].avg) / 100 };
+    const diff = { key: avgDiff[0].key, magnitude: (avgDiff[0].avg - avgDiff[1].avg) / 100 };
 
     return { paths, avgs, diff };
   }
 
-  renderLines(paths) {
-    if (!paths) return;
+  renderSplotches(graphKey) {
+    if (!graphKey) return;
+    const splotches = [];
+    for (let splotch in graphKey) {
+      splotches.push(<div key={splotch} className="block-grid-item splotch-holder">
+        <span id={`${splotch}-splotch`} className="color-splotch"></span>
+        <span className="splotch-label">{splotch}</span>
+      </div>);
+    }
     return (
-      <g>
-        <path stroke="#FFF" className="stroke-outline" fill="none" d={paths.anger} />
-        <path stroke="#FFF" className="stroke-outline" fill="none" d={paths.disgust} />
-        <path stroke="#FFF" className="stroke-outline" fill="none" d={paths.fear} />
-        <path stroke="#FFF" className="stroke-outline" fill="none" d={paths.joy} />
-        <path stroke="#FFF" className="stroke-outline" fill="none" d={paths.sadness} />
-
-        <path stroke={emoColors.anger} fill="none" d={paths.anger} />
-        <path stroke={emoColors.disgust} fill="none" d={paths.disgust} />
-        <path stroke={emoColors.fear} fill="none" d={paths.fear} />
-        <path stroke={emoColors.joy} fill="none" d={paths.joy} />
-        <path stroke={emoColors.sadness} fill="none" d={paths.sadness} />
-      </g>
+      <div className="block-grid-md-5 block-grid-sm-3 block-grid-xs-2 splotches-grid">
+        {splotches}
+      </div>
     );
+  }
+
+  renderLines(colors, paths) {
+    if (!paths) return;
+    const lines = [];
+    for (let key in paths) {
+      lines.push(<path key={key} stroke={colors[key]} fill="none" d={paths[key]} />)
+    }
+    return (
+      <g>{lines}</g>
+    );
+  }
+
+  renderOutlines(paths) {
+    if (!paths) return;
+    const outlines = [];
+    for (let key in paths) {
+      outlines.push(<path key={key} stroke="#FFF" className="stroke-outline" fill="none" d={paths[key]} />);
+    }
+    return (
+      <g>{outlines}</g>
+    )
   }
 
   handleMouseEnter(line) {
@@ -159,39 +218,48 @@ class EmotionDisplay extends Component {
     if (line === 'btm') this.setState({ btmRef: false });
   }
 
+  toggleGraph(graph) {
+    if (graph === 'social' && this.state.activeGraph === 'emotion') this.setState({ activeGraph: 'social' });
+    if (graph === 'emotion' && this.state.activeGraph === 'social') this.setState({ activeGraph: 'emotion' });
+  }
+
   render() {
     return (
       <div className={`${styles}`}>
-        <div className={`row dom-emo-${this.state.dominantEmo}`}>
-          <div className="block-grid-md-5 block-grid-sm-3 block-grid-xs-2">
-            <div className="block-grid-item splotch-holder">
-              <span id="anger-splotch" className="color-splotch"></span>
-              <span className="splotch-label">Anger</span>
-            </div>
-            <div className="block-grid-item splotch-holder">
-              <span id="sadness-splotch" className="color-splotch"></span>
-              <span className="splotch-label">Sadness</span>
-            </div>
-            <div className="block-grid-item splotch-holder">
-              <span id="joy-splotch" className="color-splotch"></span>
-              <span className="splotch-label">Joy</span>
-            </div>
-            <div className="block-grid-item splotch-holder">
-              <span id="fear-splotch" className="color-splotch"></span>
-              <span className="splotch-label">Fear</span>
-            </div>
-            <div className="block-grid-item splotch-holder">
-              <span id="disgust-splotch" className="color-splotch"></span>
-              <span className="splotch-label">Disgust</span>
-            </div>
+        <div className="row">
+          <div className="col-xs-6 graph-tab-holder">
+            <h2 
+              className={`graph-tab ${this.state.activeGraph === 'emotion' ? 'tab-active' : ''}`}
+              onClick={() => this.toggleGraph('emotion')}>
+                Channel Emotions
+            </h2>
+          </div>
+          <div className="col-xs-6 text-right graph-tab-holder">
+            <h2 
+              className={`graph-tab ${this.state.activeGraph === 'social' ? 'tab-active' : ''}`}
+              onClick={() => this.toggleGraph('social')}>
+                Social Attributes
+            </h2>
           </div>
         </div>
-        <div className="row">
+
+        <section className={`graph-key dom-emo-${this.state.dominantEmo} dom-soc-${this.state.dominantSoc}`}>
+          <div className={`row splotch-row ${this.state.activeGraph === 'emotion' ? 'splotch-row-active' : ''}`}>
+            {this.renderSplotches(emoColors)}
+          </div>
+          <div className={`row splotch-row ${this.state.activeGraph === 'social' ? 'splotch-row-active' : ''}`}>
+            {this.renderSplotches(socColors)}
+          </div>
+        </section>
+        
+        <div className="row graph-row">
           <div className="col-lg-12 line-graph-container">
             <span className={`graph-explanation ${this.state.topRef ? 'visible' : ''}`}>Values above this line indicate strong emotion</span>
             <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate weak emotion</span>
             <svg width="100%" height="400" viewBox="0 0 400 103" preserveAspectRatio="none">
-              <rect id="graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
+              
+              <rect className={`graph-bg ${this.state.activeGraph === 'emotion' ? 'bg-active' : ''}`} id="emo-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
+              <rect className={`graph-bg ${this.state.activeGraph === 'social' ? 'bg-active' : ''}`} id="soc-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
 
               <path className="reference-line" d="M 0.3 25 l 399.7 0" />
               <rect id="upper-ref" x="0" y="0" width="400" height="25" fill="#fff" className={`ref-box ${this.state.topRef ? 'visible' : ''}`} />
@@ -200,7 +268,14 @@ class EmotionDisplay extends Component {
               <rect id="lower-ref" x="0" y="50" width="400" height="50" fill="#fff" className={`ref-box ${this.state.btmRef ? 'visible' : ''}`} />
 
               <g id="line-container">
-                {this.renderLines(this.state.emotionPaths)}
+                <g className={`graph-lines ${this.state.activeGraph === 'emotion' ? 'lines-active' : ''}`}>
+                  {this.renderOutlines(this.state.emotionPaths)}
+                  {this.renderLines(emoColors, this.state.emotionPaths)}
+                </g>
+                <g className={`graph-lines ${this.state.activeGraph === 'social' ? 'lines-active' : ''}`}>
+                  {this.renderOutlines(this.state.socialPaths)}
+                  {this.renderLines(socColors, this.state.socialPaths)}
+                </g>
               </g>
 
               <path id="reference-line-top" stroke="transparent" d="M 0.3 25 l 399.7 0" onMouseEnter={() => this.handleMouseEnter('top')} onMouseLeave={() => this.handleMouseLeave('top')} />
@@ -222,10 +297,12 @@ function mapStateToProps({ tone }) {
   if (tone.toneData) {
     return {
       emotion: tone.toneData.emotion,
+      social: tone.toneData.social,
     };
   }
   return {
     emotion: tone,
+    social: tone,
   };
 }
 
