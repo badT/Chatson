@@ -102,7 +102,7 @@ export default class MessageDisplay extends Component {
   render() {
     return (
       <section className={`${styles}`}>
-        <div className="row">
+        <div className="row message-top-row">
           <div className="col-sm-4">
             <h2 className="channel-name">{this.props.channel}</h2>
           </div>
