@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import MessageDisplay from '../MessageDisplay';
 import ChannelData from '../ChannelData';
 import EmotionDisplay from '../EmotionDisplay';
-import SocialDisplay from '../SocialDisplay';
 
 class DataContainer extends Component {
   constructor(props) {
