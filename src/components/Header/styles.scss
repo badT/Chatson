@@ -3,7 +3,8 @@
   $shadow: rgba(0,0,0,0.6);
 
   z-index: 2;
-  height: 120px;
+  height: 62px;
+  position: fixed;
   width: 100%;
   padding: 20px 0;
   opacity: 1;
@@ -16,10 +17,11 @@
   }
 
   .logo h1 {
-    margin: 0;
+    margin: 0 0 0 40px;
+    display: inline-block;
     font-family: 'Noto Sans', sans-serif;
     font-weight: 700;
-    font-size: 2.2em;
+    font-size: 1.5em;
   }
 
   .btn-group {
@@ -27,15 +29,9 @@
   }
 
   @media only screen and (min-width : 768px) {
-    position: fixed;
     height: 74px;
-
-    .channel-dropdown-container {
-      text-align: right;
-    }
-
-    .btn-group {
-      margin-top: 0;
+    .logo h1 {
+      font-size: 2.2em;
     }
   }
 }
