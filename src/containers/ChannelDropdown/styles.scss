@@ -1,33 +1,85 @@
 :local(.styles) {
 
-  .dropdown-menu {
-    padding: 0;
-  }
+  $bg-color: rgba(255,255,255,0.2);
+  $shadow: rgba(0,0,0,0.6);
 
-  .dropdown-menu-item {
+  display: inline-block;
+
+  .burger {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     cursor: pointer;
-    padding: 4px 2px;
   }
 
-  .dropdown-menu-item:first-of-type {
-    border-radius: 3px 3px 0 0;
+  .burger-line {
+    stroke: #ffffff;
+    stroke-width: 2;
+    stroke-linecap: round;
   }
 
-  .dropdown-menu-item:last-of-type {
-    border-radius: 0 0 3px 3px;
+  .drawer-holder {
+    position: fixed;
+    width: 100%;
+    top: 62px;
+    left: -9999px;
+    height: 100%;
+    background-color: rgba(0,0,0,0);
+    z-index: 1;
   }
 
-  .dropdown-menu-item:hover {
-    background: gray;
-    color: white;
-    .dropdown-menu-link {
-      background: gray;
-      color: white;
+  .drawer-holder.drawer-open {
+    left: 0;
+  }
+
+  .drawer {
+    position: fixed;
+    overflow-y: scroll;
+    left: 0;
+    top: 63px;
+    bottom: 0;
+    background-color: #bbb;
+    transform: translateX(-101%);
+    padding: 15px 30px;
+    box-shadow: 2px 0 4px $shadow;
+  }
+
+  .drawer-link {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #bbb;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px $shadow inset;
+    transition: color 0.2s, background-color 0.2s;
+  }
+
+  .drawer-link:hover {
+    background-color: #555;
+    color: #fff;
+  }
+
+  .drawer-link.drawer-link-active {
+    background-color: $bg-color;
+    box-shadow: 1px 1px 3px $shadow;
+    color: inherit;
+    cursor: default;
+  }
+
+  @media only screen and (min-width : 768px) {
+    .drawer-holder {
+      top: 74px;
     }
-  }
 
-  .dropdown-menu-link {
-    cursor: pointer;
+    .drawer {
+      top: 75px;
+    }
   }
 
 }
