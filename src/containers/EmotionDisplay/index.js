@@ -14,12 +14,28 @@ const emoColors = {
   joy: '#FFF348',
 };
 
+const emoDesc = {
+  anger: 'anger',
+  sadness: 'sadness',
+  disgust: 'disgust',
+  fear: 'fear',
+  joy: 'joy',
+};
+
 const socColors = {
   openness: '#FF3F39',
   conscientiousness: '#2B56B2',
   extraversion: '#AC35B2',
   agreeableness: '#4ACC68',
   neuroticism: '#FFF348',
+};
+
+const socDesc = {
+  openness: 'openness',
+  conscientiousness: 'conscientiousness',
+  extraversion: 'extraversion',
+  agreeableness: 'agreeableness',
+  neuroticism: 'neuroticism',
 };
 
 class EmotionDisplay extends Component {
@@ -170,13 +186,18 @@ class EmotionDisplay extends Component {
     return { paths, avgs, diff };
   }
 
-  renderSplotches(graphKey) {
+  renderSplotches(graphKey, descriptions) {
     if (!graphKey) return;
     const splotches = [];
     for (let splotch in graphKey) {
       splotches.push(<div key={splotch} className="block-grid-item splotch-holder">
         <span id={`${splotch}-splotch`} className="color-splotch"></span>
-        <span className="splotch-label">{splotch}</span>
+        <span className="splotch-label">
+          {splotch}
+          <span className="splotch-label-tooltip">
+            {descriptions[splotch]}
+          </span>
+        </span>
       </div>);
     }
     return (
@@ -227,14 +248,12 @@ class EmotionDisplay extends Component {
     return (
       <div className={`${styles}`}>
         <div className="row">
-          <div className="col-xs-6 graph-tab-holder">
+          <div className="col-xs-12 graph-tab-holder">
             <h2 
               className={`graph-tab ${this.state.activeGraph === 'emotion' ? 'tab-active' : ''}`}
               onClick={() => this.toggleGraph('emotion')}>
                 Channel Emotions
             </h2>
-          </div>
-          <div className="col-xs-6 text-right graph-tab-holder">
             <h2 
               className={`graph-tab ${this.state.activeGraph === 'social' ? 'tab-active' : ''}`}
               onClick={() => this.toggleGraph('social')}>
@@ -246,10 +265,10 @@ class EmotionDisplay extends Component {
         <section className="graph-main row">
           <section className={`graph-key dom-emo-${this.state.dominantEmo} dom-soc-${this.state.dominantSoc}`}>
             <div className={`row splotch-row ${this.state.activeGraph === 'emotion' ? 'splotch-row-active' : ''}`}>
-              {this.renderSplotches(emoColors)}
+              {this.renderSplotches(emoColors, emoDesc)}
             </div>
             <div className={`row splotch-row ${this.state.activeGraph === 'social' ? 'splotch-row-active' : ''}`}>
-              {this.renderSplotches(socColors)}
+              {this.renderSplotches(socColors, socDesc)}
             </div>
           </section>
           
