@@ -15,11 +15,11 @@ const emoColors = {
 };
 
 const emoDesc = {
-  anger: 'anger',
-  sadness: 'sadness',
-  disgust: 'disgust',
-  fear: 'fear',
-  joy: 'joy',
+  anger: 'Anger',
+  sadness: 'Sadness',
+  disgust: 'Disgust',
+  fear: 'Fear',
+  joy: 'Joy',
 };
 
 const socColors = {
@@ -186,6 +186,10 @@ class EmotionDisplay extends Component {
     return { paths, avgs, diff };
   }
 
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   renderSplotches(graphKey, descriptions) {
     if (!graphKey) return;
     const splotches = [];
@@ -193,7 +197,7 @@ class EmotionDisplay extends Component {
       splotches.push(<div key={splotch} className="block-grid-item splotch-holder">
         <span id={`${splotch}-splotch`} className="color-splotch"></span>
         <span className="splotch-label">
-          {splotch}
+          {this.capitalizeFirstLetter(splotch)}
           <span className="splotch-label-tooltip">
             {descriptions[splotch]}
           </span>
@@ -249,12 +253,12 @@ class EmotionDisplay extends Component {
       <div className={`${styles}`}>
         <div className="row">
           <div className="col-xs-12 graph-tab-holder">
-            <h2 
+            <h2
               className={`graph-tab ${this.state.activeGraph === 'emotion' ? 'tab-active' : ''}`}
               onClick={() => this.toggleGraph('emotion')}>
                 Channel Emotions
             </h2>
-            <h2 
+            <h2
               className={`graph-tab ${this.state.activeGraph === 'social' ? 'tab-active' : ''}`}
               onClick={() => this.toggleGraph('social')}>
                 Social Attributes
@@ -271,14 +275,14 @@ class EmotionDisplay extends Component {
               {this.renderSplotches(socColors, socDesc)}
             </div>
           </section>
-          
+
           <div className="graph-row">
             <div className="col-lg-12 line-graph-container">
               <span className={`graph-explanation ${this.state.topRef ? 'visible' : ''}`}>Values above this line indicate strong emotion</span>
               <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate weak emotion</span>
-              
+
               <svg width="100%" height="400" viewBox="0 0 400 100" preserveAspectRatio="none">
-                
+
                 <rect className={`graph-bg ${this.state.activeGraph === 'emotion' ? 'bg-active' : ''}`} id="emo-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
                 <rect className={`graph-bg ${this.state.activeGraph === 'social' ? 'bg-active' : ''}`} id="soc-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
 
