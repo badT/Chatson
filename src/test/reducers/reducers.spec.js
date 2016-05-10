@@ -1,14 +1,8 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import ReduxPromise from 'redux-promise';
 import expect from 'expect';
 
 import * as actions from '../../actions/index';
 import reducerTone from '../../reducers/reducerTone';
 import reducerChannels from '../../reducers/reducerChannels';
-
-const middlewares = [thunk, ReduxPromise];
-const mockStore = configureMockStore(middlewares);
 
 const initialToneState = {};
 
