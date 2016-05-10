@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getChannels, setChannel } from '../../actions/index';
+import { getChannels, setChannel, unsetChannel } from '../../actions/index';
 import { Link } from 'react-router';
 
 /* component styles */
@@ -73,6 +73,7 @@ class ChannelDropdown extends Component {
     if (this.state.drawerOpen) {
       this.toggleDrawer();
     }
+    this.props.unsetChannel();
   }
 
   renderChannels(channelData) {
@@ -118,7 +119,7 @@ class ChannelDropdown extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getChannels, setChannel }, dispatch);
+  return bindActionCreators({ getChannels, setChannel, unsetChannel }, dispatch);
 }
 
 function mapStateToProps({ channels }) {

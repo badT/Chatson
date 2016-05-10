@@ -31,11 +31,11 @@ const socColors = {
 };
 
 const socDesc = {
-  openness: 'openness',
-  conscientiousness: 'conscientiousness',
-  extraversion: 'extraversion',
-  agreeableness: 'agreeableness',
-  neuroticism: 'neuroticism',
+  openness: 'Being open to experiencing a wide variety of activities',
+  conscientiousness: 'Tending to act in an organized or thoughtful manner',
+  extraversion: 'Tending to direct concerns outward',
+  agreeableness: 'Being friendly, cooperative, and warm toward others',
+  neuroticism: 'Characterized by anxiety, moodiness, and worry',
 };
 
 class EmotionDisplay extends Component {
@@ -113,17 +113,17 @@ class EmotionDisplay extends Component {
 
       TweenMax.to('#line-container', 3, { x: '-=40', ease: Power0.easeNone });
 
-      TweenMax.to('#anger-splotch', 0.5, { scale: this.state.emotionKey.anger });
-      TweenMax.to('#sadness-splotch', 0.5, { scale: this.state.emotionKey.sadness });
-      TweenMax.to('#joy-splotch', 0.5, { scale: this.state.emotionKey.joy });
-      TweenMax.to('#fear-splotch', 0.5, { scale: this.state.emotionKey.fear });
-      TweenMax.to('#disgust-splotch', 0.5, { scale: this.state.emotionKey.disgust });
+      TweenMax.to('#anger-splotch', 0.5, { scale: emoData.avgs.anger });
+      TweenMax.to('#sadness-splotch', 0.5, { scale: emoData.avgs.sadness });
+      TweenMax.to('#joy-splotch', 0.5, { scale: emoData.avgs.joy });
+      TweenMax.to('#fear-splotch', 0.5, { scale: emoData.avgs.fear });
+      TweenMax.to('#disgust-splotch', 0.5, { scale: emoData.avgs.disgust });
 
-      TweenMax.to('#openness-splotch', 0.5, { scale: this.state.socialKey.openness });
-      TweenMax.to('#conscientiousness-splotch', 0.5, { scale: this.state.socialKey.conscientiousness });
-      TweenMax.to('#extraversion-splotch', 0.5, { scale: this.state.socialKey.extraversion });
-      TweenMax.to('#agreeableness-splotch', 0.5, { scale: this.state.socialKey.agreeableness });
-      TweenMax.to('#neuroticism-splotch', 0.5, { scale: this.state.socialKey.neuroticism });
+      TweenMax.to('#openness-splotch', 0.5, { scale: socData.avgs.openness });
+      TweenMax.to('#conscientiousness-splotch', 0.5, { scale: socData.avgs.conscientiousness });
+      TweenMax.to('#extraversion-splotch', 0.5, { scale: socData.avgs.extraversion });
+      TweenMax.to('#agreeableness-splotch', 0.5, { scale: socData.avgs.agreeableness });
+      TweenMax.to('#neuroticism-splotch', 0.5, { scale: socData.avgs.neuroticism });
 
       TweenMax.to('#emo-graph-bg', 0.5, { fill: emoColors[emoData.diff.key], fillOpacity: (emoData.diff.magnitude) });
       TweenMax.to('#soc-graph-bg', 0.5, { fill: socColors[socData.diff.key], fillOpacity: (socData.diff.magnitude) });

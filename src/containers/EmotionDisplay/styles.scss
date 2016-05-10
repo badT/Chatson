@@ -18,6 +18,7 @@
   .graph-tab {
     display: inline-block;
     padding: 15px;
+    font-size: 1em;
     margin: 0;
     border-radius: 3px 3px 0 0;
     box-shadow: 1px 1px 3px $shadow inset;
@@ -25,6 +26,18 @@
     background-color: #bbb;
     transition: color 0.2s, background-color 0.2s;
   }
+
+  @media only screen and (min-width : 480px) {
+    .graph-tab {
+      font-size: 1.5em;
+    }
+  }
+  @media only screen and (min-width : 768px) {
+    .graph-tab {
+      font-size: 30px;
+    }
+  }
+
 
   .graph-tab:hover {
     background-color: #555;
@@ -87,12 +100,25 @@
 
   .color-splotch {
     display: inline-block;
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     transform: scale(0.15);
     border: 5px solid transparent;
     transition: border 0.3s;
+  }
+
+  @media only screen and (min-width : 480px) {
+    .color-splotch {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  @media only screen and (min-width : 768px) {
+    .color-splotch {
+      width: 60px;
+      height: 60px;
+    }
   }
 
   .dom-emo-anger #anger-splotch,
@@ -141,6 +167,7 @@
 
   .splotch-label-tooltip {
     position: absolute;
+    width: 240px;
     display: none;
     padding: 10px 15px;
     background-color: rgba(0, 0, 0, 0.8);
@@ -257,7 +284,9 @@
 
   svg {
     box-shadow: 0 1px 2px $shadow;
+    height: 200px;
   }
+
 
   .graph-bg {
     opacity: 0;
@@ -298,12 +327,35 @@
   }
 
   #line-container path.stroke-outline {
-    stroke-width: 1.2;
+    stroke-width: 1.8;
   }
 
   #line-container path {
-    stroke-width: 0.5;
+    stroke-width: 1.2;
     stroke-linecap: round;
+  }
+
+  @media only screen and (min-width : 480px) {
+    svg {
+      height: 300px;
+    }
+    #line-container path.stroke-outline {
+      stroke-width: 1.4;
+    }
+    #line-container path {
+      stroke-width: 0.8;
+    }
+  }
+  @media only screen and (min-width : 768px) {
+    svg {
+      height: 400px;
+    }
+    #line-container path.stroke-outline {
+      stroke-width: 1.2;
+    }
+    #line-container path {
+      stroke-width: 0.5;
+    }
   }
 
   path#reference-line-top,
