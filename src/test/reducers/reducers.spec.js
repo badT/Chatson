@@ -66,43 +66,62 @@ const initialChannelState = {
   selected: null,
 };
 
-const dummyChannelsData = {
+const dummySetChannelInput = {
+  type: actions.SET_CHANNEL,
+  payload: {
+    data: {
+      channel: 'blumpyPals',
+    },
+  },
+};
+
+const dummySetChannelOutput = {
+  list: [],
+  selected: dummySetChannelInput.payload.data.channel,
+};
+
+const dummyGetChannelsInput = {
   type: actions.GET_CHANNELS,
   payload: {
-    streams: [
-      {
-        viewers: 100,
-        game: 'tetris',
-        name: 'blumpyBros',
-      },
-      {
-        viewers: 300,
-        game: 'PacMan',
-        name: 'blumpyPals',
-      },
-    ],
+    data: {
+      streams: [
+        {
+          viewers: 100,
+          game: 'tetris',
+          name: 'blumpyBros',
+        },
+        {
+          viewers: 300,
+          game: 'PacMan',
+          name: 'blumpyPals',
+        },
+      ],
+    },
   },
+};
+
+const dummyGetChannelsOutput = {
+  list: dummyGetChannelsInput.payload.data.streams,
+  selected: null,
 };
 
 describe('Channels reducer:', () => {
   it('should return the initial state', () => {
     expect(
-      reducerTone(initialChannelState, {})
+      reducerChannels(initialChannelState, {})
     ).toEqual(initialChannelState);
   });
 
   it('should set selected channel', () => {
-    dummyWatsonData.payload.status = 500;
     expect(
-      reducerTone(initialChannelState, dummyWatsonData)
-    ).toEqual(initialChannelState);
+      reducerChannels(initialChannelState, dummySetChannelInput)
+    ).toEqual(dummySetChannelOutput);
   });
 
   it('should set channels list', () => {
-    dummyWatsonData.payload.status = 200;
     expect(
-      reducerTone(initialChannelState, dummyWatsonData)
-    ).toEqual(dummyWatsonData.payload.data);
+      reducerChannels(initialChannelState, dummyGetChannelsInput)
+    ).toEqual(dummyGetChannelsOutput);
   });
 
 });
