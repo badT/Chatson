@@ -61,6 +61,8 @@ describe('Tone reducer:', () => {
 
 });
 
+// variables for testing Channels reducer
+
 const initialChannelState = {
   list: [],
   selected: null,
