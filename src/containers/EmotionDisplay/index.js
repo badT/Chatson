@@ -31,11 +31,11 @@ const socColors = {
 };
 
 const socDesc = {
-  openness: 'openness',
-  conscientiousness: 'conscientiousness',
-  extraversion: 'extraversion',
-  agreeableness: 'agreeableness',
-  neuroticism: 'neuroticism',
+  openness: 'Being open to experiencing a wide variety of activities',
+  conscientiousness: 'Tending to act in an organized or thoughtful manner',
+  extraversion: 'Tending to direct concerns outward',
+  agreeableness: 'Being friendly, cooperative, and warm toward others',
+  neuroticism: 'Characterized by anxiety, moodiness, and worry',
 };
 
 class EmotionDisplay extends Component {
