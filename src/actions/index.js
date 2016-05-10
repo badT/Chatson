@@ -22,6 +22,15 @@ export function setChannel(channel) {
   };
 }
 
+// set the currently active channel to null
+export const UNSET_CHANNEL = 'UNSET_CHANNEL';
+export function unsetChannel() {
+  return {
+    type: UNSET_CHANNEL,
+    payload: null,
+  };
+}
+
 export const GET_TONE = 'GET_TONE';
 export function getTone(data) {
   const request = axios.put(`${ROOT_URL}/watson/tone`, data);
