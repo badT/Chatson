@@ -1,42 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import gsap from 'gsap';
+
+import { emoColors, socColors, splotchDesc, splotchDescLT25, splotchDescLT50, splotchDescGT75 } from './descriptions';
+import { transformData, transitionAnims, capitalizeFirstLetter } from './helpers';
 
 /* component styles */
 import { styles } from './styles.scss';
-
-const emoColors = {
-  anger: '#FF3F39',
-  sadness: '#2B56B2',
-  disgust: '#AC35B2',
-  fear: '#4ACC68',
-  joy: '#FFF348',
-};
-
-const emoDesc = {
-  anger: 'Anger',
-  sadness: 'Sadness',
-  disgust: 'Disgust',
-  fear: 'Fear',
-  joy: 'Joy',
-};
-
-const socColors = {
-  openness: '#FF3F39',
-  conscientiousness: '#2B56B2',
-  extraversion: '#AC35B2',
-  agreeableness: '#4ACC68',
-  neuroticism: '#FFF348',
-};
-
-const socDesc = {
-  openness: 'Being open to experiencing a wide variety of activities',
-  conscientiousness: 'Tending to act in an organized or thoughtful manner',
-  extraversion: 'Tending to direct concerns outward',
-  agreeableness: 'Being friendly, cooperative, and warm toward others',
-  neuroticism: 'Characterized by anxiety, moodiness, and worry',
-};
 
 class EmotionDisplay extends Component {
   constructor(props) {
@@ -95,8 +65,8 @@ class EmotionDisplay extends Component {
         newSocialData.shift();
       }
 
-      const emoData = this.transformData(newEmotionData, this.state.xCoord);
-      const socData = this.transformData(newSocialData, this.state.xCoord);
+      const emoData = transformData(newEmotionData, this.state.xCoord);
+      const socData = transformData(newSocialData, this.state.xCoord);
 
       this.setState({
         lastAnger: currentAnger,
@@ -111,98 +81,33 @@ class EmotionDisplay extends Component {
         dominantSoc: socData.diff.key,
       });
 
-      TweenMax.to('#line-container', 3, { x: '-=40', ease: Power0.easeNone });
-
-      TweenMax.to('#anger-splotch', 0.5, { scale: emoData.avgs.anger });
-      TweenMax.to('#sadness-splotch', 0.5, { scale: emoData.avgs.sadness });
-      TweenMax.to('#joy-splotch', 0.5, { scale: emoData.avgs.joy });
-      TweenMax.to('#fear-splotch', 0.5, { scale: emoData.avgs.fear });
-      TweenMax.to('#disgust-splotch', 0.5, { scale: emoData.avgs.disgust });
-
-      TweenMax.to('#openness-splotch', 0.5, { scale: socData.avgs.openness });
-      TweenMax.to('#conscientiousness-splotch', 0.5, { scale: socData.avgs.conscientiousness });
-      TweenMax.to('#extraversion-splotch', 0.5, { scale: socData.avgs.extraversion });
-      TweenMax.to('#agreeableness-splotch', 0.5, { scale: socData.avgs.agreeableness });
-      TweenMax.to('#neuroticism-splotch', 0.5, { scale: socData.avgs.neuroticism });
-
-      TweenMax.to('#emo-graph-bg', 0.5, { fill: emoColors[emoData.diff.key], fillOpacity: (emoData.diff.magnitude) });
-      TweenMax.to('#soc-graph-bg', 0.5, { fill: socColors[socData.diff.key], fillOpacity: (socData.diff.magnitude) });
+      transitionAnims(emoData, socData, emoColors, socColors);
     }
   }
 
-  transformData(data, xCoord) {
-    if (data.length === 0) return;
-
-    const readings = Object.keys(data[0]).reduce((list, reading) => {
-      list[reading] = [];
-      return list;
-    }, {});
-
-    data.forEach(datum => {
-      for (let key in datum) {
-        if (datum.hasOwnProperty(key)) {
-          readings[key].push(datum[key]);
-        }
-      }
-    });
-
-    const transformed = {};
-    const paths = {};
-    const avgs = {};
-    const avgDiff = [];
-
-    for (let key in readings) {
-      if (key === 'id') continue;
-      if (readings.hasOwnProperty(key)) {
-        transformed[key] = readings[key].reduceRight((res, reading, i, coll) => {
-          if (i === coll.length - 1) {
-            res.path += `${res.x} ${100 - reading}`;
-          } else {
-            if (reading >= coll[i + 1]) {
-              res.path += `C ${res.x + 20} ${100 - (coll[i + 1])} ${res.x + 20} ${100 - (reading)} ${res.x} ${100 - reading}`
-            } else {
-              res.path += `C ${res.x + 20} ${100 - (coll[i + 1])} ${res.x + 20} ${100 - (reading)} ${res.x} ${100 - reading}`
-            }
-          }
-          res.x -= 40;
-          res.avg += (reading / coll.length);
-          return res;
-        }, { path: 'M', x: xCoord, avg: 0 });
-      }
-    }
-
-    for (let key in transformed) {
-      if (transformed.hasOwnProperty(key)) {
-        paths[key] = transformed[key].path;
-        avgs[key] = transformed[key].avg;
-        avgDiff.push({ key: key, avg: avgs[key] });
-        avgs[key] = ((Math.round(avgs[key] * 100) / 100) * 0.0085) + 0.15;
-      }
-    }
-
-    avgDiff.sort((a, b) => b.avg - a.avg);
-    const diff = { key: avgDiff[0].key, magnitude: (avgDiff[0].avg - avgDiff[1].avg) / 100 };
-
-    return { paths, avgs, diff };
-  }
-
-  capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  renderSplotches(graphKey, descriptions) {
-    if (!graphKey) return;
+  renderSplotches(colorKey, key) {
+    if (!colorKey) return;
     const splotches = [];
-    for (let splotch in graphKey) {
-      splotches.push(<div key={splotch} className="block-grid-item splotch-holder">
-        <span id={`${splotch}-splotch`} className="color-splotch"></span>
-        <span className="splotch-label">
-          <span className={`${splotch}-splotch-text`}>{this.capitalizeFirstLetter(splotch)}</span>
-          <span className="splotch-label-tooltip">
-            {descriptions[splotch]}
+    for (let splotch in colorKey) {
+      splotches.push(
+        <div key={splotch} className="block-grid-item splotch-holder">
+          <div className="color-splotch-holder">
+            <span id={`${splotch}-splotch`} className="color-splotch"></span>
+            <span className="splotch-tooltip tooltip">
+              {`Avg for last 90 seconds: ${this.state[key][splotch].toFixed(2)}`}<br/>
+              {`${this.state[key][splotch].toFixed(2) <= 0.25 ? splotchDescLT25[splotch] : ''}`}
+              {`${this.state[key][splotch].toFixed(2) <= 0.5 ? splotchDescLT50[splotch] : ''}`}
+              {`${this.state[key][splotch].toFixed(2) >= 0.75 ? splotchDescGT75[splotch] : ''}`}
+            </span>
+          </div>
+          <span className="splotch-label">
+            <span className={`${splotch}-splotch-text`}>{capitalizeFirstLetter(splotch)}</span>
+            <span className="splotch-label-tooltip tooltip">
+              {splotchDesc[splotch]}
+            </span>
           </span>
-        </span>
-      </div>);
+        </div>
+      );
     }
     return (
       <div className="block-grid-md-5 block-grid-sm-3 block-grid-xs-2 splotches-grid">
@@ -251,7 +156,8 @@ class EmotionDisplay extends Component {
   render() {
     return (
       <div className={`${styles}`}>
-        <div className="row">
+        {/* TAB DISPLAY */}
+        <section className="row">
           <div className="col-xs-12 graph-tab-holder">
             <h2
               className={`graph-tab ${this.state.activeGraph === 'emotion' ? 'tab-active' : ''}`}
@@ -264,33 +170,49 @@ class EmotionDisplay extends Component {
                 Social Attributes
             </h2>
           </div>
-        </div>
+        </section>
 
+        {/* MAIN GRAPH (key and line graph)*/}
         <section className="graph-main row">
           <section className={`graph-key dom-emo-${this.state.dominantEmo} dom-soc-${this.state.dominantSoc}`}>
             <div className={`row splotch-row ${this.state.activeGraph === 'emotion' ? 'splotch-row-active' : ''}`}>
-              {this.renderSplotches(emoColors, emoDesc)}
+              {this.renderSplotches(emoColors, 'emotionKey')}
             </div>
             <div className={`row splotch-row ${this.state.activeGraph === 'social' ? 'splotch-row-active' : ''}`}>
-              {this.renderSplotches(socColors, socDesc)}
+              {this.renderSplotches(socColors, 'socialKey')}
             </div>
           </section>
 
           <div className="graph-row">
             <div className="col-lg-12 line-graph-container">
-              <span className={`graph-explanation ${this.state.topRef ? 'visible' : ''}`}>Values above this line indicate strong emotion</span>
-              <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate weak emotion</span>
+              <div className={`graph-refs ${this.state.activeGraph === 'emotion' ? 'refs-active' : ''}`}>
+                <span className={`graph-explanation ${this.state.topRef ? 'visible' : ''}`}>Values above this line indicate that the chat is more likely to be perceived as conveying this emotion</span>
+                <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate that the chat is less likely to be perceived as conveying this emotion</span>
+              </div>
+
+              <div className={`graph-refs ${this.state.activeGraph === 'social' ? 'refs-active' : ''}`}>
+                <span className={`graph-explanation ${this.state.topRef ? 'visible' : ''}`}>Values above this line indicate that the chat sentiment is closely aligning with this social attribute</span>
+                <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate that the chat sentiment is more likely to be perceived as aligning with the opposite extreme of this attribute</span>
+              </div>
 
               <svg width="100%" height="400" viewBox="0 0 400 100" preserveAspectRatio="none">
 
                 <rect className={`graph-bg ${this.state.activeGraph === 'emotion' ? 'bg-active' : ''}`} id="emo-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
                 <rect className={`graph-bg ${this.state.activeGraph === 'social' ? 'bg-active' : ''}`} id="soc-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
 
-                <path className="reference-line" d="M 0.3 25 l 399.7 0" />
-                <rect id="upper-ref" x="0" y="0" width="400" height="25" fill="#fff" className={`ref-box ${this.state.topRef ? 'visible' : ''}`} />
+                <g className={`graph-refs ${this.state.activeGraph === 'emotion' ? 'refs-active' : ''}`}>               
+                  <path className="reference-line" d="M 0.3 25 l 399.7 0" />
+                  <rect id="upper-ref" x="0" y="0" width="400" height="25" fill="#fff" className={`ref-box ${this.state.topRef ? 'visible' : ''}`} />
+                  <path className="reference-line" d="M 0.3 50 l 399.7 0" />
+                  <rect id="lower-ref" x="0" y="50" width="400" height="50" fill="#fff" className={`ref-box ${this.state.btmRef ? 'visible' : ''}`} />
+                </g>
 
-                <path className="reference-line" d="M 0.3 50 l 399.7 0" />
-                <rect id="lower-ref" x="0" y="50" width="400" height="50" fill="#fff" className={`ref-box ${this.state.btmRef ? 'visible' : ''}`} />
+                <g className={`graph-refs ${this.state.activeGraph === 'social' ? 'refs-active' : ''}`}>               
+                  <path className="reference-line" d="M 0.3 25 l 399.7 0" />
+                  <rect id="upper-ref" x="0" y="0" width="400" height="25" fill="#fff" className={`ref-box ${this.state.topRef ? 'visible' : ''}`} />
+                  <path className="reference-line" d="M 0.3 75 l 399.7 0" />
+                  <rect id="lower-ref" x="0" y="75" width="400" height="25" fill="#fff" className={`ref-box ${this.state.btmRef ? 'visible' : ''}`} />
+                </g>
 
                 <g id="line-container">
                   <g className={`graph-lines ${this.state.activeGraph === 'emotion' ? 'lines-active' : ''}`}>
@@ -303,9 +225,23 @@ class EmotionDisplay extends Component {
                   </g>
                 </g>
 
-                <path id="reference-line-top" stroke="transparent" d="M 0.3 25 l 399.7 0" onMouseEnter={() => this.handleMouseEnter('top')} onMouseLeave={() => this.handleMouseLeave('top')} />
-                <path id="reference-line-btm" stroke="transparent" d="M 0.3 50 l 399.7 0" onMouseEnter={() => this.handleMouseEnter('btm')} onMouseLeave={() => this.handleMouseLeave('btm')} />
+                <g className={`graph-refs ${this.state.activeGraph === 'emotion' ? 'refs-active' : ''}`}>
+                  <path className="reference-line-trigger" stroke="transparent" d="M 0.3 25 l 399.7 0" 
+                    onMouseEnter={() => this.handleMouseEnter('top')} 
+                    onMouseLeave={() => this.handleMouseLeave('top')} />
+                  <path className="reference-line-trigger" stroke="transparent" d="M 0.3 50 l 399.7 0" 
+                    onMouseEnter={() => this.handleMouseEnter('btm')} 
+                    onMouseLeave={() => this.handleMouseLeave('btm')} />
+                </g>
 
+                <g className={`graph-refs ${this.state.activeGraph === 'social' ? 'refs-active' : ''}`}>
+                  <path className="reference-line-trigger" stroke="transparent" d="M 0.3 25 l 399.7 0" 
+                    onMouseEnter={() => this.handleMouseEnter('top')} 
+                    onMouseLeave={() => this.handleMouseLeave('top')} />
+                  <path className="reference-line-trigger" stroke="transparent" d="M 0.3 75 l 399.7 0" 
+                    onMouseEnter={() => this.handleMouseEnter('btm')} 
+                    onMouseLeave={() => this.handleMouseLeave('btm')} />
+                </g>
               </svg>
               <span className="x-axis-label start">30 Sec<br/>Ago</span>
               <span className="x-axis-label end">Now</span>
