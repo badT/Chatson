@@ -109,12 +109,18 @@
   }
 
   @media only screen and (min-width : 480px) {
+    .splotch-label {
+      margin-left: 55px;
+    }
     .color-splotch {
       width: 50px;
       height: 50px;
     }
   }
   @media only screen and (min-width : 768px) {
+    .splotch-label {
+      margin-left: 65px;
+    }
     .color-splotch {
       width: 60px;
       height: 60px;
@@ -176,26 +182,66 @@
 
   .splotch-label {
     display: inline-block;
+    margin-left: 45px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
   }
 
-  .splotch-label-tooltip {
+  @media only screen and (min-width : 480px) {
+    .splotch-label {
+      margin-left: 55px;
+    }
+  }
+  @media only screen and (min-width : 768px) {
+    .splotch-label {
+      margin-left: 65px;
+    }
+  }
+
+  .tooltip {
     position: absolute;
-    width: 240px;
     display: none;
     padding: 10px 15px;
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 3px;
     color: #fff;
-    bottom: 100%;
-    margin-bottom: 8px;
     box-shadow: 1px 1px 2px $shadow;
     opacity: 0;
+    bottom: 100%;
+    margin-bottom: 8px;
   }
 
-  .splotch-label-tooltip:after {
+  .color-splotch-holder {
+    position: relative;
+    width: 40px
+  }
+
+  @media only screen and (min-width : 480px) {
+    .color-splotch-holder {
+      width: 50px;
+    }
+  }
+  @media only screen and (min-width : 768px) {
+    .color-splotch-holder {
+      width: 60px;
+    }
+  }
+
+  .color-splotch-holder:hover .tooltip {
+    display: inline-block;
+    opacity: 1;
+  }
+
+  .splotch-label-tooltip {
+    width: 240px;
+  }
+
+  .splotch-tooltip {
+    width: 200px;
+  }
+
+  .tooltip:after {
     content: '';
     position: absolute;
     top: 100%;
@@ -206,77 +252,152 @@
     border-right: 6px solid transparent;
   }
 
-  .splotch-holder:nth-of-type(1) .splotch-label-tooltip,
-  .splotch-holder:nth-of-type(3) .splotch-label-tooltip,
-  .splotch-holder:nth-of-type(5) .splotch-label-tooltip {
+  .splotch-holder:nth-of-type(1) .tooltip,
+  .splotch-holder:nth-of-type(3) .tooltip,
+  .splotch-holder:nth-of-type(5) .tooltip {
     left: 0;
   }
 
-  .splotch-holder:nth-of-type(1) .splotch-label-tooltip:after,
-  .splotch-holder:nth-of-type(3) .splotch-label-tooltip:after,
-  .splotch-holder:nth-of-type(5) .splotch-label-tooltip:after {
+  .splotch-holder:nth-of-type(1) .tooltip:after,
+  .splotch-holder:nth-of-type(3) .tooltip:after,
+  .splotch-holder:nth-of-type(5) .tooltip:after {
     left: 3px;
   }
 
-  .splotch-holder:nth-of-type(2) .splotch-label-tooltip,
-  .splotch-holder:nth-of-type(4) .splotch-label-tooltip {
+  .splotch-holder:nth-of-type(2) .tooltip,
+  .splotch-holder:nth-of-type(4) .tooltip {
     right: 0;
   }
 
-  .splotch-holder:nth-of-type(2) .splotch-label-tooltip:after,
-  .splotch-holder:nth-of-type(4) .splotch-label-tooltip:after {
+  .splotch-holder:nth-of-type(2) .tooltip:after,
+  .splotch-holder:nth-of-type(4) .tooltip:after {
+    right: 3px;
+  }
+
+  // tooltips for the splotches themselves
+  .splotch-holder:nth-of-type(1) .splotch-tooltip,
+  .splotch-holder:nth-of-type(3) .splotch-tooltip,
+  .splotch-holder:nth-of-type(5) .splotch-tooltip {
+    left: 50%;
+    transform: translateX(-8px);
+  }
+
+  .splotch-holder:nth-of-type(1) .splotch-tooltip:after,
+  .splotch-holder:nth-of-type(3) .splotch-tooltip:after,
+  .splotch-holder:nth-of-type(5) .splotch-tooltip:after {
+    left: 3px;
+  }
+
+  .splotch-holder:nth-of-type(2) .splotch-tooltip,
+  .splotch-holder:nth-of-type(4) .splotch-tooltip {
+    right: 50%;
+    transform: translateX(8px);
+  }
+
+  .splotch-holder:nth-of-type(2) .splotch-tooltip:after,
+  .splotch-holder:nth-of-type(4) .splotch-tooltip:after {
     right: 3px;
   }
 
   @media only screen and (min-width : 768px) {
-    .splotch-holder:nth-of-type(2) .splotch-label-tooltip,
-    .splotch-holder:nth-of-type(4) .splotch-label-tooltip {
+    .splotch-holder:nth-of-type(2) .tooltip,
+    .splotch-holder:nth-of-type(4) .tooltip {
       left: 0;
       right: auto;
     }
 
-    .splotch-holder:nth-of-type(2) .splotch-label-tooltip:after,
-    .splotch-holder:nth-of-type(4) .splotch-label-tooltip:after {
+    .splotch-holder:nth-of-type(2) .tooltip:after,
+    .splotch-holder:nth-of-type(4) .tooltip:after {
       left: 3px;
       right: auto;
     }
 
-    .splotch-holder:nth-of-type(3) .splotch-label-tooltip {
+    .splotch-holder:nth-of-type(3) .tooltip {
       right: 0;
       left: auto;
     }
 
-    .splotch-holder:nth-of-type(3) .splotch-label-tooltip:after {
+    .splotch-holder:nth-of-type(3) .tooltip:after {
+      right: 3px;
+      left: auto;
+    }
+
+    // tooltips for the splotches themselves
+    .splotch-holder:nth-of-type(2) .splotch-tooltip,
+    .splotch-holder:nth-of-type(4) .splotch-tooltip {
+      left: 50%;
+      transform: translateX(-8px);
+      right: auto;
+    }
+
+    .splotch-holder:nth-of-type(2) .splotch-tooltip:after,
+    .splotch-holder:nth-of-type(4) .splotch-tooltip:after {
+      left: 3px;
+      right: auto;
+    }
+
+    .splotch-holder:nth-of-type(3) .splotch-tooltip {
+      right: 50%;
+      transform: translateX(8px);
+      left: auto;
+    }
+
+    .splotch-holder:nth-of-type(3) .splotch-tooltip:after {
       right: 3px;
       left: auto;
     }
   }
 
   @media only screen and (min-width : 992px) {
-    .splotch-holder:nth-of-type(3) .splotch-label-tooltip {
+    .splotch-holder:nth-of-type(3) .tooltip {
       left: 0;
       right: auto;
     }
 
-    .splotch-holder:nth-of-type(3) .splotch-label-tooltip:after {
+    .splotch-holder:nth-of-type(3) .tooltip:after {
       left: 3px;
       right: auto;
     }
 
-    .splotch-holder:nth-of-type(4) .splotch-label-tooltip,
-    .splotch-holder:nth-of-type(5) .splotch-label-tooltip {
+    .splotch-holder:nth-of-type(4) .tooltip,
+    .splotch-holder:nth-of-type(5) .tooltip {
       right: 0;
       left: auto;
     }
 
-    .splotch-holder:nth-of-type(4) .splotch-label-tooltip:after,
-    .splotch-holder:nth-of-type(5) .splotch-label-tooltip:after {
+    .splotch-holder:nth-of-type(4) .tooltip:after,
+    .splotch-holder:nth-of-type(5) .tooltip:after {
+      right: 3px;
+      left: auto;
+    }
+
+    // tooltips for the splotches themselves
+    .splotch-holder:nth-of-type(3) .splotch-tooltip {
+      left: 50%;
+      transform: translateX(-8px);
+      right: auto;
+    }
+
+    .splotch-holder:nth-of-type(3) .splotch-tooltip:after {
+      left: 3px;
+      right: auto;
+    }
+
+    .splotch-holder:nth-of-type(4) .splotch-tooltip,
+    .splotch-holder:nth-of-type(5) .splotch-tooltip {
+      right: 50%;
+      transform: translateX(8px);
+      left: auto;
+    }
+
+    .splotch-holder:nth-of-type(4) .splotch-tooltip:after,
+    .splotch-holder:nth-of-type(5) .splotch-tooltip:after {
       right: 3px;
       left: auto;
     }
   }
 
-  .splotch-label:hover .splotch-label-tooltip {
+  .splotch-label:hover .tooltip {
     display: inline-block;
     opacity: 1;
   }
@@ -326,10 +447,19 @@
     opacity: 1;
   }
 
+  .graph-refs {
+    display: none;
+  }
+
+  .graph-refs.refs-active {
+    display: block;
+  }
+
   path.reference-line {
     stroke: #666;
-    stroke-width: 0.4;
-    stroke-dasharray: 3 5;
+    stroke-width: 0.6;
+    stroke-dasharray: 2 3.71;
+    stroke-dashoffset: 1;
     stroke-linecap: round;
   }
 
@@ -374,8 +504,7 @@
     }
   }
 
-  path#reference-line-top,
-  path#reference-line-btm {
+  path.reference-line-trigger {
     stroke-width: 6;
   }
 
