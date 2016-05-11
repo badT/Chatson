@@ -4,9 +4,6 @@
   $shadow: rgba(0,0,0,0.6);
 
   margin: 0 15px;
-  @media only screen and (min-width : 768px) {
-    margin: 0;
-  }
 
   .graph-tab-holder {
     position: relative;
@@ -416,7 +413,14 @@
 
   .line-graph-container {
     position: relative;
-    margin: 25px 0 50px;
+    padding: 0 30px;
+    margin: 50px 0 50px;
+  }
+
+  @media only screen and (min-width : 480px) {
+    .line-graph-container {
+      margin: 25px 0 50px;
+    }
   }
 
   svg {
@@ -516,10 +520,10 @@
   }
 
   .x-axis-label.start {
-    left: 15px;
+    left: 30px;
   }
 
   .x-axis-label.end {
-    right: 15px;
+    right: 30px;
   }
 }

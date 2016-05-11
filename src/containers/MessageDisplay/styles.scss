@@ -10,10 +10,6 @@
   box-shadow: 1px 1px 3px $shadow;
   border-radius: 3px;
 
-  @media only screen and (min-width : 768px) {
-    margin: 0 -15px 30px -15px;
-  }
-
   .message-top-row {
     padding-bottom: 15px;
     border-bottom: 2px solid #ddd;
