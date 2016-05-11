@@ -104,8 +104,8 @@
     height: 40px;
     border-radius: 50%;
     transform: scale(0.15);
-    border: 5px solid transparent;
-    transition: border 0.3s;
+    box-shadow: 2px 2px 4px $shadow inset;
+    transition: box-shadow 0.3s;
   }
 
   @media only screen and (min-width : 480px) {
@@ -126,7 +126,15 @@
   .dom-emo-disgust #disgust-splotch,
   .dom-emo-fear #fear-splotch,
   .dom-emo-joy #joy-splotch {
-    border: 5px solid #000;
+    box-shadow: 4px 4px 4px $shadow;
+  }
+
+  .dom-emo-anger .anger-splotch-text,
+  .dom-emo-sadness .sadness-splotch-text,
+  .dom-emo-disgust .disgust-splotch-text,
+  .dom-emo-fear .fear-splotch-text,
+  .dom-emo-joy .joy-splotch-text {
+    font-weight: bold;
   }
 
   .dom-soc-openness #openness-splotch,
@@ -134,7 +142,15 @@
   .dom-soc-extraversion #extraversion-splotch,
   .dom-soc-agreeableness #agreeableness-splotch,
   .dom-soc-neuroticism #neuroticism-splotch {
-    border: 5px solid #000;
+    box-shadow: 4px 4px 4px $shadow;
+  }
+
+  .dom-soc-openness .openness-splotch-text,
+  .dom-soc-conscientiousness .conscientiousness-splotch-text,
+  .dom-soc-extraversion .extraversion-splotch-text,
+  .dom-soc-agreeableness .agreeableness-splotch-text,
+  .dom-soc-neuroticism .neuroticism-splotch-text {
+    font-weight: bold;
   }
 
   #anger-splotch,

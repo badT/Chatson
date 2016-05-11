@@ -197,7 +197,7 @@ class EmotionDisplay extends Component {
       splotches.push(<div key={splotch} className="block-grid-item splotch-holder">
         <span id={`${splotch}-splotch`} className="color-splotch"></span>
         <span className="splotch-label">
-          {this.capitalizeFirstLetter(splotch)}
+          <span className={`${splotch}-splotch-text`}>{this.capitalizeFirstLetter(splotch)}</span>
           <span className="splotch-label-tooltip">
             {descriptions[splotch]}
           </span>
