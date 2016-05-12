@@ -33,13 +33,11 @@ class DataContainer extends Component {
     if (nextProps.selected === this.props.selected) return;
     // emit unsubscribe message
     if (this.props.selected) {
-      console.log('Unsubscribing from: ', this.props.selected);
       this.socket.emit('channel:unsubscribe', this.props.selected);
     }
 
     // emit subscribe message
     if (nextProps.selected) {
-      console.log('Subscribing to: ', nextProps.selected);
       this.socket.emit('channel:subscribe', nextProps.selected);
     }
   }
