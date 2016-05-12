@@ -20,7 +20,7 @@
     stroke-linecap: round;
   }
 
-  .drawer-holder {
+  .drawer-overlay {
     position: fixed;
     width: 100%;
     top: 62px;
@@ -30,7 +30,7 @@
     z-index: 1;
   }
 
-  .drawer-holder.drawer-open {
+  .drawer-overlay.drawer-open {
     left: 0;
   }
 
@@ -44,6 +44,7 @@
     transform: translateX(-101%);
     padding: 15px 0;
     box-shadow: 2px 0 4px $shadow;
+    z-index: 1;
   }
 
   .about-link {
@@ -90,7 +91,7 @@
   }
 
   @media only screen and (min-width : 768px) {
-    .drawer-holder {
+    .drawer-overlay {
       top: 74px;
     }
 

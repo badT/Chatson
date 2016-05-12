@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import MessageDisplay from '../MessageDisplay';
 import ChannelData from '../ChannelData';
-import EmotionDisplay from '../EmotionDisplay';
+import LineGraph from '../LineGraph';
 
 class DataContainer extends Component {
   constructor(props) {
@@ -30,18 +29,15 @@ class DataContainer extends Component {
     this.socket.disconnect();
   }
 
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.selected === this.props.selected) return;
     // emit unsubscribe message
     if (this.props.selected) {
-      console.log('Unsubscribing from: ', this.props.selected);
       this.socket.emit('channel:unsubscribe', this.props.selected);
     }
 
     // emit subscribe message
     if (nextProps.selected) {
-      console.log('Subscribing to: ', nextProps.selected);
       this.socket.emit('channel:subscribe', nextProps.selected);
     }
   }
@@ -50,13 +46,7 @@ class DataContainer extends Component {
     return (
       <div key={this.props.selected}>
         <MessageDisplay msg={this.state.msg} channel={this.props.selected} />
-        <section>
-          <div className="row">
-            <div className="col-lg-12">
-              <EmotionDisplay />
-            </div>
-          </div>
-        </section>
+        <LineGraph />
         <ChannelData message={this.state.msg.msg} />
       </div>
     );

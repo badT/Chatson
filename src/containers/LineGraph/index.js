@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import gsap from 'gsap';
 import { emoColors, socColors } from './descriptions';
 import { transformData, transitionAnims } from './helpers';
-import LineGraphTabs from '../../components/LineGraph/LineGraphTabs';
-import LineGraphKey from '../../components/LineGraph/LineGraphKey';
-import LineGraphDisplay from '../../components/LineGraph/LineGraphDisplay';
+import LineGraphTabs from '../../components/LineGraphComponents/LineGraphTabs';
+import LineGraphKey from '../../components/LineGraphComponents/LineGraphKey';
+import LineGraphDisplay from '../../components/LineGraphComponents/LineGraphDisplay';
 /* component styles */
 import { styles } from './styles.scss';
 
-class EmotionDisplay extends Component {
+class LineGraph extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -151,4 +151,4 @@ function mapStateToProps({ tone }) {
   };
 }
 
-export default connect(mapStateToProps)(EmotionDisplay);
+export default connect(mapStateToProps)(LineGraph);
