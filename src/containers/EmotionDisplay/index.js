@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import gsap from 'gsap';
 
+import Loader from '../../components/Loader';
+
 import { emoColors, socColors, splotchDesc, splotchDescLT25, splotchDescLT50, splotchDescGT75 } from './descriptions';
 import { transformData, transitionAnims, capitalizeFirstLetter } from './helpers';
 
@@ -12,6 +14,8 @@ class EmotionDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      waitingForMsgs: true,
+      firstMsgIn: false,
       lastAnger: 0,
       xCoord: 440,
       activeGraph: 'emotion',
@@ -49,39 +53,56 @@ class EmotionDisplay extends Component {
   }
 
   componentWillReceiveProps(props) {
-    const currentAnger = props.emotion.anger;
-    if (currentAnger !== this.state.lastAnger) {
-      const altSocialKeys = {};
-      delete props.social.id;
-      for (let key in props.social) {
-        altSocialKeys[key.split('_')[0]] = props.social[key];
+    if (props.emotion) {
+      // clear the timer if it is set...
+      if (this.msgTimer) {
+        clearTimeout(this.msgTimer);
+        this.msgTimer = null;
       }
 
-      const newEmotionData = this.state.emotionData.concat([props.emotion]);
-      const newSocialData = this.state.socialData.concat([altSocialKeys]);
-
-      if (newEmotionData.length > 30) {
-        newEmotionData.shift();
-        newSocialData.shift();
+      if (!this.state.firstMsgIn) {
+        this.setState({ firstMsgIn: true });
+        setTimeout(() => { this.setState({ waitingForMsgs: false }); }, 3000);
+      } else if (this.state.waitingForMsgs) {
+        this.setState({ waitingForMsgs: false });
       }
 
-      const emoData = transformData(newEmotionData, this.state.xCoord);
-      const socData = transformData(newSocialData, this.state.xCoord);
+      const currentAnger = props.emotion.anger;
+      if (currentAnger !== this.state.lastAnger) {
+        const altSocialKeys = {};
+        delete props.social.id;
+        for (let key in props.social) {
+          altSocialKeys[key.split('_')[0]] = props.social[key];
+        }
 
-      this.setState({
-        lastAnger: currentAnger,
-        xCoord: this.state.xCoord + 40,
-        emotionData: newEmotionData,
-        emotionPaths: emoData.paths,
-        emotionKey: emoData.avgs,
-        dominantEmo: emoData.diff.key,
-        socialData: newSocialData,
-        socialPaths: socData.paths,
-        socialKey: socData.avgs,
-        dominantSoc: socData.diff.key,
-      });
+        const newEmotionData = this.state.emotionData.concat([props.emotion]);
+        const newSocialData = this.state.socialData.concat([altSocialKeys]);
 
-      transitionAnims(emoData, socData, emoColors, socColors);
+        if (newEmotionData.length > 30) {
+          newEmotionData.shift();
+          newSocialData.shift();
+        }
+
+        const emoData = transformData(newEmotionData, this.state.xCoord);
+        const socData = transformData(newSocialData, this.state.xCoord);
+
+        this.setState({
+          lastAnger: currentAnger,
+          xCoord: this.state.xCoord + 40,
+          emotionData: newEmotionData,
+          emotionPaths: emoData.paths,
+          emotionKey: emoData.avgs,
+          dominantEmo: emoData.diff.key,
+          socialData: newSocialData,
+          socialPaths: socData.paths,
+          socialKey: socData.avgs,
+          dominantSoc: socData.diff.key,
+        });
+
+        transitionAnims(emoData, socData, emoColors, socColors);
+      }
+    } else {
+      this.msgTimer = setTimeout(() => { this.setState({ waitingForMsgs: true }); }, 4000);
     }
   }
 
@@ -195,6 +216,12 @@ class EmotionDisplay extends Component {
                 <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate that the chat sentiment is more likely to be perceived as aligning with the opposite extreme of this attribute</span>
               </div>
 
+              {/* PLACE ABS POS LOADER HERE..., USE this.state.waitingForMessages */}
+              <div className={`loader ${this.state.waitingForMsgs ? 'loader-active' : ''}`}>
+                <span className="loader-msg">Waiting for New Messages</span>
+                <Loader/>
+              </div>
+
               <svg width="100%" height="400" viewBox="0 0 400 100" preserveAspectRatio="none">
 
                 <rect className={`graph-bg ${this.state.activeGraph === 'emotion' ? 'bg-active' : ''}`} id="emo-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
@@ -254,15 +281,15 @@ class EmotionDisplay extends Component {
 }
 
 function mapStateToProps({ tone }) {
-  if (tone.toneData) {
+  if (tone && tone.tone) {
     return {
-      emotion: tone.toneData.emotion,
-      social: tone.toneData.social,
+      emotion: tone.tone.emotion,
+      social: tone.tone.social,
     };
   }
   return {
-    emotion: tone,
-    social: tone,
+    emotion: null,
+    social: null,
   };
 }
 
