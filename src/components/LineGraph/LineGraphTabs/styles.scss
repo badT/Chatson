@@ -1,0 +1,50 @@
+:local(.styles) {
+
+  $bg-color: rgba(255,255,255,0.2);
+  $shadow: rgba(0,0,0,0.6);
+
+  .graph-tab-holder {
+    position: relative;
+  }
+  .graph-tab-holder:first-of-type {
+    padding-left: 0;
+  }
+
+  .graph-tab {
+    display: inline-block;
+    padding: 15px;
+    font-size: 1em;
+    margin: 0;
+    border-radius: 3px 3px 0 0;
+    box-shadow: 1px 1px 3px $shadow inset;
+    cursor: pointer;
+    background-color: #bbb;
+    transition: color 0.2s, background-color 0.2s;
+  }
+
+  .graph-tab:hover {
+    background-color: #555;
+    color: #fff;
+  }
+
+  .graph-tab.tab-active {
+    background-color: $bg-color;
+    box-shadow: 1px 1px 3px $shadow;
+    cursor: default;
+  }
+
+  .graph-tab.tab-active:hover {
+    color: inherit;
+  }
+
+  @media only screen and (min-width : 480px) {
+    .graph-tab {
+      font-size: 1.5em;
+    }
+  }
+  @media only screen and (min-width : 768px) {
+    .graph-tab {
+      font-size: 30px;
+    }
+  }
+}
