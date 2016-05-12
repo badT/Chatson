@@ -19,7 +19,7 @@ describe('<Header />', () => {
   );
 
   it('should render <ChannelDropdown /> container', () => {
-    expect(wrapper.find('.dropdown-menu')).to.have.length(1);
+    expect(wrapper.find('span')).to.have.length(1);
   });
 
 });

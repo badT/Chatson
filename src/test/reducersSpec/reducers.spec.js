@@ -4,30 +4,33 @@ import * as actions from '../../actions/index';
 import reducerTone from '../../reducers/reducerTone';
 import reducerChannels from '../../reducers/reducerChannels';
 
-const initialToneState = {};
+const initialToneState = { tone: null };
 
 const dummyWatsonData = {
   type: actions.GET_TONE,
   payload: {
-    data: { emotion:
-      { id: 'emotion_tone',
+    data: {
+      toneData: {
+        emotion:
+        { id: 'emotion_tone',
         anger: 14.34,
         disgust: 40.61,
         fear: 11.65,
         joy: 0.32,
         sadness: 5.72 },
-     writing:
-      { id: 'writing_tone',
+        writing:
+        { id: 'writing_tone',
         analytical: 91,
         confident: 76.8,
         tentative: 92.8 },
-     social:
-      { id: 'social_tone',
+        social:
+        { id: 'social_tone',
         openness_big5: 27.7,
         conscientiousness_big5: 4.1,
         extraversion_big5: 31.1,
         agreeableness_big5: 24.2,
         neuroticism_big5: 93.4 },
+      },
     },
   },
 };
@@ -48,9 +51,10 @@ describe('Tone reducer:', () => {
 
   it('should set tone to received values if status of 200 is received', () => {
     dummyWatsonData.payload.status = 200;
+    const toneResult = { tone: dummyWatsonData.payload.data.toneData };
     expect(
       reducerTone(initialToneState, dummyWatsonData)
-    ).toEqual(dummyWatsonData.payload.data);
+    ).toEqual(toneResult);
   });
 
 });

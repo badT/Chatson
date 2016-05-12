@@ -14,10 +14,9 @@ const store = configureStore();
 describe('<ChannelDropdown />', () => {
   sinon.spy(ConnectedChannelDropdown.prototype, 'render');
 
-  it('should render button for channel dropdown', () => {
+  it('should render burger for channel selection', () => {
     const wrapper = mount(<ConnectedChannelDropdown store={store} />);
-    expect(wrapper.find('div')).to.have.length(2);
-    expect(wrapper.find('button')).to.have.length(1);
+    expect(wrapper.find('line')).to.have.length(3);
   });
 
   it('should call render function', () => {
@@ -27,7 +26,6 @@ describe('<ChannelDropdown />', () => {
   it('should recieve store from redux', () => {
     const wrapper = mount(<ConnectedChannelDropdown store={store} />);
     expect(wrapper.state().storeState.channels).to.exist;
-    expect(wrapper.state().storeState.tone).to.exist;
   });
 
 });
