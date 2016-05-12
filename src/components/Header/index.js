@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import ChannelDropdown from '../../containers/ChannelDropdown/ChannelDropdown';
+import ChannelDropdown from '../../containers/ChannelDropdown';
 
 /* component styles */
 import { styles } from './styles.scss';
