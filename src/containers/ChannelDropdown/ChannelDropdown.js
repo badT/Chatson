@@ -40,7 +40,7 @@ class ChannelDropdown extends Component {
 
   drawerAnim() {
     const open = () => {
-      TweenMax.to('#drawer_holder', 0.6, { css: { 'background-color': 'rgba(0,0,0,0.6)' }});
+      TweenMax.to('#drawer_overlay', 0.6, { css: { 'background-color': 'rgba(0,0,0,0.6)' }});
       TweenMax.to('#drawer', 0.6, { x: '0%' });
       /* animate icon */
       TweenMax.to('#brg_top', 0.5, { rotation: -30, y: 4 });
@@ -49,7 +49,7 @@ class ChannelDropdown extends Component {
     };
 
     const close = () => {
-      TweenMax.to('#drawer_holder', 0.6, { css: { 'background-color': 'rgba(0,0,0,0)' }});
+      TweenMax.to('#drawer_overlay', 0.6, { css: { 'background-color': 'rgba(0,0,0,0)' }});
       TweenMax.to('#drawer', 0.6, { x: '-101%' });
       /* animate icon */
       TweenMax.to('#brg_top', 0.5, { rotation: 0, y: 0 });
@@ -106,8 +106,8 @@ class ChannelDropdown extends Component {
 
         {/* Dropdown Menu Overlay BG */}
         <div 
-          className={`drawer-holder ${this.state.drawerOpen ? 'drawer-open' : ''}`} 
-          id="drawer_holder"
+          className={`drawer-overlay ${this.state.drawerOpen ? 'drawer-open' : ''}`} 
+          id="drawer_overlay"
           onClick={() => this.toggleDrawer()}>
         </div>
 
