@@ -7,9 +7,9 @@ import { TopChannels } from '../../containers/TopChannels';
 import { styles } from './styles.scss';
 
 const metaData = {
-  title: 'Twitch Chat Visualizer',
-  description: 'Get a sense of how a Twitch channel is devolving',
-  canonical: 'http://example.com/path/to/page',
+  title: 'Chatson: Watson Chat Analysis',
+  description: 'Get a visual representation of a chat channel\'s activity and group sentiment',
+  canonical: 'http://chatson.science',
   meta: {
     charset: 'utf-8',
     name: {
@@ -24,7 +24,7 @@ export class Home extends Component {
       <section className={`${styles}`}>
         <DocumentMeta {...metaData} />
         <div className="home-container">
-          <p>Welcome to the Twitch Chat Visualizer. Select one of the currently active channels to see an analysis of its chat activity.</p>
+          <p>Welcome to Chatson! We use Watson's tone analyzer to provide you with a visualization of the mood and attitude in a chat stream. See the menu above to read more about our process or to select one of the top currently streaming Twitch chat channels to see a live analysis.</p>
         </div>
         <TopChannels />
       </section>

@@ -42,18 +42,35 @@
     bottom: 0;
     background-color: #bbb;
     transform: translateX(-101%);
-    padding: 15px 30px;
+    padding: 15px 0;
     box-shadow: 2px 0 4px $shadow;
+  }
+
+  .about-link {
+    text-align: center;
+    margin: 0 0 15px 0;
+  }
+
+  .channel-list-header {
+    padding: 15px 30px;
+    text-align: center;
+    margin: 0;
+    border-bottom: 2px solid #ddd;
+    border-top: 2px solid #ddd;
+    a {
+      text-decoration: none;
+    }
   }
 
   .drawer-link {
     display: block;
     text-align: center;
     text-decoration: none;
+    letter-spacing: 0.05em;
     color: #333;
     font-weight: bold;
     padding: 10px;
-    margin-bottom: 15px;
+    margin: 15px 30px;
     background-color: #bbb;
     border-radius: 3px;
     box-shadow: 1px 1px 3px $shadow inset;
