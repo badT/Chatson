@@ -5,547 +5,161 @@
 
   margin: 0 15px;
 
-  .graph-tab-holder {
-    position: relative;
-  }
-  .graph-tab-holder:first-of-type {
-    padding-left: 0;
-  }
-
-  .graph-tab {
-    display: inline-block;
-    padding: 15px;
-    font-size: 1em;
-    margin: 0;
-    border-radius: 3px 3px 0 0;
-    box-shadow: 1px 1px 3px $shadow inset;
-    cursor: pointer;
-    background-color: #bbb;
-    transition: color 0.2s, background-color 0.2s;
-  }
-
-  @media only screen and (min-width : 480px) {
-    .graph-tab {
-      font-size: 1.5em;
-    }
-  }
-  @media only screen and (min-width : 768px) {
-    .graph-tab {
-      font-size: 30px;
-    }
-  }
-
-
-  .graph-tab:hover {
-    background-color: #555;
-    color: #fff;
-  }
-
-  .graph-tab.tab-active {
-    background-color: $bg-color;
-    box-shadow: 1px 1px 3px $shadow;
-    cursor: default;
-  }
-
-  .graph-tab.tab-active:hover {
-    color: inherit;
-  }
-
   .graph-main {
     background-color: $bg-color;
     border-radius: 0 0 3px 3px;
     box-shadow: 1px 1px 3px $shadow;
   }
 
-  .graph-key {
-    position: relative;
-    border-top: 2px solid #ddd;
-    border-bottom: 2px solid #ddd;
-    padding: 0 15px;
-  }
-
-  .splotches-grid {
-    margin: 0;
-    padding: 0;
-  }
-
-  .splotch-row {
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .splotch-row:first-of-type {
-    position: relative;
-  }
-
-  .splotch-row:last-of-type {
-    position: absolute;
-    top: 0;
-    left: 15px;
-    right: 15px;
-  }
-
-  .splotch-row.splotch-row-active {
-    opacity: 1;
-    z-index: 1;
-  }
-
-  .splotch-holder {
-    position: relative;
-    padding: 5px 15px;
-  }
-
-  .color-splotch {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    transform: scale(0.15);
-    box-shadow: 2px 2px 4px $shadow inset;
-    transition: box-shadow 0.3s;
-  }
-
-  @media only screen and (min-width : 480px) {
-    .splotch-label {
-      margin-left: 55px;
-    }
-    .color-splotch {
-      width: 50px;
-      height: 50px;
-    }
-  }
-  @media only screen and (min-width : 768px) {
-    .splotch-label {
-      margin-left: 65px;
-    }
-    .color-splotch {
-      width: 60px;
-      height: 60px;
-    }
-  }
-
-  .dom-emo-anger #anger-splotch,
-  .dom-emo-sadness #sadness-splotch,
-  .dom-emo-disgust #disgust-splotch,
-  .dom-emo-fear #fear-splotch,
-  .dom-emo-joy #joy-splotch {
-    box-shadow: 4px 4px 4px $shadow;
-  }
-
-  .dom-emo-anger .anger-splotch-text,
-  .dom-emo-sadness .sadness-splotch-text,
-  .dom-emo-disgust .disgust-splotch-text,
-  .dom-emo-fear .fear-splotch-text,
-  .dom-emo-joy .joy-splotch-text {
-    font-weight: bold;
-  }
-
-  .dom-soc-openness #openness-splotch,
-  .dom-soc-conscientiousness #conscientiousness-splotch,
-  .dom-soc-extraversion #extraversion-splotch,
-  .dom-soc-agreeableness #agreeableness-splotch,
-  .dom-soc-neuroticism #neuroticism-splotch {
-    box-shadow: 4px 4px 4px $shadow;
-  }
-
-  .dom-soc-openness .openness-splotch-text,
-  .dom-soc-conscientiousness .conscientiousness-splotch-text,
-  .dom-soc-extraversion .extraversion-splotch-text,
-  .dom-soc-agreeableness .agreeableness-splotch-text,
-  .dom-soc-neuroticism .neuroticism-splotch-text {
-    font-weight: bold;
-  }
-
-  #anger-splotch,
-  #openness-splotch {
-    background-color: #FF3F39;
-  }
-  #sadness-splotch,
-  #conscientiousness-splotch {
-    background-color: #2B56B2;
-  }
-  #disgust-splotch,
-  #extraversion-splotch {
-    background-color: #AC35B2;
-  }
-  #fear-splotch,
-  #agreeableness-splotch {
-    background-color: #4ACC68;
-  }
-  #joy-splotch,
-  #neuroticism-splotch {
-    background-color: #FFF348;
-  }
-
-  .splotch-label {
-    display: inline-block;
-    margin-left: 45px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  @media only screen and (min-width : 480px) {
-    .splotch-label {
-      margin-left: 55px;
-    }
-  }
-  @media only screen and (min-width : 768px) {
-    .splotch-label {
-      margin-left: 65px;
-    }
-  }
-
-  .tooltip {
-    position: absolute;
-    display: none;
-    padding: 10px 15px;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 3px;
-    color: #fff;
-    box-shadow: 1px 1px 2px $shadow;
-    opacity: 0;
-    bottom: 100%;
-    margin-bottom: 8px;
-  }
-
-  .color-splotch-holder {
-    position: relative;
-    width: 40px
-  }
-
-  @media only screen and (min-width : 480px) {
-    .color-splotch-holder {
-      width: 50px;
-    }
-  }
-  @media only screen and (min-width : 768px) {
-    .color-splotch-holder {
-      width: 60px;
-    }
-  }
-
-  .color-splotch-holder:hover .tooltip {
-    display: inline-block;
-    opacity: 1;
-  }
-
-  .splotch-label-tooltip {
-    width: 240px;
-  }
-
-  .splotch-tooltip {
-    width: 200px;
-  }
-
-  .tooltip:after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    width: 0;
-    height: 0;
-    border-top: 8px solid rgba(0, 0, 0, 0.8);
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-  }
-
-  .splotch-holder:nth-of-type(1) .tooltip,
-  .splotch-holder:nth-of-type(3) .tooltip,
-  .splotch-holder:nth-of-type(5) .tooltip {
-    left: 0;
-  }
-
-  .splotch-holder:nth-of-type(1) .tooltip:after,
-  .splotch-holder:nth-of-type(3) .tooltip:after,
-  .splotch-holder:nth-of-type(5) .tooltip:after {
-    left: 3px;
-  }
-
-  .splotch-holder:nth-of-type(2) .tooltip,
-  .splotch-holder:nth-of-type(4) .tooltip {
-    right: 0;
-  }
-
-  .splotch-holder:nth-of-type(2) .tooltip:after,
-  .splotch-holder:nth-of-type(4) .tooltip:after {
-    right: 3px;
-  }
-
-  // tooltips for the splotches themselves
-  .splotch-holder:nth-of-type(1) .splotch-tooltip,
-  .splotch-holder:nth-of-type(3) .splotch-tooltip,
-  .splotch-holder:nth-of-type(5) .splotch-tooltip {
-    left: 50%;
-    transform: translateX(-8px);
-  }
-
-  .splotch-holder:nth-of-type(1) .splotch-tooltip:after,
-  .splotch-holder:nth-of-type(3) .splotch-tooltip:after,
-  .splotch-holder:nth-of-type(5) .splotch-tooltip:after {
-    left: 3px;
-  }
-
-  .splotch-holder:nth-of-type(2) .splotch-tooltip,
-  .splotch-holder:nth-of-type(4) .splotch-tooltip {
-    right: 50%;
-    transform: translateX(8px);
-  }
-
-  .splotch-holder:nth-of-type(2) .splotch-tooltip:after,
-  .splotch-holder:nth-of-type(4) .splotch-tooltip:after {
-    right: 3px;
-  }
-
-  @media only screen and (min-width : 768px) {
-    .splotch-holder:nth-of-type(2) .tooltip,
-    .splotch-holder:nth-of-type(4) .tooltip {
-      left: 0;
-      right: auto;
-    }
-
-    .splotch-holder:nth-of-type(2) .tooltip:after,
-    .splotch-holder:nth-of-type(4) .tooltip:after {
-      left: 3px;
-      right: auto;
-    }
-
-    .splotch-holder:nth-of-type(3) .tooltip {
-      right: 0;
-      left: auto;
-    }
-
-    .splotch-holder:nth-of-type(3) .tooltip:after {
-      right: 3px;
-      left: auto;
-    }
-
-    // tooltips for the splotches themselves
-    .splotch-holder:nth-of-type(2) .splotch-tooltip,
-    .splotch-holder:nth-of-type(4) .splotch-tooltip {
-      left: 50%;
-      transform: translateX(-8px);
-      right: auto;
-    }
-
-    .splotch-holder:nth-of-type(2) .splotch-tooltip:after,
-    .splotch-holder:nth-of-type(4) .splotch-tooltip:after {
-      left: 3px;
-      right: auto;
-    }
-
-    .splotch-holder:nth-of-type(3) .splotch-tooltip {
-      right: 50%;
-      transform: translateX(8px);
-      left: auto;
-    }
-
-    .splotch-holder:nth-of-type(3) .splotch-tooltip:after {
-      right: 3px;
-      left: auto;
-    }
-  }
-
-  @media only screen and (min-width : 992px) {
-    .splotch-holder:nth-of-type(3) .tooltip {
-      left: 0;
-      right: auto;
-    }
-
-    .splotch-holder:nth-of-type(3) .tooltip:after {
-      left: 3px;
-      right: auto;
-    }
-
-    .splotch-holder:nth-of-type(4) .tooltip,
-    .splotch-holder:nth-of-type(5) .tooltip {
-      right: 0;
-      left: auto;
-    }
-
-    .splotch-holder:nth-of-type(4) .tooltip:after,
-    .splotch-holder:nth-of-type(5) .tooltip:after {
-      right: 3px;
-      left: auto;
-    }
-
-    // tooltips for the splotches themselves
-    .splotch-holder:nth-of-type(3) .splotch-tooltip {
-      left: 50%;
-      transform: translateX(-8px);
-      right: auto;
-    }
-
-    .splotch-holder:nth-of-type(3) .splotch-tooltip:after {
-      left: 3px;
-      right: auto;
-    }
-
-    .splotch-holder:nth-of-type(4) .splotch-tooltip,
-    .splotch-holder:nth-of-type(5) .splotch-tooltip {
-      right: 50%;
-      transform: translateX(8px);
-      left: auto;
-    }
-
-    .splotch-holder:nth-of-type(4) .splotch-tooltip:after,
-    .splotch-holder:nth-of-type(5) .splotch-tooltip:after {
-      right: 3px;
-      left: auto;
-    }
-  }
-
-  .splotch-label:hover .tooltip {
-    display: inline-block;
-    opacity: 1;
-  }
-
-  .graph-explanation {
-    display: block;
-    position: absolute;
-    bottom: 100%;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .graph-explanation.visible {
-    opacity: 1;
-  }
-
-  .line-graph-container {
-    position: relative;
-    padding: 0 30px;
-    margin: 50px 0 50px;
-  }
-
-  .loader {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    display: none;
-  }
-
-  .loader.loader-active {
-    display: block;
-  }
-
-  .loader-msg {
-    position: absolute;
-    font-size: 1.4em;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  @media only screen and (min-width : 480px) {
-    .line-graph-container {
-      margin: 25px 0 50px;
-    }
-  }
-
-  svg {
-    box-shadow: 0 1px 2px $shadow;
-    height: 200px;
-  }
-
-
-  .graph-bg {
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .graph-bg.bg-active {
-    opacity: 1;
-  }
-
-  .line-graph-container path {
-    stroke-width: 0.6;
-  }
-
-  .graph-lines {
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .graph-lines.lines-active {
-    opacity: 1;
-  }
-
-  .graph-refs {
-    display: none;
-  }
-
-  .graph-refs.refs-active {
-    display: block;
-  }
-
-  path.reference-line {
-    stroke: #666;
-    stroke-width: 0.6;
-    stroke-dasharray: 2 3.71;
-    stroke-dashoffset: 1;
-    stroke-linecap: round;
-  }
-
-  .ref-box {
-    fill-opacity: 0;
-    transition: all 0.3s;
-  }
-
-  .ref-box.visible {
-    fill-opacity: 0.4;
-  }
-
-  #line-container path.stroke-outline {
-    stroke-width: 1.8;
-  }
-
-  #line-container path {
-    stroke-width: 1.2;
-    stroke-linecap: round;
-  }
-
-  @media only screen and (min-width : 480px) {
-    svg {
-      height: 300px;
-    }
-    #line-container path.stroke-outline {
-      stroke-width: 1.4;
-    }
-    #line-container path {
-      stroke-width: 0.8;
-    }
-  }
-  @media only screen and (min-width : 768px) {
-    svg {
-      height: 400px;
-    }
-    #line-container path.stroke-outline {
-      stroke-width: 1.2;
-    }
-    #line-container path {
-      stroke-width: 0.5;
-    }
-  }
-
-  path.reference-line-trigger {
-    stroke-width: 6;
-  }
-
-  .x-axis-label {
-    position: absolute;
-    font-size: 0.8em;
-    margin-top: 3px;
-    top: 100%;
-  }
-
-  .x-axis-label.start {
-    left: 30px;
-  }
-
-  .x-axis-label.end {
-    right: 30px;
-  }
+
+  // .line-graph-container {
+  //   position: relative;
+  //   padding: 0 30px;
+  //   margin: 50px 0 50px;
+  // }
+  
+  // .graph-explanation {
+  //   display: block;
+  //   position: absolute;
+  //   bottom: 100%;
+  //   opacity: 0;
+  //   transition: opacity 0.3s;
+  // }
+
+  // .graph-explanation.visible {
+  //   opacity: 1;
+  // }
+
+
+  // .loader {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   z-index: -1;
+  //   display: none;
+  // }
+
+  // .loader.loader-active {
+  //   display: block;
+  // }
+
+  // .loader-msg {
+  //   position: absolute;
+  //   font-size: 1.4em;
+  //   top: 0;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  // }
+
+  // @media only screen and (min-width : 480px) {
+  //   .line-graph-container {
+  //     margin: 25px 0 50px;
+  //   }
+  // }
+
+  // svg {
+  //   box-shadow: 0 1px 2px $shadow;
+  //   height: 200px;
+  // }
+
+
+  // .graph-bg {
+  //   opacity: 0;
+  //   transition: opacity 0.3s;
+  // }
+
+  // .graph-bg.bg-active {
+  //   opacity: 1;
+  // }
+
+  // .line-graph-container path {
+  //   stroke-width: 0.6;
+  // }
+
+  // .graph-lines {
+  //   opacity: 0;
+  //   transition: opacity 0.3s;
+  // }
+
+  // .graph-lines.lines-active {
+  //   opacity: 1;
+  // }
+
+  // .graph-refs {
+  //   display: none;
+  // }
+
+  // .graph-refs.refs-active {
+  //   display: block;
+  // }
+
+  // path.reference-line {
+  //   stroke: #666;
+  //   stroke-width: 0.6;
+  //   stroke-dasharray: 2 3.71;
+  //   stroke-dashoffset: 1;
+  //   stroke-linecap: round;
+  // }
+
+  // .ref-box {
+  //   fill-opacity: 0;
+  //   transition: all 0.3s;
+  // }
+
+  // .ref-box.visible {
+  //   fill-opacity: 0.4;
+  // }
+
+  // #line-container path.stroke-outline {
+  //   stroke-width: 1.8;
+  // }
+
+  // #line-container path {
+  //   stroke-width: 1.2;
+  //   stroke-linecap: round;
+  // }
+
+  // @media only screen and (min-width : 480px) {
+  //   svg {
+  //     height: 300px;
+  //   }
+  //   #line-container path.stroke-outline {
+  //     stroke-width: 1.4;
+  //   }
+  //   #line-container path {
+  //     stroke-width: 0.8;
+  //   }
+  // }
+  // @media only screen and (min-width : 768px) {
+  //   svg {
+  //     height: 400px;
+  //   }
+  //   #line-container path.stroke-outline {
+  //     stroke-width: 1.2;
+  //   }
+  //   #line-container path {
+  //     stroke-width: 0.5;
+  //   }
+  // }
+
+  // path.reference-line-trigger {
+  //   stroke-width: 6;
+  // }
+
+  // .x-axis-label {
+  //   position: absolute;
+  //   font-size: 0.8em;
+  //   margin-top: 3px;
+  //   top: 100%;
+  // }
+
+  // .x-axis-label.start {
+  //   left: 30px;
+  // }
+
+  // .x-axis-label.end {
+  //   right: 30px;
+  // }
 }
