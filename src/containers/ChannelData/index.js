@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Chart from '../../components/Chart/index';
+import SparklineChart from '../../components/SparklineChart';
 import { getTone, unsetTone } from '../../actions/index';
 
 /* component styles */
@@ -131,21 +131,21 @@ class ChannelData extends Component {
             <section className="msg-data">
               <h5>Average message length: {Math.round(this.state.avgLength)}</h5>
               <h5>Last message length: {this.state.lastMsg.length}</h5>
-              <div className="msg-chart"><Chart data={this.state.msgLengthArray} color="blue" limit={200} /></div>
+              <div className="msg-chart"><SparklineChart data={this.state.msgLengthArray} color="blue" limit={200} /></div>
             </section>
           </div>
           <div className="col-md-4">
             <section className="msg-data">
               <h5>Average Messages per Second: {(this.state.avgMsgPerSec).toFixed(2)}</h5>
               <h5>Last second's total: {this.state.lastSecTotal}</h5>
-              <div className="msg-chart"><Chart data={this.state.msgPerSecArray} color="green" limit={60} /></div>
+              <div className="msg-chart"><SparklineChart data={this.state.msgPerSecArray} color="green" limit={60} /></div>
             </section>
           </div>
           <div className="col-md-4 col-md-pull-8">
             <section className="msg-data">
               <h5>Average Messages per Minute: {Math.round(this.state.avgMsgPerMin)}</h5>
               <h5>Last minute's total: {this.state.lastMinTotal}</h5>
-              <div className="msg-chart"><Chart data={this.state.msgPerMinArray} color="red" limit={60} /></div>
+              <div className="msg-chart"><SparklineChart data={this.state.msgPerMinArray} color="red" limit={60} /></div>
             </section>
           </div>
         </div>
