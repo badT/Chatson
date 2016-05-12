@@ -105,14 +105,17 @@ class ChannelDropdown extends Component {
           <h1>Chatson</h1>
         </Link>
 
-        <div className={`drawer-holder ${this.state.drawerOpen ? 'drawer-open' : ''}`} id="drawer_holder">
-          <div className="drawer" id="drawer">
-            <h4 className="about-link">
-              <Link to="/about" onClick={() => this.toggleDrawer()}>About Chatson</Link>
-            </h4>
-            <h4 className="channel-list-header">Active Chat Channels</h4>
-            {this.props.channels.list.map(this.renderChannels, this)}
-          </div>
+        <div 
+          className={`drawer-holder ${this.state.drawerOpen ? 'drawer-open' : ''}`} 
+          id="drawer_holder"
+          onClick={() => this.toggleDrawer()}>
+        </div>
+        <div className="drawer" id="drawer">
+          <h4 className="about-link">
+            <Link to="/about" onClick={() => this.toggleDrawer()}>About Chatson</Link>
+          </h4>
+          <h4 className="channel-list-header">Active Chat Channels</h4>
+          {this.props.channels.list.map(this.renderChannels, this)}
         </div>
 
       </div>
