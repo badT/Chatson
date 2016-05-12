@@ -1,10 +1,7 @@
 const messageController = require('./db/controllers/messageController');
-const chatChannels = require('./utils/socketio');
+const chatChannels = require('./utils/channelConnection');
 const establishConnection = chatChannels.establishConnection();
 const analyzer = require('./watson/analyzer');
-
-
-establishConnection.connect('imaqtpie');
 
 module.exports = (app, express) => {
   app.get('/messages', (req, res) => {
