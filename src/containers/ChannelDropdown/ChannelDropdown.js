@@ -102,7 +102,7 @@ class ChannelDropdown extends Component {
         </span>
 
         <Link to="/" className="logo" onClick={this.logoClickHandler.bind(this)}>
-          <h1>Twitch Chat Visualizer</h1>
+          <h1>Chatson</h1>
         </Link>
 
         <div className={`drawer-holder ${this.state.drawerOpen ? 'drawer-open' : ''}`} id="drawer_holder">
