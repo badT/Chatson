@@ -4,7 +4,7 @@ import DataContainer from '../../containers/DataContainer';
 /* component styles */
 import { styles } from './styles.scss';
 
-export class DataDisplay extends Component {
+export class ChatChannelDisplay extends Component {
   render() {
     return (
       <div className={`${styles}`}>
