@@ -30,9 +30,15 @@ const common = {
   resolve: {
     extensions: ['', '.jsx', '.js', '.json', '.scss'],
     modulesDirectories: ['node_modules', PATHS.app],
+    alias: {
+      'sinon': 'sinon/pkg/sinon',
+    },
   },
 
   module: {
+    noParse: [
+      /node_modules\/sinon\//,
+    ],
     loaders: [{
       test: /bootstrap-sass\/assets\/javascripts\//,
       loader: 'imports?jQuery=jquery',
@@ -64,8 +70,13 @@ const common = {
     }, {
       test: /\.jpg$/,
       loader: 'file?name=[name].[ext]',
+    }, {
+      test: /sinon\.js$/,
+      loader: 'imports?define=>false',
     }],
   },
+
+
 
   postcss: (webpack) => {
     return [

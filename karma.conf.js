@@ -1,3 +1,10 @@
+var webpackConfig = require('./webpack/common.config.js');
+webpackConfig.entry = {};
+webpackConfig.devtool = 'inline-source-map';
+webpackConfig.externals = {
+  'cheerio': 'window',
+};
+
 module.exports = (config) => {
   config.set({
     basePath: 'src',
@@ -9,28 +16,9 @@ module.exports = (config) => {
       'test/**/*.spec.js',
     ],
     preprocessors: {
-      'test/**/*.spec.js': ['webpack'],
+      'test/**/*.spec.js': ['webpack', 'sourcemap'],
     },
-    webpack: {
-      devtool: 'inline-source-map',
-      resolve: {
-        extensions: ['', '.js', '.ts'],
-        modulesDirectories: ['node_modules', 'src'],
-      },
-      module: {
-        loaders: [{
-          test: /\.js$/,
-          exclude: /\/node_modules\//,
-          loader: 'babel-loader',
-        }],
-      },
-      externals: {
-        'cheerio': 'window',
-        'react-dom': true,
-        'react-dom/server': true,
-        'react-addons-test-utils': true,
-      },
-    },
+    webpack: webpackConfig,
     webpackMiddleware: {
       stats: {
         color: true,
