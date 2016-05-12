@@ -1,0 +1,158 @@
+:local(.styles) {
+
+  $dimension: 60px;
+  $color1: rgba(0, 0, 255, 0.6);
+  $color2: rgba(255, 0, 0, 0.6);
+  $color3: rgba(255, 255, 0, 0.6);
+  $duration: 4s;
+    
+  .outer-container {
+    width: 100%;
+    height: 100%;
+    perspective: 5000px;
+    transform: translateY(-($dimension/2));
+  }
+
+  .inner-container {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: $dimension;
+    height: $dimension;
+    transform: translate(-50%, -50%) rotateX(-135deg) rotateY(135deg);
+    perspective: 5000px;
+    transform-style: preserve-3d;
+  }
+
+  .pos {
+    width: $dimension;
+    height: $dimension;
+    position: absolute;
+  }
+    
+  .section {
+    @extend .pos;
+    transform-style: preserve-3d;
+  }
+    
+  .face {
+    @extend .pos;
+    background-color: $color1;
+  }
+
+  .face2 {
+    @extend .pos;
+  }
+    
+  .section:nth-of-type(1) {
+    background-color: $color1;
+    animation: sec1 $duration infinite;
+    .face:first-of-type {
+      transform-origin: 0 50%;
+      animation: sec1f1 $duration infinite;
+      background-color: $color2;
+    }
+    .face:last-of-type {
+      transform-origin: 100% 50%;
+      animation: sec1f2 $duration infinite;
+      background-color: $color2;
+    }
+  }
+      
+  @keyframes sec1 {
+    0% {
+      transform: translateZ(-$dimension / 2);
+    }
+    100% {
+      transform: translateZ($dimension / 2);
+    }
+  }
+
+  @keyframes sec1f1 {
+    0% {
+      transform: rotateY(-90deg);
+    }
+    100% {
+      transform: rotateY(-270deg);
+    }
+  }
+    
+  @keyframes sec1f2 {
+    0% {
+      transform: rotateY(90deg);
+    }
+    100% {
+      transform: rotateY(270deg);
+    }
+  }
+    
+  .section:nth-of-type(2) {
+    background-color: $color1;
+    transform-origin: 50% 0;
+    animation: sec2 $duration infinite;
+    .face {
+      transform-origin: 50% 100%;
+      transform-style: preserve-3d;
+      animation: sec2f $duration infinite;
+    }
+    .face2 {
+      background-color: $color1;
+      transform-origin: 50% 0;
+      animation: sec2f $duration infinite;
+    }
+  }
+      
+  @keyframes sec2 {
+    0% {
+      transform: translateZ(-$dimension / 2) rotateX(90deg);
+    }
+    100% {
+      transform: translateZ($dimension / 2) rotateX(180deg);
+    }
+  }
+    
+  @keyframes sec2f {
+    0% {
+      transform: rotateX(90deg);
+    }
+    100% {
+      transform: rotateX(270deg);
+    }
+  }
+    
+  .section:nth-of-type(3) {
+    background-color: $color1;
+    transform-origin: 50% 0;
+    animation: sec3 $duration infinite;
+    .face:first-of-type {
+      transform-origin: 50% 100%;
+      transform-style: preserve-3d;
+      animation: sec2f $duration infinite;
+    }
+    .face2 {
+      background-color: $color1;
+      transform-origin: 50% 0;
+      animation: sec2f $duration infinite;
+    }
+    .face:nth-of-type(2) {
+      background-color: $color3;
+      transform-origin: 100% 50%;
+      transform: rotateY(-90deg);
+    }
+    .face:nth-of-type(3) {
+      background-color: $color3;
+      transform-origin: 0 50%;
+      transform: rotateY(90deg);
+    }
+  }
+      
+  @keyframes sec3 {
+    0% {
+      transform: translateZ(-$dimension / 2) rotateX(180deg);
+    }
+    100% {
+      transform: translateZ($dimension / 2) rotateX(270deg);
+    }
+  }
+
+}

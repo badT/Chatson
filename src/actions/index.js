@@ -37,3 +37,11 @@ export function getTone(data) {
     payload: request,
   };
 }
+
+export const UNSET_TONE = 'UNSET_TONE';
+export function unsetTone() {
+  return {
+    type: UNSET_TONE,
+    payload: null,
+  };
+}

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Chart from '../../components/Chart/index';
-import { getTone } from '../../actions/index';
+import { getTone, unsetTone } from '../../actions/index';
 
 /* component styles */
 import { styles } from './styles.scss';
@@ -40,6 +40,8 @@ class ChannelData extends Component {
         const currentWatsonString = this.state.watsonString;
         this.setState({ watsonString: '' });
         this.props.getTone(currentWatsonString);
+      } else {
+        this.props.unsetTone();
       }
     }, 3000);
   }
@@ -156,7 +158,7 @@ class ChannelData extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getTone }, dispatch);
+  return bindActionCreators({ getTone, unsetTone }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(ChannelData);
