@@ -10,7 +10,6 @@ import { styles } from './styles.scss';
 class ChannelDropdown extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       drawerOpen: false,
       animating: false,
@@ -37,7 +36,6 @@ class ChannelDropdown extends Component {
         this.setState({ animating: false });
       }, 600);
     }
-    
   }
 
   drawerAnim() {
@@ -92,7 +90,7 @@ class ChannelDropdown extends Component {
   render() {
     return (
       <div className={`${styles}`}>
-
+        {/* Hamburger Icon */}
         <span onClick={() => this.toggleDrawer()}>
           <svg className="burger" width="14" height="8" viewBox="-2 -2 18 12">
             <line className="burger-line" id="brg_top" x1="0" y1="0" x2="14" y2="0" />
@@ -101,15 +99,19 @@ class ChannelDropdown extends Component {
           </svg>
         </span>
 
+        {/* Logo Link */}
         <Link to="/" className="logo" onClick={this.logoClickHandler.bind(this)}>
           <h1>Chatson</h1>
         </Link>
 
+        {/* Dropdown Menu Overlay BG */}
         <div 
           className={`drawer-holder ${this.state.drawerOpen ? 'drawer-open' : ''}`} 
           id="drawer_holder"
           onClick={() => this.toggleDrawer()}>
         </div>
+
+        {/* Dropdown Menu */}
         <div className="drawer" id="drawer">
           <h4 className="about-link">
             <Link to="/about" onClick={() => this.toggleDrawer()}>About Chatson</Link>
@@ -117,7 +119,6 @@ class ChannelDropdown extends Component {
           <h4 className="channel-list-header">Active Chat Channels</h4>
           {this.props.channels.list.map(this.renderChannels, this)}
         </div>
-
       </div>
     );
   }
