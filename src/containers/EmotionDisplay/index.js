@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import gsap from 'gsap';
-
-import Loader from '../../components/Loader';
-
-import { emoColors, socColors, splotchDesc, splotchDescLT25, splotchDescLT50, splotchDescGT75 } from './descriptions';
-import { transformData, transitionAnims, capitalizeFirstLetter } from './helpers';
-
+import { emoColors, socColors } from './descriptions';
+import { transformData, transitionAnims } from './helpers';
+import LineGraphTabs from '../../components/LineGraph/LineGraphTabs';
+import LineGraphKey from '../../components/LineGraph/LineGraphKey';
+import LineGraphDisplay from '../../components/LineGraph/LineGraphDisplay';
 /* component styles */
 import { styles } from './styles.scss';
 
@@ -39,8 +38,6 @@ class EmotionDisplay extends Component {
         neuroticism: 0.15,
       },
       dominantSoc: '',
-      topRef: false,
-      btmRef: false,
     };
   }
 
@@ -106,69 +103,6 @@ class EmotionDisplay extends Component {
     }
   }
 
-  renderSplotches(colorKey, key) {
-    if (!colorKey) return;
-    const splotches = [];
-    for (let splotch in colorKey) {
-      splotches.push(
-        <div key={splotch} className="block-grid-item splotch-holder">
-          <div className="color-splotch-holder">
-            <span id={`${splotch}-splotch`} className="color-splotch"></span>
-            <span className="splotch-tooltip tooltip">
-              {`Avg for last 90 seconds: ${this.state[key][splotch].toFixed(2)}`}<br/>
-              {`${this.state[key][splotch].toFixed(2) <= 0.25 ? splotchDescLT25[splotch] : ''}`}
-              {`${this.state[key][splotch].toFixed(2) <= 0.5 ? splotchDescLT50[splotch] : ''}`}
-              {`${this.state[key][splotch].toFixed(2) >= 0.75 ? splotchDescGT75[splotch] : ''}`}
-            </span>
-          </div>
-          <span className="splotch-label">
-            <span className={`${splotch}-splotch-text`}>{capitalizeFirstLetter(splotch)}</span>
-            <span className="splotch-label-tooltip tooltip">
-              {splotchDesc[splotch]}
-            </span>
-          </span>
-        </div>
-      );
-    }
-    return (
-      <div className="block-grid-md-5 block-grid-sm-3 block-grid-xs-2 splotches-grid">
-        {splotches}
-      </div>
-    );
-  }
-
-  renderLines(colors, paths) {
-    if (!paths) return;
-    const lines = [];
-    for (let key in paths) {
-      lines.push(<path key={key} stroke={colors[key]} fill="none" d={paths[key]} />)
-    }
-    return (
-      <g>{lines}</g>
-    );
-  }
-
-  renderOutlines(paths) {
-    if (!paths) return;
-    const outlines = [];
-    for (let key in paths) {
-      outlines.push(<path key={key} stroke="#FFF" className="stroke-outline" fill="none" d={paths[key]} />);
-    }
-    return (
-      <g>{outlines}</g>
-    )
-  }
-
-  handleMouseEnter(line) {
-    if (line === 'top') this.setState({ topRef: true });
-    if (line === 'btm') this.setState({ btmRef: true });
-  }
-
-  handleMouseLeave(line) {
-    if (line === 'top') this.setState({ topRef: false });
-    if (line === 'btm') this.setState({ btmRef: false });
-  }
-
   toggleGraph(graph) {
     if (graph === 'social' && this.state.activeGraph === 'emotion') this.setState({ activeGraph: 'social' });
     if (graph === 'emotion' && this.state.activeGraph === 'social') this.setState({ activeGraph: 'emotion' });
@@ -178,102 +112,26 @@ class EmotionDisplay extends Component {
     return (
       <div className={`${styles}`}>
         {/* TAB DISPLAY */}
-        <section className="row">
-          <div className="col-xs-12 graph-tab-holder">
-            <h2
-              className={`graph-tab ${this.state.activeGraph === 'emotion' ? 'tab-active' : ''}`}
-              onClick={() => this.toggleGraph('emotion')}>
-                Channel Emotions
-            </h2>
-            <h2
-              className={`graph-tab ${this.state.activeGraph === 'social' ? 'tab-active' : ''}`}
-              onClick={() => this.toggleGraph('social')}>
-                Social Attributes
-            </h2>
-          </div>
-        </section>
+        <LineGraphTabs
+          activeGraph={this.state.activeGraph}
+          toggleGraph={this.toggleGraph.bind(this)}
+        />
 
         {/* MAIN GRAPH (key and line graph)*/}
         <section className="graph-main row">
-          <section className={`graph-key dom-emo-${this.state.dominantEmo} dom-soc-${this.state.dominantSoc}`}>
-            <div className={`row splotch-row ${this.state.activeGraph === 'emotion' ? 'splotch-row-active' : ''}`}>
-              {this.renderSplotches(emoColors, 'emotionKey')}
-            </div>
-            <div className={`row splotch-row ${this.state.activeGraph === 'social' ? 'splotch-row-active' : ''}`}>
-              {this.renderSplotches(socColors, 'socialKey')}
-            </div>
-          </section>
-
-          <div className="graph-row">
-            <div className="col-lg-12 line-graph-container">
-              <div className={`graph-refs ${this.state.activeGraph === 'emotion' ? 'refs-active' : ''}`}>
-                <span className={`graph-explanation ${this.state.topRef ? 'visible' : ''}`}>Values above this line indicate that the chat is more likely to be perceived as conveying this emotion</span>
-                <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate that the chat is less likely to be perceived as conveying this emotion</span>
-              </div>
-
-              <div className={`graph-refs ${this.state.activeGraph === 'social' ? 'refs-active' : ''}`}>
-                <span className={`graph-explanation ${this.state.topRef ? 'visible' : ''}`}>Values above this line indicate that the chat sentiment is closely aligning with this social attribute</span>
-                <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate that the chat sentiment is more likely to be perceived as aligning with the opposite extreme of this attribute</span>
-              </div>
-
-              {/* PLACE ABS POS LOADER HERE..., USE this.state.waitingForMessages */}
-              <div className={`loader ${this.state.waitingForMsgs ? 'loader-active' : ''}`}>
-                <span className="loader-msg">Waiting for New Messages</span>
-                <Loader/>
-              </div>
-
-              <svg width="100%" height="400" viewBox="0 0 400 100" preserveAspectRatio="none">
-
-                <rect className={`graph-bg ${this.state.activeGraph === 'emotion' ? 'bg-active' : ''}`} id="emo-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
-                <rect className={`graph-bg ${this.state.activeGraph === 'social' ? 'bg-active' : ''}`} id="soc-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
-
-                <g className={`graph-refs ${this.state.activeGraph === 'emotion' ? 'refs-active' : ''}`}>               
-                  <path className="reference-line" d="M 0.3 25 l 399.7 0" />
-                  <rect id="upper-ref" x="0" y="0" width="400" height="25" fill="#fff" className={`ref-box ${this.state.topRef ? 'visible' : ''}`} />
-                  <path className="reference-line" d="M 0.3 50 l 399.7 0" />
-                  <rect id="lower-ref" x="0" y="50" width="400" height="50" fill="#fff" className={`ref-box ${this.state.btmRef ? 'visible' : ''}`} />
-                </g>
-
-                <g className={`graph-refs ${this.state.activeGraph === 'social' ? 'refs-active' : ''}`}>               
-                  <path className="reference-line" d="M 0.3 25 l 399.7 0" />
-                  <rect id="upper-ref" x="0" y="0" width="400" height="25" fill="#fff" className={`ref-box ${this.state.topRef ? 'visible' : ''}`} />
-                  <path className="reference-line" d="M 0.3 75 l 399.7 0" />
-                  <rect id="lower-ref" x="0" y="75" width="400" height="25" fill="#fff" className={`ref-box ${this.state.btmRef ? 'visible' : ''}`} />
-                </g>
-
-                <g id="line-container">
-                  <g className={`graph-lines ${this.state.activeGraph === 'emotion' ? 'lines-active' : ''}`}>
-                    {this.renderOutlines(this.state.emotionPaths)}
-                    {this.renderLines(emoColors, this.state.emotionPaths)}
-                  </g>
-                  <g className={`graph-lines ${this.state.activeGraph === 'social' ? 'lines-active' : ''}`}>
-                    {this.renderOutlines(this.state.socialPaths)}
-                    {this.renderLines(socColors, this.state.socialPaths)}
-                  </g>
-                </g>
-
-                <g className={`graph-refs ${this.state.activeGraph === 'emotion' ? 'refs-active' : ''}`}>
-                  <path className="reference-line-trigger" stroke="transparent" d="M 0.3 25 l 399.7 0" 
-                    onMouseEnter={() => this.handleMouseEnter('top')} 
-                    onMouseLeave={() => this.handleMouseLeave('top')} />
-                  <path className="reference-line-trigger" stroke="transparent" d="M 0.3 50 l 399.7 0" 
-                    onMouseEnter={() => this.handleMouseEnter('btm')} 
-                    onMouseLeave={() => this.handleMouseLeave('btm')} />
-                </g>
-
-                <g className={`graph-refs ${this.state.activeGraph === 'social' ? 'refs-active' : ''}`}>
-                  <path className="reference-line-trigger" stroke="transparent" d="M 0.3 25 l 399.7 0" 
-                    onMouseEnter={() => this.handleMouseEnter('top')} 
-                    onMouseLeave={() => this.handleMouseLeave('top')} />
-                  <path className="reference-line-trigger" stroke="transparent" d="M 0.3 75 l 399.7 0" 
-                    onMouseEnter={() => this.handleMouseEnter('btm')} 
-                    onMouseLeave={() => this.handleMouseLeave('btm')} />
-                </g>
-              </svg>
-              <span className="x-axis-label start">30 Sec<br/>Ago</span>
-              <span className="x-axis-label end">Now</span>
-            </div>
-          </div>
+          <LineGraphKey 
+            dominantEmo={this.state.dominantEmo} 
+            dominantSoc={this.state.dominantSoc} 
+            activeGraph={this.state.activeGraph} 
+            emotionKey={this.state.emotionKey}
+            socialKey={this.state.socialKey}
+          />
+          <LineGraphDisplay
+            activeGraph={this.state.activeGraph}
+            waitingForMsgs={this.state.waitingForMsgs}
+            emotionPaths={this.state.emotionPaths}
+            socialPaths={this.state.socialPaths}
+          />
         </section>
       </div>
     );
