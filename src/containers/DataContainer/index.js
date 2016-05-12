@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import MessageDisplay from '../MessageDisplay';
 import ChannelData from '../ChannelData';
-import EmotionDisplay from '../EmotionDisplay';
+import LineGraph from '../LineGraph';
 
 class DataContainer extends Component {
   constructor(props) {
@@ -53,7 +53,7 @@ class DataContainer extends Component {
         <section>
           <div className="row">
             <div className="col-lg-12">
-              <EmotionDisplay />
+              <LineGraph />
             </div>
           </div>
         </section>
