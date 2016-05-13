@@ -157,6 +157,11 @@ class ChannelData extends Component {
   }
 }
 
+ChannelData.propTypes = {
+  getTone: React.PropTypes.func,
+  unsetTone: React.PropTypes.func,
+};
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ getTone, unsetTone }, dispatch);
 }

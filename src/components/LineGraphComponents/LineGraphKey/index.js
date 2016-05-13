@@ -6,7 +6,7 @@ import { styles } from './styles.scss';
 
 export default class LineGraphKey extends Component {
   renderSplotches(colorKey, key) {
-    if (!colorKey) return;
+    if (!colorKey) return false;
     const splotches = [];
     Object.keys(colorKey).forEach(splotch => {
       splotches.push(

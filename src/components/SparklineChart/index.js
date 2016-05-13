@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sparklines, SparklinesLine, SparklinesSpots } from 'react-sparklines';
 
-export default (props) => {
+export default function SparklineChart(props) {
   return (
     <div>
       <Sparklines data={props.data} limit={props.limit}>
@@ -10,4 +10,10 @@ export default (props) => {
       </Sparklines>
     </div>
   );
+}
+
+SparklineChart.propTypes = {
+  data: React.PropTypes.array,
+  limit: React.PropTypes.number,
+  color: React.PropTypes.string,
 };
