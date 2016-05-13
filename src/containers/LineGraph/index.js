@@ -39,6 +39,7 @@ class LineGraph extends Component {
       },
       dominantSoc: '',
     };
+    this.toggleGraph = this.toggleGraph.bind(this);
   }
 
   componentWillMount() {
@@ -67,10 +68,12 @@ class LineGraph extends Component {
       const currentAnger = props.emotion.anger;
       if (currentAnger !== this.state.lastAnger) {
         const altSocialKeys = {};
-        delete props.social.id;
-        for (let key in props.social) {
+        // delete props.social.id;
+
+        Object.keys(props.social).forEach(key => {
+          if (key === 'id') return;
           altSocialKeys[key.split('_')[0]] = props.social[key];
-        }
+        });
 
         const newEmotionData = this.state.emotionData.concat([props.emotion]);
         const newSocialData = this.state.socialData.concat([altSocialKeys]);
@@ -120,15 +123,15 @@ class LineGraph extends Component {
         {/* TAB DISPLAY */}
         <LineGraphTabs
           activeGraph={this.state.activeGraph}
-          toggleGraph={this.toggleGraph.bind(this)}
+          toggleGraph={this.toggleGraph}
         />
 
         {/* MAIN GRAPH (key and line graph)*/}
         <section className="graph-main row">
-          <LineGraphKey 
-            dominantEmo={this.state.dominantEmo} 
-            dominantSoc={this.state.dominantSoc} 
-            activeGraph={this.state.activeGraph} 
+          <LineGraphKey
+            dominantEmo={this.state.dominantEmo}
+            dominantSoc={this.state.dominantSoc}
+            activeGraph={this.state.activeGraph}
             emotionKey={this.state.emotionKey}
             socialKey={this.state.socialKey}
           />

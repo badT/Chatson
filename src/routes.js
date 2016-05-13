@@ -2,10 +2,10 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 /* containers */
-import { App } from 'components/App';
-import { Home } from 'components/Home';
-import { About } from 'components/About';
-import { ChatChannelDisplay } from 'components/ChatChannelDisplay';
+import { App } from './components/App';
+import { Home } from './components/Home';
+import { About } from './components/About';
+import { ChatChannelDisplay } from './components/ChatChannelDisplay';
 // import { List } from 'containers/List';
 
 export default (

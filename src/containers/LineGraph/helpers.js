@@ -44,20 +44,23 @@ export const transformData = (data, xCoord) => {
 
   Object.keys(readings).forEach(key => {
     if (key === 'id') return;
-    transformed[key] = readings[key].reduceRight((res, reading, i, coll) => {
-      if (i === coll.length - 1) {
-        res.path += `${res.x} ${100 - reading}`;
+    let path = 'M';
+    let x = xCoord;
+    let avg = 0;
+    for (let i = readings[key].length - 1; i > -1; i--) {
+      if (i === readings[key].length - 1) {
+        path += `${x} ${100 - readings[key][i]}`;
       } else {
-        if (reading >= coll[i + 1]) {
-          res.path += `C ${res.x + 20} ${100 - (coll[i + 1])} ${res.x + 20} ${100 - (reading)} ${res.x} ${100 - reading}`;
+        if (readings[key][i] >= readings[key][i + 1]) {
+          path += `C ${x + 20} ${100 - (readings[key][i + 1])} ${x + 20} ${100 - (readings[key][i])} ${x} ${100 - readings[key][i]}`;
         } else {
-          res.path += `C ${res.x + 20} ${100 - (coll[i + 1])} ${res.x + 20} ${100 - (reading)} ${res.x} ${100 - reading}`;
+          path += `C ${x + 20} ${100 - (readings[key][i + 1])} ${x + 20} ${100 - (readings[key][i])} ${x} ${100 - readings[key][i]}`;
         }
       }
-      res.x -= 40;
-      res.avg += (reading / coll.length);
-      return res;
-    }, { path: 'M', x: xCoord, avg: 0 });
+      x -= 40;
+      avg += (readings[key][i] / readings[key].length);
+    }
+    transformed[key] = { path, x, avg };
   });
 
   Object.keys(transformed).forEach(key => {
