@@ -1,0 +1,37 @@
+:local(.styles) {
+
+  $bg-color: rgba(255,255,255,0.2);
+  $shadow: rgba(0,0,0,0.6);
+
+  margin: 20px 0 0 0;
+
+  .intro {
+    border-bottom: 2px solid #ddd;
+    margin: 0px;
+    padding-bottom: 15px;
+    font-size: 17px !important;
+    font-weight: bolder;
+  }
+
+  .tone {
+    padding: 15px;
+  }
+
+  .msg-data {
+    padding-top: 15px;
+    border-radius: 3px;
+    margin-bottom: 30px;
+  }
+
+
+  .msg-chart {
+    padding: 15px;
+    min-height: 90px;
+  }
+
+  .separate {
+    border-bottom: 2px solid #ddd;
+  }
+
+
+}
