@@ -47,12 +47,18 @@ module.exports = (app, express) => {
           })
           .catch(err => {
             res.sendStatus(500);
+            console.error(err);
           });
       // sends back error message if data is empty
       } else {
         res.status(400).send('No message data recieved');
       }
     });
+  });
+
+  app.get('api/watson/longterm', (req, res) => {
+    // db controller function
+    res.send();
   });
 
 };
