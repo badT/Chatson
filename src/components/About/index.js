@@ -20,11 +20,7 @@ export function About() {
             <p className="tone">
               Emotional and social tone data is calculated using
               <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tone-analyzer.html"> IBM Watson™ Tone Analyzer</a>.
-              The main chart's legend icons will grow and shrink in proportion
-              along with the intensity of their corresponding attribute. The attribute currently most prominent will be
-              highlighted by bold lettering in addition to the background color of the chart taking on that attribute's color with
-              varying saturation to match its intensity. When viewing real time charts, be sure
-              to mouse over features for more information.
+              The main chart's legend icons grow and shrink proportionally with the intensity of their corresponding attribute. The most prominent attribute is highlighted in bold in addition to the background color of the chart taking on that attribute's color with the saturation level matching its intensity. When viewing the real time charts, be sure to mouse over features for more information.
             </p>
           </div>
         </div>
