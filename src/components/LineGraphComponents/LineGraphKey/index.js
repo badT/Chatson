@@ -8,13 +8,13 @@ export default class LineGraphKey extends Component {
   renderSplotches(colorKey, key) {
     if (!colorKey) return;
     const splotches = [];
-    for (let splotch in colorKey) {
+    Object.keys(colorKey).forEach(splotch => {
       splotches.push(
         <div key={splotch} className="block-grid-item splotch-holder">
           <div className="color-splotch-holder">
             <span id={`${splotch}-splotch`} className="color-splotch"></span>
             <span className="splotch-tooltip tooltip">
-              {`Avg for last 90 seconds: ${this.props[key][splotch].toFixed(2)}`}<br/>
+              {`Avg for last 90 seconds: ${this.props[key][splotch].toFixed(2)}`}<br />
               {`${this.props[key][splotch].toFixed(2) <= 0.25 ? splotchDescLT25[splotch] : ''}`}
               {`${this.props[key][splotch].toFixed(2) <= 0.5 ? splotchDescLT50[splotch] : ''}`}
               {`${this.props[key][splotch].toFixed(2) >= 0.75 ? splotchDescGT75[splotch] : ''}`}
@@ -28,7 +28,7 @@ export default class LineGraphKey extends Component {
           </span>
         </div>
       );
-    }
+    });
     return (
       <div className="block-grid-md-5 block-grid-sm-3 block-grid-xs-2 splotches-grid">
         {splotches}
@@ -51,3 +51,9 @@ export default class LineGraphKey extends Component {
     );
   }
 }
+
+LineGraphKey.propTypes = {
+  activeGraph: React.PropTypes.string,
+  dominantEmo: React.PropTypes.string,
+  dominantSoc: React.PropTypes.string,
+};

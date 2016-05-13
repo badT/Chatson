@@ -10,13 +10,15 @@ export default class LineGraphTabs extends Component {
           <div className="col-xs-12 graph-tab-holder">
             <h2
               className={`graph-tab ${this.props.activeGraph === 'emotion' ? 'tab-active' : ''}`}
-              onClick={() => this.props.toggleGraph('emotion')}>
-                Channel Emotions
+              onClick={() => this.props.toggleGraph('emotion')}
+            >
+              Channel Emotions
             </h2>
             <h2
               className={`graph-tab ${this.props.activeGraph === 'social' ? 'tab-active' : ''}`}
-              onClick={() => this.props.toggleGraph('social')}>
-                Social Attributes
+              onClick={() => this.props.toggleGraph('social')}
+            >
+              Social Attributes
             </h2>
           </div>
         </section>
@@ -24,3 +26,8 @@ export default class LineGraphTabs extends Component {
     );
   }
 }
+
+LineGraphTabs.propTypes = {
+  activeGraph: React.PropTypes.string,
+  toggleGraph: React.PropTypes.func,
+};

@@ -10,29 +10,7 @@ export default class LineGraphDisplay extends Component {
     this.state = {
       topRef: false,
       btmRef: false,
-    }
-  }
-
-  renderLines(colors, paths) {
-    if (!paths) return;
-    const lines = [];
-    for (let key in paths) {
-      lines.push(<path key={key} stroke={colors[key]} fill="none" d={paths[key]} />)
-    }
-    return (
-      <g>{lines}</g>
-    );
-  }
-
-  renderOutlines(paths) {
-    if (!paths) return;
-    const outlines = [];
-    for (let key in paths) {
-      outlines.push(<path key={key} stroke="#FFF" className="stroke-outline" fill="none" d={paths[key]} />);
-    }
-    return (
-      <g>{outlines}</g>
-    )
+    };
   }
 
   handleMouseEnter(line) {
@@ -43,7 +21,29 @@ export default class LineGraphDisplay extends Component {
   handleMouseLeave(line) {
     if (line === 'top') this.setState({ topRef: false });
     if (line === 'btm') this.setState({ btmRef: false });
-  }  
+  }
+
+  renderLines(colors, paths) {
+    if (!paths) return;
+    const lines = [];
+    Object.keys(paths).forEach(key => {
+      lines.push(<path key={key} stroke={colors[key]} fill="none" d={paths[key]} />);
+    });
+    return (
+      <g>{lines}</g>
+    );
+  }
+
+  renderOutlines(paths) {
+    if (!paths) return;
+    const outlines = [];
+    Object.keys(paths).forEach(key => {
+      outlines.push(<path key={key} stroke="#FFF" className="stroke-outline" fill="none" d={paths[key]} />);
+    });
+    return (
+      <g>{outlines}</g>
+    );
+  }
 
   render() {
     return (
@@ -63,7 +63,7 @@ export default class LineGraphDisplay extends Component {
           {/* Loading message and animation */}
           <div className={`loader ${this.props.waitingForMsgs ? 'loader-active' : ''}`}>
             <span className="loader-msg">Waiting for New Messages</span>
-            <Loader/>
+            <Loader />
           </div>
 
         {/* Main Graph */}
@@ -73,13 +73,13 @@ export default class LineGraphDisplay extends Component {
             <rect className={`graph-bg ${this.props.activeGraph === 'social' ? 'bg-active' : ''}`} id="soc-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />
 
             {/* Graph Reference Lines and Boxes */}
-            <g className={`graph-refs ${this.props.activeGraph === 'emotion' ? 'refs-active' : ''}`}>               
+            <g className={`graph-refs ${this.props.activeGraph === 'emotion' ? 'refs-active' : ''}`}>
               <path className="reference-line" d="M 0.3 25 l 399.7 0" />
               <rect id="upper-ref" x="0" y="0" width="400" height="25" fill="#fff" className={`ref-box ${this.state.topRef ? 'visible' : ''}`} />
               <path className="reference-line" d="M 0.3 50 l 399.7 0" />
               <rect id="lower-ref" x="0" y="50" width="400" height="50" fill="#fff" className={`ref-box ${this.state.btmRef ? 'visible' : ''}`} />
             </g>
-            <g className={`graph-refs ${this.props.activeGraph === 'social' ? 'refs-active' : ''}`}>               
+            <g className={`graph-refs ${this.props.activeGraph === 'social' ? 'refs-active' : ''}`}>
               <path className="reference-line" d="M 0.3 25 l 399.7 0" />
               <rect id="upper-ref" x="0" y="0" width="400" height="25" fill="#fff" className={`ref-box ${this.state.topRef ? 'visible' : ''}`} />
               <path className="reference-line" d="M 0.3 75 l 399.7 0" />
@@ -100,26 +100,49 @@ export default class LineGraphDisplay extends Component {
 
             {/* Reference Line Triggers (hovering brings up box and explanation) */}
             <g className={`graph-refs ${this.props.activeGraph === 'emotion' ? 'refs-active' : ''}`}>
-              <path className="reference-line-trigger" stroke="transparent" d="M 0.3 25 l 399.7 0" 
-                onMouseEnter={() => this.handleMouseEnter('top')} 
-                onMouseLeave={() => this.handleMouseLeave('top')} />
-              <path className="reference-line-trigger" stroke="transparent" d="M 0.3 50 l 399.7 0" 
-                onMouseEnter={() => this.handleMouseEnter('btm')} 
-                onMouseLeave={() => this.handleMouseLeave('btm')} />
+              <path
+                className="reference-line-trigger"
+                stroke="transparent"
+                d="M 0.3 25 l 399.7 0"
+                onMouseEnter={() => this.handleMouseEnter('top')}
+                onMouseLeave={() => this.handleMouseLeave('top')}
+              />
+              <path
+                className="reference-line-trigger"
+                stroke="transparent"
+                d="M 0.3 50 l 399.7 0"
+                onMouseEnter={() => this.handleMouseEnter('btm')}
+                onMouseLeave={() => this.handleMouseLeave('btm')}
+              />
             </g>
             <g className={`graph-refs ${this.props.activeGraph === 'social' ? 'refs-active' : ''}`}>
-              <path className="reference-line-trigger" stroke="transparent" d="M 0.3 25 l 399.7 0" 
-                onMouseEnter={() => this.handleMouseEnter('top')} 
-                onMouseLeave={() => this.handleMouseLeave('top')} />
-              <path className="reference-line-trigger" stroke="transparent" d="M 0.3 75 l 399.7 0" 
-                onMouseEnter={() => this.handleMouseEnter('btm')} 
-                onMouseLeave={() => this.handleMouseLeave('btm')} />
+              <path
+                className="reference-line-trigger"
+                stroke="transparent"
+                d="M 0.3 25 l 399.7 0"
+                onMouseEnter={() => this.handleMouseEnter('top')}
+                onMouseLeave={() => this.handleMouseLeave('top')}
+              />
+              <path
+                className="reference-line-trigger"
+                stroke="transparent"
+                d="M 0.3 75 l 399.7 0"
+                onMouseEnter={() => this.handleMouseEnter('btm')}
+                onMouseLeave={() => this.handleMouseLeave('btm')}
+              />
             </g>
           </svg>
-          <span className="x-axis-label start">30 Sec<br/>Ago</span>
+          <span className="x-axis-label start">30 Sec<br />Ago</span>
           <span className="x-axis-label end">Now</span>
         </div>
       </div>
     );
   }
 }
+
+LineGraphDisplay.propTypes = {
+  activeGraph: React.PropTypes.string,
+  waitingForMsgs: React.PropTypes.bool,
+  emotionPaths: React.PropTypes.object,
+  socialPaths: React.PropTypes.object,
+};
