@@ -5,7 +5,7 @@ const rethinkdb = {
   host: 'localhost',
   port: 28015,
   authKey: '',
-  db: 'TwitchBot',
+  db: 'Chatson',
 };
 
 const thinky = require('thinky')(rethinkdb);
