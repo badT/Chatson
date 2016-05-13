@@ -4,6 +4,8 @@ import MessageDisplay from '../MessageDisplay';
 import ChannelData from '../ChannelData';
 import LineGraph from '../LineGraph';
 
+const io = window.io;
+
 class DataContainer extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +15,7 @@ class DataContainer extends Component {
         message: '',
         user: '',
         emotes: null,
-      }
+      },
     };
   }
 
@@ -23,10 +25,6 @@ class DataContainer extends Component {
     this.socket.on('message', data => {
       this.setState({ msg: data });
     });
-  }
-
-  componentWillUnmount() {
-    this.socket.disconnect();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,6 +40,10 @@ class DataContainer extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.socket.disconnect();
+  }
+
   render() {
     return (
       <div key={this.props.selected}>
@@ -52,6 +54,10 @@ class DataContainer extends Component {
     );
   }
 }
+
+DataContainer.propTypes = {
+  selected: React.PropTypes.string,
+};
 
 function mapStateToProps({ channels }) {
   return { selected: channels.selected };

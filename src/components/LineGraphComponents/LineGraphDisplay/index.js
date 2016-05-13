@@ -24,7 +24,7 @@ export default class LineGraphDisplay extends Component {
   }
 
   renderLines(colors, paths) {
-    if (!paths) return;
+    if (!paths) return false;
     const lines = [];
     Object.keys(paths).forEach(key => {
       lines.push(<path key={key} stroke={colors[key]} fill="none" d={paths[key]} />);
@@ -35,7 +35,7 @@ export default class LineGraphDisplay extends Component {
   }
 
   renderOutlines(paths) {
-    if (!paths) return;
+    if (!paths) return false;
     const outlines = [];
     Object.keys(paths).forEach(key => {
       outlines.push(<path key={key} stroke="#FFF" className="stroke-outline" fill="none" d={paths[key]} />);

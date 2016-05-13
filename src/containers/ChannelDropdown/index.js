@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getChannels, setChannel, unsetChannel } from '../../actions/index';
 import { Link } from 'react-router';
+import TweenMax from 'gsap/src/minified/TweenMax.min';
 
 /* component styles */
 import { styles } from './styles.scss';
@@ -40,7 +41,7 @@ class ChannelDropdown extends Component {
 
   drawerAnim() {
     const open = () => {
-      TweenMax.to('#drawer_overlay', 0.6, { css: { 'background-color': 'rgba(0,0,0,0.6)' }});
+      TweenMax.to('#drawer_overlay', 0.6, { css: { 'background-color': 'rgba(0,0,0,0.6)' } });
       TweenMax.to('#drawer', 0.6, { x: '0%' });
       /* animate icon */
       TweenMax.to('#brg_top', 0.5, { rotation: -30, y: 4 });
@@ -49,13 +50,13 @@ class ChannelDropdown extends Component {
     };
 
     const close = () => {
-      TweenMax.to('#drawer_overlay', 0.6, { css: { 'background-color': 'rgba(0,0,0,0)' }});
+      TweenMax.to('#drawer_overlay', 0.6, { css: { 'background-color': 'rgba(0,0,0,0)' } });
       TweenMax.to('#drawer', 0.6, { x: '-101%' });
       /* animate icon */
       TweenMax.to('#brg_top', 0.5, { rotation: 0, y: 0 });
       TweenMax.to('#brg_btm', 0.5, { rotation: 0, y: 0 });
       TweenMax.to('#brg_mid', 0.5, { rotation: 0, y: 0, x: 0 });
-    }
+    };
 
     return { open, close };
   }
@@ -77,12 +78,13 @@ class ChannelDropdown extends Component {
   renderChannels(channelData) {
     const name = channelData.channel.name;
     return (
-      <Link 
-        key={name} 
+      <Link
+        key={name}
         className={`drawer-link ${this.props.channels.selected === name ? 'drawer-link-active' : ''}`}
-        to="/chat" 
-        onClick={this.linkClickHandler.bind(this, name)}>
-          {name}
+        to="/chat"
+        onClick={() => this.linkClickHandler(name)}
+      >
+        {name}
       </Link>
     );
   }
@@ -100,16 +102,16 @@ class ChannelDropdown extends Component {
         </span>
 
         {/* Logo Link */}
-        <Link to="/" className="logo" onClick={this.logoClickHandler.bind(this)}>
+        <Link to="/" className="logo" onClick={() => this.logoClickHandler()}>
           <h1>Chatson</h1>
         </Link>
 
         {/* Dropdown Menu Overlay BG */}
-        <div 
-          className={`drawer-overlay ${this.state.drawerOpen ? 'drawer-open' : ''}`} 
+        <div
+          className={`drawer-overlay ${this.state.drawerOpen ? 'drawer-open' : ''}`}
           id="drawer_overlay"
-          onClick={() => this.toggleDrawer()}>
-        </div>
+          onClick={() => this.toggleDrawer()}
+        ></div>
 
         {/* Dropdown Menu */}
         <div className="drawer" id="drawer">
@@ -123,6 +125,13 @@ class ChannelDropdown extends Component {
     );
   }
 }
+
+ChannelDropdown.propTypes = {
+  getChannels: React.PropTypes.func,
+  setChannel: React.PropTypes.func,
+  unsetChannel: React.PropTypes.func,
+  channels: React.PropTypes.object,
+};
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ getChannels, setChannel, unsetChannel }, dispatch);
