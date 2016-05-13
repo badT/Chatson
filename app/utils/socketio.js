@@ -1,5 +1,6 @@
 const twitchIO = require('socket.io');
 const eventEmitter = require('./eventEmitter');
+const long = require('./longTermChannels')
 
 exports.ioConnect = server => {
   const io = twitchIO.listen(server);
