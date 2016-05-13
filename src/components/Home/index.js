@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import DocumentMeta from 'react-document-meta';
 import { TopChannels } from '../../containers/TopChannels';
-
-
-/* component styles */
 import { styles } from './styles.scss';
 
 const metaData = {
@@ -18,16 +15,14 @@ const metaData = {
   },
 };
 
-export class Home extends Component {
-  render() {
-    return (
-      <section className={`${styles}`}>
-        <DocumentMeta {...metaData} />
-        <div className="home-container">
-          <p>Welcome to Chatson! We use Watson's tone analyzer to provide you with a visualization of the mood and attitude in a chat stream. See the menu above to read more about our process or to select one of the top currently streaming Twitch chat channels to see a live analysis.</p>
-        </div>
-        <TopChannels />
-      </section>
-    );
-  }
+export function Home() {
+  return (
+    <section className={`${styles}`}>
+      <DocumentMeta {...metaData} />
+      <div className="home-container">
+        <p>Welcome to Chatson! We use Watson's tone analyzer to provide you with a visualization of the mood and attitude in a chat stream. See the menu above to read more about our process or to select one of the top currently streaming Twitch chat channels to see a live analysis.</p>
+      </div>
+      <TopChannels />
+    </section>
+  );
 }

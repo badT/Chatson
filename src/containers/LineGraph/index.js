@@ -49,6 +49,12 @@ class LineGraph extends Component {
     TweenMax.lagSmoothing(0);
   }
 
+  componentWillUnmount() {
+    if (this.msgTimer) {
+      clearTimeout(this.msgTimer);
+    }
+  }
+
   componentWillReceiveProps(props) {
     if (props.emotion) {
       // clear the timer if it is set...
@@ -59,7 +65,7 @@ class LineGraph extends Component {
 
       if (!this.state.firstMsgIn) {
         this.setState({ firstMsgIn: true });
-        setTimeout(() => { this.setState({ waitingForMsgs: false }); }, 3000);
+        this.msgTimer = setTimeout(() => { this.setState({ waitingForMsgs: false }); }, 3000);
       } else if (this.state.waitingForMsgs) {
         this.setState({ waitingForMsgs: false });
       }
