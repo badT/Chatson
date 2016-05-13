@@ -6,7 +6,7 @@ import sinon from 'sinon';
 
 chai.use(chaiEnzyme());
 
-import ConnectedChannelDropdown from '../../containers/ChannelDropdown/ChannelDropdown';
+import ConnectedChannelDropdown from '../../containers/ChannelDropdown';
 import configureStore from '../../store/configureStore';
 const store = configureStore();
 

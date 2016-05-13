@@ -1,5 +1,4 @@
 import { GET_TONE, UNSET_TONE } from '../actions/index';
-const INITIAL_STATE = { tone: null };
 
 export default function (state = null, action) {
   switch (action.type) {
