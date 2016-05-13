@@ -1,3 +1,5 @@
+import TweenMax from 'gsap/src/minified/TweenMax.min';
+
 export const transitionAnims = (emoData, socData, emoColors, socColors) => {
   // Move the lines across the graph
   TweenMax.to('#line-container', 3, { x: '-=40', ease: Power0.easeNone });
@@ -20,19 +22,19 @@ export const transitionAnims = (emoData, socData, emoColors, socColors) => {
 };
 
 export const transformData = (data, xCoord) => {
-  if (data.length === 0) return;
+  if (data.length === 0) return false;
 
-  const readings = Object.keys(data[0]).reduce((list, reading) => {
-    list[reading] = [];
-    return list;
-  }, {});
+  const readings = {};
+  Object.keys(data[0]).forEach(reading => {
+    readings[reading] = [];
+  });
 
   data.forEach(datum => {
-    for (let key in datum) {
+    Object.keys(datum).forEach(key => {
       if (datum.hasOwnProperty(key)) {
         readings[key].push(datum[key]);
       }
-    }
+    });
   });
 
   const transformed = {};
@@ -40,34 +42,30 @@ export const transformData = (data, xCoord) => {
   const avgs = {};
   const avgDiff = [];
 
-  for (let key in readings) {
-    if (key === 'id') continue;
-    if (readings.hasOwnProperty(key)) {
-      transformed[key] = readings[key].reduceRight((res, reading, i, coll) => {
-        if (i === coll.length - 1) {
-          res.path += `${res.x} ${100 - reading}`;
+  Object.keys(readings).forEach(key => {
+    if (key === 'id') return;
+    transformed[key] = readings[key].reduceRight((res, reading, i, coll) => {
+      if (i === coll.length - 1) {
+        res.path += `${res.x} ${100 - reading}`;
+      } else {
+        if (reading >= coll[i + 1]) {
+          res.path += `C ${res.x + 20} ${100 - (coll[i + 1])} ${res.x + 20} ${100 - (reading)} ${res.x} ${100 - reading}`;
         } else {
-          if (reading >= coll[i + 1]) {
-            res.path += `C ${res.x + 20} ${100 - (coll[i + 1])} ${res.x + 20} ${100 - (reading)} ${res.x} ${100 - reading}`
-          } else {
-            res.path += `C ${res.x + 20} ${100 - (coll[i + 1])} ${res.x + 20} ${100 - (reading)} ${res.x} ${100 - reading}`
-          }
+          res.path += `C ${res.x + 20} ${100 - (coll[i + 1])} ${res.x + 20} ${100 - (reading)} ${res.x} ${100 - reading}`;
         }
-        res.x -= 40;
-        res.avg += (reading / coll.length);
-        return res;
-      }, { path: 'M', x: xCoord, avg: 0 });
-    }
-  }
+      }
+      res.x -= 40;
+      res.avg += (reading / coll.length);
+      return res;
+    }, { path: 'M', x: xCoord, avg: 0 });
+  });
 
-  for (let key in transformed) {
-    if (transformed.hasOwnProperty(key)) {
-      paths[key] = transformed[key].path;
-      avgs[key] = transformed[key].avg;
-      avgDiff.push({ key: key, avg: avgs[key] });
-      avgs[key] = ((Math.round(avgs[key] * 100) / 100) * 0.0085) + 0.15;
-    }
-  }
+  Object.keys(transformed).forEach(key => {
+    paths[key] = transformed[key].path;
+    avgs[key] = transformed[key].avg;
+    avgDiff.push({ key, avg: avgs[key] });
+    avgs[key] = ((Math.round(avgs[key] * 100) / 100) * 0.0085) + 0.15;
+  });
 
   avgDiff.sort((a, b) => b.avg - a.avg);
   const diff = { key: avgDiff[0].key, magnitude: (avgDiff[0].avg - avgDiff[1].avg) / 100 };

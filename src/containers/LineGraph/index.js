@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import gsap from 'gsap';
+import TweenMax from 'gsap/src/minified/TweenMax.min';
 import { emoColors, socColors } from './descriptions';
 import { transformData, transitionAnims } from './helpers';
 import LineGraphTabs from '../../components/LineGraphComponents/LineGraphTabs';
@@ -47,12 +47,6 @@ class LineGraph extends Component {
     // get the data animation out of whack
     TweenMax.ticker.useRAF(false);
     TweenMax.lagSmoothing(0);
-  }
-
-  componentWillUnmount() {
-    if (this.msgTimer) {
-      clearTimeout(this.msgTimer);
-    }
   }
 
   componentWillReceiveProps(props) {
@@ -106,6 +100,12 @@ class LineGraph extends Component {
       }
     } else {
       this.msgTimer = setTimeout(() => { this.setState({ waitingForMsgs: true }); }, 4000);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.msgTimer) {
+      clearTimeout(this.msgTimer);
     }
   }
 
