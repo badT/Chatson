@@ -15,16 +15,16 @@ export const socColors = {
 };
 
 export const splotchDesc = {
-  anger: 'Anger',
-  sadness: 'Sadness',
-  disgust: 'Disgust',
-  fear: 'Fear',
-  joy: 'Joy',
-  openness: 'Being open to experiencing a wide variety of activities',
+  anger: 'Expressed either actively with targeted verbal attacks or passively through tension and hostility',
+  sadness: 'Indicates a feeling of loss and disadvantage',
+  disgust: 'Response of revulsion to something considered offensive or unpleasant',
+  fear: 'Response to perceived danger or some negative stimulus',
+  joy: 'Having a sense of well-being, inner peace, love, safety and contentment',
+  openness: 'The extent to which a person is open to experiencing a variety of activities',
   conscientiousness: 'Tending to act in an organized or thoughtful manner',
-  extraversion: 'Tending to direct concerns outward',
-  agreeableness: 'Being friendly, cooperative, and warm toward others',
-  neuroticism: 'Characterized by anxiety, moodiness, and worry',
+  extraversion: 'Tending to seek stimulation in the company of others',
+  agreeableness: 'Tending to be compassionate and cooperative toward others',
+  neuroticism: 'The extent to which a person\'s emotions are sensitive to their environment',
 };
 
 export const splotchDescLT25 = {
