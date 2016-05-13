@@ -15,7 +15,7 @@ export class About extends Component {
                 Welcome to Chatson, a live chat analyzer created to give users insight into the emotional state and crowd mentality
                 of a Twitch chat stream. Twitch is the world’s leading social video platform and community for gamers.
                 Expand the sidebar to see a list of Twitch's channels that currently have the most viewers. After selecting a channel,
-                you'll be brought to a real time visualation of its emotional and social tone, current chat stream, and chat statistics.
+                you'll be brought to a real time visualization of its emotional and social tone, current chat stream, and chat statistics.
               </p>
             </section>
             <p className="tone">
@@ -42,10 +42,7 @@ export class About extends Component {
               </p>
               <ul>
                 <li>
-                  <b>Joy:</b> having a sense of well-being, inner peace, love, safety and contentment.
-                </li>
-                <li>
-                  <b>Fear:</b> a response to perceived danger or some negative stimulus.
+                  <b>Anger:</b> expressed either actively with targeted verbal attacks or passively through tension and hostility.
                 </li>
                 <li>
                   <b>Sadness:</b> indicates a feeling of loss and disadvantage.
@@ -54,7 +51,10 @@ export class About extends Component {
                   <b>Disgust:</b> a response of revulsion to something considered offensive or unpleasant.
                 </li>
                 <li>
-                  <b>Anger:</b> expressed either actively with targeted verbal attacks or passively through tension and hostility.
+                  <b>Fear:</b> a response to perceived danger or some negative stimulus.
+                </li>
+                <li>
+                  <b>Joy:</b> having a sense of well-being, inner peace, love, safety and contentment.
                 </li>
               </ul>
             </section>
@@ -74,7 +74,7 @@ export class About extends Component {
               </p>
               <ul>
                 <li>
-                  <b>Areeableness:</b> a person's tendency to be compassionate and cooperative toward others.
+                  <b>Openness:</b> the extent to which a person is open to experiencing a variety of activities.
                 </li>
                 <li>
                   <b>Conscientiousness:</b> a person's tendency to act in an organized or thoughtful way.
@@ -83,10 +83,10 @@ export class About extends Component {
                   <b>Extraversion:</b> a person's tendency to seek stimulation in the company of others.
                 </li>
                 <li>
-                  <b>Neuroticism:</b> the extent to which a person's emotions are sensitive to their environment.
+                  <b>Areeableness:</b> a person's tendency to be compassionate and cooperative toward others.
                 </li>
                 <li>
-                  <b>Openness:</b> the extent to which a person is open to experiencing a variety of activities.
+                  <b>Neuroticism:</b> the extent to which a person's emotions are sensitive to their environment.
                 </li>
               </ul>
             </section>
