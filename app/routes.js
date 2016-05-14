@@ -1,12 +1,18 @@
-const messageController = require('./db/controllers/messageController');
+const toneController = require('./db/controllers/toneController');
 const chatChannels = require('./utils/channelConnection');
 const establishConnection = chatChannels.establishConnection();
 const analyzer = require('./watson/analyzer');
 
 module.exports = (app, express) => {
-  app.get('/messages', (req, res) => {
-    messageController.getMessages((data) => {
+
+  app.get('/api/watson/toneData', (req, res) => {
+    toneController.getToneData()
+    .then((data) => {
+      console.log('get request:', data);
       res.send(data);
+    }).catch((err) => {
+      console.log('get request error', err);
+      res.status(500).send('uh oh something went wrong');
     });
   });
 
