@@ -2,6 +2,46 @@ const Tone = require('../schemas/toneSchema');
 
 const toneDataDocumentID = {};
 
+function updateEmoStats(currentTones, newTones) {
+  const newToneData = currentTones;
+  const currentCount = newToneData.messageCount;
+  const newCount = newToneData.messageCount + 1;
+  const emoObject = newToneData.emos;
+  for (const key in emoObject) {
+    emoObject[key] = Math.round((((emoObject[key] * currentCount)
+    + newTones.emos[key]) / newCount) * 100) / 100;
+  }
+  newToneData.messageCount = newCount;
+  return newToneData;
+}
+
+function saveNewTone(toneData) {
+  const newTone = new Tone(toneData);
+  newTone.save().then((result) => {
+    toneDataDocumentID[result.channel] = result.id;
+    return result;
+  }).error((err) => {
+    console.log('toneController error:', err);
+  });
+}
+
+function updateCurrentTone(toneData) {
+  Tone.get(toneDataDocumentID[toneData.channel]).run().then((data) => {
+    const newTones = updateEmoStats(data, toneData);
+    Tone.get(toneDataDocumentID[toneData.channel]).update(newTones).run();
+  });
+}
+
+exports.getToneData = () => {
+  return new Promise((resolve, reject) => {
+    Tone.run().then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+};
+
 exports.saveTone = (tone) => {
   // format for saving tone data
   const formatTone = {
@@ -33,48 +73,4 @@ exports.saveTone = (tone) => {
   } else {
     updateCurrentTone(formatTone);
   }
-
-};
-
-function saveNewTone(toneData) {
-  const newTone = new Tone(toneData);
-  newTone.save().then((result) => {
-    // console.log('Tone saved:', result);
-    toneDataDocumentID[result.channel] = result.id;
-    return result;
-  }).error((err) => {
-    console.log('toneController error:', err);
-  });
-}
-
-function updateCurrentTone(toneData) {
-  // console.log('inside updateCurrentTone', toneData);
-  Tone.get(toneDataDocumentID[toneData.channel]).run().then((data) => {
-    // console.log('inside udpate tone', data);
-    const newTones = updateEmoStats(data, toneData);
-    Tone.get(toneDataDocumentID[toneData.channel]).update(newTones).run().then((newdata) => {
-    });
-  });
-}
-
-function updateEmoStats(currentTones, newTones) {
-  const newToneData = currentTones;
-  const currentCount = newToneData.messageCount;
-  const newCount = newToneData.messageCount + 1;
-  const emoObject = newToneData.emos;
-  for (var key in emoObject) {
-    emoObject[key] = Math.round((((emoObject[key] * currentCount)
-    + newTones.emos[key]) / newCount) * 100) / 100;
-  }
-  newToneData.messageCount = newCount;
-  return newToneData;
-}
-
-
-exports.getToneData = () => {
-  return new Promise((resolve, reject) => {
-    Tone.run().then((data) => {
-      resolve(data);
-    });
-  });
 };
