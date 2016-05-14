@@ -52,7 +52,8 @@ function updateCurrentTone(toneData) {
   Tone.get(toneDataDocumentID[toneData.channel]).run().then((data) => {
     // console.log('inside udpate tone', data);
     const newTones = updateEmoStats(data, toneData);
-    console.log('back to updateCurrentTone', newTones);
+    Tone.get(toneDataDocumentID[toneData.channel]).update(newTones).run().then((newdata) => {
+    });
   });
 }
 
@@ -61,23 +62,19 @@ function updateEmoStats(currentTones, newTones) {
   const currentCount = newToneData.messageCount;
   const newCount = newToneData.messageCount + 1;
   const emoObject = newToneData.emos;
-  console.log(newToneData);
-  console.log(newTones);
-  for (var key in emoObject){
+  for (var key in emoObject) {
     emoObject[key] = Math.round((((emoObject[key] * currentCount)
     + newTones.emos[key]) / newCount) * 100) / 100;
   }
   newToneData.messageCount = newCount;
-  console.log('should be updated data', newToneData);
   return newToneData;
 }
 
 
 exports.getToneData = () => {
   return new Promise((resolve, reject) => {
-    Tone.filter({ channel: '#bacon_donut' }).run().then((data) => {
+    Tone.run().then((data) => {
       resolve(data);
-      console.log('tonecontroller', data);
     });
   });
 };
