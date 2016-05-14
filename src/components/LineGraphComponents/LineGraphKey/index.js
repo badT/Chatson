@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { emoColors, socColors, splotchDesc, splotchDescLT25, splotchDescLT50, splotchDescGT75 } from '../descriptions';
 import { capitalizeFirstLetter } from '../helpers';
-/* component styles */
 import { styles } from './styles.scss';
 
 export default class LineGraphKey extends Component {

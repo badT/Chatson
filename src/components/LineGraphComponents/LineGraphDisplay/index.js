@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Loader from '../../Loader';
 import { emoColors, socColors } from '../descriptions';
-/* component styles */
 import { styles } from './styles.scss';
 
 export default class LineGraphDisplay extends Component {
