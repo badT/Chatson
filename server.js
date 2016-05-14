@@ -24,12 +24,13 @@ app.use(require('morgan')('short'));
   app.use(express.static(__dirname + '/'));
 })();
 
+require('./app/routes')(app, express);
+
 app.get(/.*/, function root(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
 // API routes
-require('./app/routes')(app, express);
 
 const server = http.createServer(app);
 const io = chatChannels.ioConnect(server);
