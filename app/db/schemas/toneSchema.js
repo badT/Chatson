@@ -23,24 +23,4 @@ const Tone = thinky.thinky.createModel('Tones', {
 
 Tone.ensureIndex('channel');
 
-// Tone.pre('save', function (next) {
-//   console.log('presave', this);
-//   if (this.messageCount === 1) {
-//     next();
-//   } else {
-//     Tone.filter({ channel: this.channel }).run().then((data) => {
-//       // update with current data
-//       // loop over keys in emotion data
-//         // take current value, multiply by current count
-//         // add new value divide by count +1
-//         // save to this.emo.whatever
-//       // increase this.count by 1
-//       data;
-//       console.log('tonecontroller', data);
-//     });
-//     this.messageCount = 10;
-//     next();
-//   }
-// });
-
 module.exports = Tone;
