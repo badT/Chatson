@@ -4,8 +4,6 @@ import { bindActionCreators } from 'redux';
 import { getChannels, setChannel, unsetChannel } from '../../actions/index';
 import { Link } from 'react-router';
 import TweenMax from 'gsap/src/minified/TweenMax.min';
-
-/* component styles */
 import { styles } from './styles.scss';
 
 class ChannelDropdown extends Component {
@@ -69,9 +67,7 @@ class ChannelDropdown extends Component {
   }
 
   logoClickHandler() {
-    if (this.state.drawerOpen) {
-      this.toggleDrawer();
-    }
+    if (this.state.drawerOpen) this.toggleDrawer();
     this.props.unsetChannel();
   }
 

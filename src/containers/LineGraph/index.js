@@ -6,7 +6,6 @@ import { transformData, transitionAnims } from './helpers';
 import LineGraphTabs from '../../components/LineGraphComponents/LineGraphTabs';
 import LineGraphKey from '../../components/LineGraphComponents/LineGraphKey';
 import LineGraphDisplay from '../../components/LineGraphComponents/LineGraphDisplay';
-/* component styles */
 import { styles } from './styles.scss';
 
 class LineGraph extends Component {
