@@ -51,11 +51,7 @@ export const transformData = (data, xCoord) => {
       if (i === readings[key].length - 1) {
         path += `${x} ${100 - readings[key][i]}`;
       } else {
-        if (readings[key][i] >= readings[key][i + 1]) {
-          path += `C ${x + 20} ${100 - (readings[key][i + 1])} ${x + 20} ${100 - (readings[key][i])} ${x} ${100 - readings[key][i]}`;
-        } else {
-          path += `C ${x + 20} ${100 - (readings[key][i + 1])} ${x + 20} ${100 - (readings[key][i])} ${x} ${100 - readings[key][i]}`;
-        }
+        path += `C ${x + 20} ${100 - (readings[key][i + 1])} ${x + 20} ${100 - (readings[key][i])} ${x} ${100 - readings[key][i]}`;
       }
       x -= 40;
       avg += (readings[key][i] / readings[key].length);
