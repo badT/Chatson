@@ -11,27 +11,7 @@
   background: rgba(0, 0, 0, 0.8);
   box-shadow: 0 1px 3px $shadow;
 
-  .logo {
-    color: #fff;
-    text-decoration: none;
-  }
-
-  .logo h1 {
-    margin: 0 0 0 40px;
-    display: inline-block;
-    font-family: 'Noto Sans', sans-serif;
-    font-weight: 700;
-    font-size: 1.5em;
-  }
-
-  .btn-group {
-    margin-top: 1em;
-  }
-
   @media only screen and (min-width : 768px) {
     height: 74px;
-    .logo h1 {
-      font-size: 2.2em;
-    }
   }
 }

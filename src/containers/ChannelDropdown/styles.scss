@@ -1,14 +1,34 @@
 :local(.styles) {
-
   $bg-color: rgba(255,255,255,0.2);
   $shadow: rgba(0,0,0,0.6);
 
-  display: inline-block;
+  position: relative;
+
+  .logo {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .logo h1 {
+    margin: 0;
+    display: inline-block;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.5em;
+  }
+
+  .burger-holder {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+  }
 
   .burger {
     width: 30px;
     height: 30px;
     position: absolute;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
@@ -37,13 +57,13 @@
   .drawer {
     position: fixed;
     overflow-y: scroll;
-    left: 0;
+    right: 0;
     top: 63px;
     bottom: 0;
     background-color: #bbb;
-    transform: translateX(-101%);
+    transform: translateX(101%);
     padding: 15px 0;
-    box-shadow: 2px 0 4px $shadow;
+    box-shadow: -2px 0 4px $shadow;
     z-index: 1;
   }
 
@@ -91,6 +111,9 @@
   }
 
   @media only screen and (min-width : 768px) {
+    .logo h1 {
+      font-size: 2.2em;
+    }
     .drawer-overlay {
       top: 74px;
     }
