@@ -25,12 +25,12 @@ export function About() {
           </div>
         </div>
         <div className="row separate">
-          <div className="col-sm-8 .col-sm-pull-4">
+          <div className="col-md-7 .col-md-pull-4">
             <section className="msg-chart">
               <img src={emoChart} className="img-responsive" role="presentation" />
             </section>
           </div>
-          <div className="col-sm-4 .col-sm-push-8">
+          <div className="col-md-5 .col-md-push-8">
             <section className="msg-data">
               <p>
                 Emotional tone is inferred from different types of emotions and feelings commonly expressed in language.
@@ -56,12 +56,12 @@ export function About() {
           </div>
         </div>
         <div className="row separate">
-          <div className="col-sm-8 .col-sm-pull-4">
+          <div className="col-md-7 .col-md-pull-4">
             <section className="msg-chart">
               <img src={socChart} className="img-responsive" role="presentation" />
             </section>
           </div>
-          <div className="col-sm-4 .col-sm-push-8">
+          <div className="col-md-5 .col-md-push-8">
             <section className="msg-data">
               <p>
                 Social tone data uses the Big Five personality characteristics. The Big Five is the first and most widely
@@ -87,7 +87,7 @@ export function About() {
             </section>
           </div>
         </div>
-        <p className="col-md-12 col-md-offset-2 ref-link">
+        <p className="text-center .pagination-centered">
           An explanation of the science behind the Tone Analyzer, as well as research references, can be found
           <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tone-analyzer/science.shtml"> here</a>.
         </p>
