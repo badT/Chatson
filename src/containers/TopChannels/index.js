@@ -5,9 +5,9 @@ import { getLongTermTone } from '../../actions/index';
 
 export class TopChannels extends Component {
 
-  componentWillMount() {
-    this.props.getLongTermTone();
-  }
+  // componentWillMount() {
+  //   this.props.getLongTermTone();
+  // }
 
   render() {
     return (
