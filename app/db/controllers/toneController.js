@@ -3,18 +3,20 @@ const Tone = require('../schemas/toneSchema');
 exports.saveTone = (tone) => {
   const formatTone = {
     channel: tone.channel,
-    messageCount: 0,
+    messageCount: 1,
     // toneData: tone.toneData.,
-    anger: tone.toneData.emotion.anger,
-    disgust: tone.toneData.emotion.disgust,
-    fear: tone.toneData.emotion.fear,
-    joy: tone.toneData.emotion.joy,
-    sadness: tone.toneData.emotion.sadness,
-    agreeableness: tone.toneData.social.agreeableness_big5,
-    conscientiousness: tone.toneData.social.conscientiousness_big5,
-    extraversion: tone.toneData.social.extraversion_big5,
-    neuroticism: tone.toneData.social.neuroticism_big5,
-    openness: tone.toneData.social.openness_big5,
+    emos: {
+      anger: tone.toneData.emotion.anger,
+      disgust: tone.toneData.emotion.disgust,
+      fear: tone.toneData.emotion.fear,
+      joy: tone.toneData.emotion.joy,
+      sadness: tone.toneData.emotion.sadness,
+      agreeableness: tone.toneData.social.agreeableness_big5,
+      conscientiousness: tone.toneData.social.conscientiousness_big5,
+      extraversion: tone.toneData.social.extraversion_big5,
+      neuroticism: tone.toneData.social.neuroticism_big5,
+      openness: tone.toneData.social.openness_big5,
+    },
   };
   const newTone = new Tone(formatTone);
   newTone.save().then((result) => {
@@ -35,7 +37,3 @@ exports.getToneData = () => {
     });
   });
 };
-
-Tone.pre('save', (next) {
-
-});

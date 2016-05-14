@@ -16,7 +16,7 @@ eventEmitter.on('chatMessage', message => {
   if (currentMessages) {
     currentMessages.push(message.msg);
     // check length of cached messages and processes through watson
-    if (currentMessages.length > 10) {
+    if (currentMessages.length > 5) {
       const arrayToText = { text: "'" + currentMessages.join('') + "'" };
       currentMessages.splice(0, currentMessages.length);
       watson.runAnalysis(arrayToText)
