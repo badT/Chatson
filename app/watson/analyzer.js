@@ -21,7 +21,7 @@ exports.runAnalysis = (messages) => {
       }
     });
   });
-}
+};
 
  // Converts a tone category into a flat object with tone values
 function getToneValues(toneCategory) {
