@@ -1,10 +1,12 @@
 const Tone = require('../schemas/toneSchema');
 
+const toneDataDocumentID = {};
+
 exports.saveTone = (tone) => {
+  // format for saving tone data
   const formatTone = {
     channel: tone.channel,
     messageCount: 1,
-    // toneData: tone.toneData.,
     emos: {
       anger: tone.toneData.emotion.anger,
       disgust: tone.toneData.emotion.disgust,
@@ -18,15 +20,57 @@ exports.saveTone = (tone) => {
       openness: tone.toneData.social.openness_big5,
     },
   };
-  const newTone = new Tone(formatTone);
+
+  if (!toneDataDocumentID[tone.channel]) {
+    Tone.filter({ channel: formatTone.channel }).run().then((data) => {
+      if (data.length === 0) {
+        saveNewTone(formatTone);
+      } else {
+        toneDataDocumentID[formatTone.channel] = data[0].id;
+        updateCurrentTone(formatTone);
+      }
+    });
+  } else {
+    updateCurrentTone(formatTone);
+  }
+
+};
+
+function saveNewTone(toneData) {
+  const newTone = new Tone(toneData);
   newTone.save().then((result) => {
     // console.log('Tone saved:', result);
-    console.log(result);
+    toneDataDocumentID[result.channel] = result.id;
     return result;
   }).error((err) => {
     console.log('toneController error:', err);
   });
-};
+}
+
+function updateCurrentTone(toneData) {
+  // console.log('inside updateCurrentTone', toneData);
+  Tone.get(toneDataDocumentID[toneData.channel]).run().then((data) => {
+    // console.log('inside udpate tone', data);
+    const newTones = updateEmoStats(data, toneData);
+    console.log('back to updateCurrentTone', newTones);
+  });
+}
+
+function updateEmoStats(currentTones, newTones) {
+  const newToneData = currentTones;
+  const currentCount = newToneData.messageCount;
+  const newCount = newToneData.messageCount + 1;
+  const emoObject = newToneData.emos;
+  console.log(newToneData);
+  console.log(newTones);
+  for (var key in emoObject){
+    emoObject[key] = Math.round((((emoObject[key] * currentCount)
+    + newTones.emos[key]) / newCount) * 100) / 100;
+  }
+  newToneData.messageCount = newCount;
+  console.log('should be updated data', newToneData);
+  return newToneData;
+}
 
 
 exports.getToneData = () => {
