@@ -41,7 +41,7 @@ class ChannelDropdown extends Component {
     const open = () => {
       TweenMax.to('#drawer_overlay', 0.6, { css: { 'background-color': 'rgba(0,0,0,0.6)' } });
       TweenMax.to('#drawer', 0.6, { x: '0%' });
-      /* animate icon */
+      /* animate hamburger icon */
       TweenMax.to('#brg_top', 0.5, { rotation: 150, y: 4, x: 12 });
       TweenMax.to('#brg_btm', 0.5, { rotation: -150, y: -4, x: 12 });
       TweenMax.to('#brg_mid', 0.5, { rotation: 90, y: -7, x: 0 });
@@ -50,7 +50,7 @@ class ChannelDropdown extends Component {
     const close = () => {
       TweenMax.to('#drawer_overlay', 0.6, { css: { 'background-color': 'rgba(0,0,0,0)' } });
       TweenMax.to('#drawer', 0.6, { x: '101%' });
-      /* animate icon */
+      /* animate hamburger icon */
       TweenMax.to('#brg_top', 0.5, { rotation: 0, y: 0, x: 0 });
       TweenMax.to('#brg_btm', 0.5, { rotation: 0, y: 0, x: 0 });
       TweenMax.to('#brg_mid', 0.5, { rotation: 0, y: 0, x: 0 });
