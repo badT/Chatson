@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Tooltip from '../../Tooltip';
 import { emoColors, socColors, splotchDesc, splotchDescLT25, splotchDescLT50, splotchDescGT75 } from '../descriptions';
 import { capitalizeFirstLetter } from '../helpers';
 import { styles } from './styles.scss';
@@ -12,18 +13,16 @@ export default class LineGraphKey extends Component {
         <div key={splotch} className="block-grid-item splotch-holder">
           <div className="color-splotch-holder">
             <span id={`${splotch}-splotch`} className="color-splotch"></span>
-            <span className="splotch-tooltip tooltip">
-              {`Avg for last 90 seconds: ${this.props[key][splotch].toFixed(2)}`}<br />
-              {`${this.props[key][splotch].toFixed(2) <= 0.25 ? splotchDescLT25[splotch] : ''}`}
-              {`${this.props[key][splotch].toFixed(2) <= 0.5 ? splotchDescLT50[splotch] : ''}`}
-              {`${this.props[key][splotch].toFixed(2) >= 0.75 ? splotchDescGT75[splotch] : ''}`}
-            </span>
+            <Tooltip position="top-center" text={
+              `Avg for last 90 seconds: ${this.props[key][splotch].toFixed(2)}\n
+              ${this.props[key][splotch].toFixed(2) <= 0.25 ? splotchDescLT25[splotch] : ''}
+              ${this.props[key][splotch].toFixed(2) <= 0.5 ? splotchDescLT50[splotch] : ''}
+              ${this.props[key][splotch].toFixed(2) >= 0.75 ? splotchDescGT75[splotch] : ''}`
+            } />
           </div>
           <span className="splotch-label">
             <span className={`${splotch}-splotch-text`}>{capitalizeFirstLetter(splotch)}</span>
-            <span className="splotch-label-tooltip tooltip">
-              {splotchDesc[splotch]}
-            </span>
+            <Tooltip position="top-side" text={splotchDesc[splotch]} />
           </span>
         </div>
       );
