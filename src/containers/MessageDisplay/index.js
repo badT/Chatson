@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Tooltip from '../../components/Tooltip';
 import { styles } from './styles.scss';
 
 export default class MessageDisplay extends Component {
@@ -22,7 +23,7 @@ export default class MessageDisplay extends Component {
       this.setState({
         blurClass: 'row',
         blurBtn: 'Blur Chat',
-        blurMsg: '',
+        blurMsg: 'Are your eyes tired yet? Blur the incoming messages!',
       });
     }
   }
@@ -103,8 +104,10 @@ export default class MessageDisplay extends Component {
             <h2 className="channel-name">{this.props.channel}</h2>
           </div>
           <div className="col-sm-8 text-right">
-            <span>{this.state.blurMsg}&nbsp;&nbsp;</span>
-            <button className="btn btn-danger" onClick={() => this.toggleBlur()}>{this.state.blurBtn}</button>
+            <button className="btn btn-danger btn-blur-toggle" onClick={() => this.toggleBlur()}>
+              {this.state.blurBtn}
+              <Tooltip position="left-center" text={this.state.blurMsg} />
+            </button>
           </div>
         </div>
         <div className={`row ${this.state.blurClass}`}>

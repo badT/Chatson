@@ -15,6 +15,20 @@
     border-bottom: 2px solid #ddd;
   }
 
+  .btn-blur-toggle {
+    position: relative;
+  }
+
+  .btn-blur-toggle .tooltip {
+    width: 220px;
+    text-align: center;
+  }
+
+  .btn-blur-toggle:hover .tooltip {
+    opacity: 1;
+    display: inline-block;
+  }
+
   .channel-name {
     margin: 0;
   }

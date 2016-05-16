@@ -8,6 +8,8 @@
     border-radius: 3px;
     color: #fff;
     box-shadow: 1px 1px 2px $shadow;
+    display: none;
+    opacity: 1;
   }
 
   .tooltip:after {
@@ -30,6 +32,13 @@
     transform: translateX(-8px);
   }
 
+  .tooltip.left-center {
+    top: 50%;
+    right: 100%;
+    margin-right: 12px;
+    transform: translateY(-50%);
+  }
+
   .tooltip.top-side:after,
   .tooltip.top-center:after {
     top: 100%;
@@ -37,5 +46,14 @@
     border-top: 8px solid rgba(0, 0, 0, 0.8);
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
+  }
+
+  .tooltip.left-center:after {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left: 8px solid rgba(0, 0, 0, 0.8);
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
   }
 }
