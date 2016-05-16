@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import SparklineChart from '../../components/SparklineChart';
 import { getTone, unsetTone } from '../../actions/index';
-
-/* component styles */
 import { styles } from './styles.scss';
 
 class ChannelData extends Component {
-
   constructor(props) {
     super(props);
-
     this.state = {
       currentMsgCount: 0,
       prevMinMsgCount: 0,
@@ -45,7 +40,6 @@ class ChannelData extends Component {
       }
     }, 3000);
   }
-
 
   componentWillReceiveProps(props) {
     this.calculateAverages(props);

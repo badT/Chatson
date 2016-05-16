@@ -9,7 +9,6 @@ const io = window.io;
 class DataContainer extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       msg: {
         message: '',
@@ -21,7 +20,6 @@ class DataContainer extends Component {
 
   componentWillMount() {
     this.socket = io();
-
     this.socket.on('message', data => {
       this.setState({ msg: data });
     });
@@ -33,7 +31,6 @@ class DataContainer extends Component {
     if (this.props.selected) {
       this.socket.emit('channel:unsubscribe', this.props.selected);
     }
-
     // emit subscribe message
     if (nextProps.selected) {
       this.socket.emit('channel:subscribe', nextProps.selected);
