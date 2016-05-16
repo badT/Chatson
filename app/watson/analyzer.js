@@ -53,11 +53,6 @@ function toneCallback(data) {
   // Results for the updated full transcript's tone
   tone.toneData = getTones(data.document_tone);
 
-  // Results for the latest sentence's tone
-  // if (data.sentences_tone && data.sentences_tone[data.sentences_tone.length - 1].tone_categories.length)
-  //     tone.sentence = getTones(data.sentences_tone[data.sentences_tone.length - 1]);
-
-  // console.log('inside toneCallback', tone);
   // returns to the promise with a flattened object
   return tone;
 }

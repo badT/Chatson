@@ -7,13 +7,14 @@ module.exports = (app, express) => {
 
   app.get('/api/watson/toneData', (req, res) => {
     toneController.getToneData()
-    .then((data) => {
-      console.log('get request:', data);
-      res.send(data);
-    }).catch((err) => {
-      console.log('get request error', err);
-      res.status(500).send('uh oh something went wrong');
-    });
+      .then((data) => {
+        console.log('get request:', data);
+        res.send(data);
+      })
+      .catch((err) => {
+        console.log('get request error', err);
+        res.status(500).send('uh oh something went wrong');
+      });
   });
 
   app.post('/api/channels/subscribe', (req, res) => {
@@ -60,11 +61,6 @@ module.exports = (app, express) => {
         res.status(400).send('No message data recieved');
       }
     });
-  });
-
-  app.get('api/watson/longterm', (req, res) => {
-    // db controller function
-    res.send();
   });
 
 };

@@ -17,28 +17,33 @@ function updateEmoStats(currentTones, newTones) {
 
 function saveNewTone(toneData) {
   const newTone = new Tone(toneData);
-  newTone.save().then((result) => {
-    toneDataDocumentID[result.channel] = result.id;
-    return result;
-  }).error((err) => {
-    console.log('toneController error:', err);
-  });
+  newTone.save()
+    .then((result) => {
+      toneDataDocumentID[result.channel] = result.id;
+      return result;
+    })
+    .error((err) => {
+      console.log('toneController error:', err);
+    });
 }
 
 function updateCurrentTone(toneData) {
-  Tone.get(toneDataDocumentID[toneData.channel]).run().then((data) => {
-    const newTones = updateEmoStats(data, toneData);
-    Tone.get(toneDataDocumentID[toneData.channel]).update(newTones).run();
-  });
+  Tone.get(toneDataDocumentID[toneData.channel]).run()
+    .then((data) => {
+      const newTones = updateEmoStats(data, toneData);
+      Tone.get(toneDataDocumentID[toneData.channel]).update(newTones).run();
+    });
 }
 
 exports.getToneData = () => {
   return new Promise((resolve, reject) => {
-    Tone.run().then((data) => {
-      resolve(data);
-    }).catch((err) => {
-      reject(err);
-    });
+    Tone.run()
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 };
 
@@ -62,14 +67,15 @@ exports.saveTone = (tone) => {
   };
 
   if (!toneDataDocumentID[tone.channel]) {
-    Tone.filter({ channel: formatTone.channel }).run().then((data) => {
-      if (data.length === 0) {
-        saveNewTone(formatTone);
-      } else {
-        toneDataDocumentID[formatTone.channel] = data[0].id;
-        updateCurrentTone(formatTone);
-      }
-    });
+    Tone.filter({ channel: formatTone.channel }).run()
+      .then((data) => {
+        if (data.length === 0) {
+          saveNewTone(formatTone);
+        } else {
+          toneDataDocumentID[formatTone.channel] = data[0].id;
+          updateCurrentTone(formatTone);
+        }
+      });
   } else {
     updateCurrentTone(formatTone);
   }
