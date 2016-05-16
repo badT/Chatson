@@ -1,8 +1,7 @@
 // Databse setup
-// TODO Need to update this for local environment.
-
+const dbHost = (process.env.DB_PORT || 'localhost');
 const rethinkdb = {
-  host: 'localhost',
+  host: dbHost,
   port: 28015,
   authKey: '',
   db: 'Chatson',
