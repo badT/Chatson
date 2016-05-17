@@ -81,7 +81,7 @@ class TopChannels extends Component {
 
       setTimeout(() => {
         TweenMax.fromTo(`.${channel}-${emo}`, 2, {opacity: 0, y: 100 }, { opacity: 1, y: 0, delay: delays[emo], ease: Power3.easeInOut });
-      }, 1000);
+      }, 500);
     });
 
     return (
