@@ -31,7 +31,8 @@ const common = {
     extensions: ['', '.jsx', '.js', '.json', '.scss'],
     modulesDirectories: ['node_modules', PATHS.app],
     alias: {
-      'sinon': 'sinon/pkg/sinon',
+      sinon: 'sinon/pkg/sinon',
+      TweenLite: 'gsap/src/minified/TweenLite.min',
     },
   },
 
