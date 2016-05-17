@@ -1,0 +1,55 @@
+:local(.styles) {
+
+  .chart-container {
+    position: relative;
+    margin: 15px 15px 115px 15px;
+  }
+
+  svg {
+    width: 100%;
+    height: 200px;
+    border: 2px solid black;
+  }
+
+  .label {
+    position: absolute;
+    font-size: 80%;
+    top: 100%;
+    text-align: right;
+    color: #333;
+    transform-origin: 100% 50%;
+    transform: rotate(-50deg);
+  }
+
+  .label-anger {
+    right: 92%;
+  }
+  .label-sadness {
+    right: 84%;
+  }
+  .label-disgust {
+    right: 76%;
+  }
+  .label-fear {
+    right: 68%;
+  }
+  .label-joy {
+    right: 60%;
+  }
+  .label-openness {
+    right: 40%;
+  }
+  .label-conscientiousness {
+    right: 32%;
+  }
+  .label-extraversion {
+    right: 24%;
+  }
+  .label-agreeableness {
+    right: 16%;
+  }
+  .label-neuroticism {
+    right: 8%;
+  }
+
+}
