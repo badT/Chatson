@@ -1,9 +1,9 @@
 import React from 'react';
 import { styles } from './styles.scss';
 
-export default function Loader() {
+export default function Loader(props) {
   return (
-    <div className={`${styles}`}>
+    <div key={props.key} className={`${styles}`}>
       <div className="outer-container">
         <div className="inner-container">
           <div className="section">

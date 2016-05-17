@@ -9,7 +9,10 @@ export default class LineGraphDisplay extends Component {
     this.state = {
       topRef: false,
       btmRef: false,
+      windowWidth: window.innerWidth,
     };
+
+    this.handleResize = this.handleResize.bind(this);
   }
 
   handleMouseEnter(line) {
@@ -20,6 +23,18 @@ export default class LineGraphDisplay extends Component {
   handleMouseLeave(line) {
     if (line === 'top') this.setState({ topRef: false });
     if (line === 'btm') this.setState({ btmRef: false });
+  }
+
+  handleResize(e) {
+    this.setState({ windowWidth: window.innerWidth });
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
   }
 
   renderLines(colors, paths) {
@@ -62,7 +77,7 @@ export default class LineGraphDisplay extends Component {
           {/* Loading message and animation */}
           <div className={`loader ${this.props.waitingForMsgs ? 'loader-active' : ''}`}>
             <span className="loader-msg">Waiting for New Messages</span>
-            <Loader />
+            <Loader key={this.state.windowWidth} />
           </div>
 
         {/* Main Graph */}
