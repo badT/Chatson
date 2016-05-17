@@ -20,7 +20,7 @@ export function Home() {
     <section className={`${styles}`}>
       <DocumentMeta {...metaData} />
       <div className="home-container">
-        <p className="intro">Welcome to Chatson! We use Watson's tone analyzer to provide you with a visualization of the mood and attitude in a chat stream. See the menu above to read more about our process or to select one of the top currently streaming Twitch chat channels to see a live analysis.</p>
+        <p className="intro">Welcome to Chatson, a tool for providing you with a visualization of the emotional state and crowd mentality in Twitch chat streams. Below you'll find long term analysis of some popular Twitch channels. Select from the menu to learn more about Chatson or to see real time analysis of currently streaming Twitch channels.</p>
       </div>
       <TopChannels longTermTone={[]} />
     </section>
