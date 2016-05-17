@@ -95,6 +95,6 @@ if (TARGET === 'start' || !TARGET) {
   module.exports = merge(development, common);
 }
 
-if (TARGET === 'build' || !TARGET) {
+if (TARGET === 'build' || TARGET === 'goserver' || TARGET === 'build:production' || !TARGET) {
   module.exports = merge(production, common);
 }

@@ -5,7 +5,8 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "webpack --progress --verbose --colors --display-error-details --config webpack/common.config.js",
-    "build:production": "npm run clean && npm run build",
+    "build:production": "npm run clean && npm run build && npm run goserver",
+    "goserver":  "node bin/server.js",
     "lint": "eslint src",
     "start": "node bin/server.js",
     "test": "./node_modules/.bin/mocha --reporter spec app/test",
