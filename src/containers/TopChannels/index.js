@@ -1,7 +1,50 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import TweenMax from 'gsap/src/minified/TweenMax.min';
 import { getLongTermTone } from '../../actions/index';
+import { styles } from './styles.scss';
+
+const emoXCoords = {
+  anger: 5,
+  sadness: 15,
+  disgust: 25,
+  fear: 35,
+  joy: 45,
+  openness: 70,
+  conscientiousness: 80,
+  extraversion: 90,
+  agreeableness: 100,
+  neuroticism: 110,
+};
+
+const delays = {
+  anger: 0,
+  sadness: 0.15,
+  disgust: 0.30,
+  fear: 0.45,
+  joy: 0.60,
+  openness: 0.75,
+  conscientiousness: 0.9,
+  extraversion: 1.05,
+  agreeableness: 1.20,
+  neuroticism: 1.35,
+};
+
+const emoColors = {
+  anger: '#FF3F39',
+  sadness: '#2B56B2',
+  disgust: '#AC35B2',
+  fear: '#4ACC68',
+  joy: '#FFF348',
+  openness: '#FF3F39',
+  conscientiousness: '#2B56B2',
+  extraversion: '#AC35B2',
+  agreeableness: '#4ACC68',
+  neuroticism: '#FFF348',
+};
+
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 class TopChannels extends Component {
   constructor(props) {
@@ -13,36 +56,18 @@ class TopChannels extends Component {
 
   renderGraph(dataObj) {
     const channel = dataObj.channel.substr(1);
-    const count = dataObj.messageCount * 200;
     const emos = dataObj.emos;
-
-    const emoXCoords = {
-      anger: 5,
-      sadness: 15,
-      disgust: 25,
-      fear: 35,
-      joy: 45,
-      openness: 70,
-      conscientiousness: 80,
-      extraversion: 90,
-      agreeableness: 100,
-      neuroticism: 110,
-    };
-
-    const emoColors = {
-      anger: '#FF3F39',
-      sadness: '#2B56B2',
-      disgust: '#AC35B2',
-      fear: '#4ACC68',
-      joy: '#FFF348',
-      openness: '#FF3F39',
-      conscientiousness: '#2B56B2',
-      extraversion: '#AC35B2',
-      agreeableness: '#4ACC68',
-      neuroticism: '#FFF348',
-    };
-
+    const date = dataObj.createdAt.split('T')[0].split('-');
+    const dateStr = `${months[parseInt(date[1]) - 1]} ${parseInt(date[2])}, ${date[0]}`;
     const rectangles = [];
+    let count = dataObj.messageCount * 200;
+
+    if (count > 999) {
+      count = count.toString().split('').reverse().map((dig, i) => {
+        if (i && i % 3 === 0) dig += ',';
+        return dig;
+      }).reverse().join('');
+    }
 
     Object.keys(emos).forEach(emo => {
       const height = emos[emo];
@@ -50,25 +75,44 @@ class TopChannels extends Component {
       const startXCoord = emoXCoords[emo];
       const color = emoColors[emo];
 
-      rectangles.push(<rect x={startXCoord} y={yCoord} width="10" height={height} fill={color} />);
+      rectangles.push(
+        <rect key={emo} className={`${channel}-${emo} chart-bar`} x={startXCoord} y={yCoord} width="10" height={height} fill={color} />
+      );
+
+      setTimeout(() => {
+        TweenMax.fromTo(`.${channel}-${emo}`, 2, {opacity: 0, y: 100 }, { opacity: 1, y: 0, delay: delays[emo], ease: Power3.easeInOut });
+      }, 500);
     });
 
     return (
-      <div key={channel} className="col-xs-12">
-        <h1>{channel}</h1>
-        <h4>{count}</h4>
-        <svg width="125" heigth="100" viewBox="0 0 125 100" preserveAspectRatio="none">
-          <g>
-            {rectangles}
-          </g>
-        </svg>
+      <div key={channel} className="col-xs-12 col-sm-6">
+        <section className="channel-data">
+          <h2>{channel}</h2>
+          <h4>{count} messages since {dateStr}</h4>
+          <div className="chart-container">
+            <svg width="125" heigth="100" viewBox="0 0 125 100" preserveAspectRatio="none">
+              <g>
+                {rectangles}
+              </g>
+            </svg>
+            {this.renderLabels(Object.keys(emoXCoords))}
+          </div>
+        </section>
       </div>
     );
   }
 
+  renderLabels(keys) {
+    return keys.map(key => {
+      return (
+        <span key={key} className={`label label-${key}`}>{key}</span>
+      );
+    });
+  }
+
   render() {
     return (
-      <section>
+      <section className={`${styles}`}>
         {this.props.longTermTone.map(this.renderGraph, this)}
       </section>
     );
