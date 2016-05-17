@@ -4,6 +4,34 @@ import { bindActionCreators } from 'redux';
 import { getLongTermTone } from '../../actions/index';
 import { styles } from './styles.scss';
 
+const emoXCoords = {
+  anger: 5,
+  sadness: 15,
+  disgust: 25,
+  fear: 35,
+  joy: 45,
+  openness: 70,
+  conscientiousness: 80,
+  extraversion: 90,
+  agreeableness: 100,
+  neuroticism: 110,
+};
+
+const emoColors = {
+  anger: '#FF3F39',
+  sadness: '#2B56B2',
+  disgust: '#AC35B2',
+  fear: '#4ACC68',
+  joy: '#FFF348',
+  openness: '#FF3F39',
+  conscientiousness: '#2B56B2',
+  extraversion: '#AC35B2',
+  agreeableness: '#4ACC68',
+  neuroticism: '#FFF348',
+};
+
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 class TopChannels extends Component {
   constructor(props) {
     super(props);
@@ -14,36 +42,18 @@ class TopChannels extends Component {
 
   renderGraph(dataObj) {
     const channel = dataObj.channel.substr(1);
-    const count = dataObj.messageCount * 200;
+    let count = dataObj.messageCount * 200;
     const emos = dataObj.emos;
-
-    const emoXCoords = {
-      anger: 5,
-      sadness: 15,
-      disgust: 25,
-      fear: 35,
-      joy: 45,
-      openness: 70,
-      conscientiousness: 80,
-      extraversion: 90,
-      agreeableness: 100,
-      neuroticism: 110,
-    };
-
-    const emoColors = {
-      anger: '#FF3F39',
-      sadness: '#2B56B2',
-      disgust: '#AC35B2',
-      fear: '#4ACC68',
-      joy: '#FFF348',
-      openness: '#FF3F39',
-      conscientiousness: '#2B56B2',
-      extraversion: '#AC35B2',
-      agreeableness: '#4ACC68',
-      neuroticism: '#FFF348',
-    };
-
+    const date = dataObj.createdAt.split('T')[0].split('-');
+    const dateStr = `${months[parseInt(date[1]) - 1]} ${parseInt(date[2])}, ${date[0]}`;
     const rectangles = [];
+
+    if (count > 999) {
+      count = count.toString().split('').reverse().map((dig, i) => {
+        if (i && i % 3 === 0) dig += ',';
+        return dig;
+      }).reverse().join('');
+    }
 
     Object.keys(emos).forEach(emo => {
       const height = emos[emo];
@@ -58,7 +68,7 @@ class TopChannels extends Component {
       <div key={channel} className="col-xs-12 col-sm-6">
         <section className="channel-data">
           <h2>{channel}</h2>
-          <h4>{count}</h4>
+          <h4>{count} messages since {dateStr}</h4>
           <div className="chart-container">
             <svg width="125" heigth="100" viewBox="0 0 125 100" preserveAspectRatio="none">
               <g>
