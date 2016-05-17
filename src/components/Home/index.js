@@ -20,7 +20,7 @@ export function Home() {
     <section className={`${styles}`}>
       <DocumentMeta {...metaData} />
       <div className="home-container">
-        <p className="intro">Welcome to Chatson, a tool for providing you with a visualization of the emotional state and crowd mentality in Twitch chat streams. Below you'll find long term analysis of some popular Twitch channels. Select from the menu to learn more about Chatson or to see real time analysis of currently streaming Twitch channels.</p>
+        <p className="intro">Welcome to Chatson, a tool for visualizing the emotional state and crowd mentality in Twitch chat streams. Below you'll find long term analysis of some popular Twitch channels. Select from the menu to learn more about Chatson or to see real time analysis of currently streaming Twitch channels.</p>
       </div>
       <TopChannels longTermTone={[]} />
     </section>
