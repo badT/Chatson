@@ -27,8 +27,8 @@ class TopChannels extends Component {
       extraversion: 90,
       agreeableness: 100,
       neuroticism: 110,
-    }
-      
+    };
+
     const emoColors = {
       anger: '#FF3F39',
       sadness: '#2B56B2',
@@ -40,19 +40,19 @@ class TopChannels extends Component {
       extraversion: '#AC35B2',
       agreeableness: '#4ACC68',
       neuroticism: '#FFF348',
-    }
-      
+    };
+
     const rectangles = [];
-   
+
     Object.keys(emos).forEach(emo => {
       const height = emos[emo];
       const yCoord = 100 - height;
       const startXCoord = emoXCoords[emo];
       const color = emoColors[emo];
-     
+
       rectangles.push(<rect x={startXCoord} y={yCoord} width="10" height={height} fill={color} />);
     });
-      
+
     return (
       <div key={channel} className="col-xs-12">
         <h1>{channel}</h1>
