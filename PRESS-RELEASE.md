@@ -17,15 +17,7 @@
   > Chatson is here to create a buffer between you and the negativity.
 
 ## Quote from You ##
-<<<<<<< refs/remotes/upstream/master
-<<<<<<< refs/remotes/upstream/master
   > 'Hey, this is pretty cool' - Ben
-=======
-  > 'Hey this is pretty cool' - Ben
->>>>>>> Update PRESS-RELEASE
-=======
-  > 'Hey, this is pretty cool' - Ben
->>>>>>> Update PR
 
 ## How to Get Started ##
   > Visit the url and enjoy!
