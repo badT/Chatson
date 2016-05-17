@@ -49,8 +49,44 @@ const emoColors = {
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 class TopChannels extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      channel: '',
+      attr: '',
+      message: '',
+    };
+  }
+
   componentWillMount() {
     this.props.getLongTermTone();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (Array.isArray(nextProps.longTermTone) && nextProps.longTermTone.length) {
+      Object.keys(emoColors).forEach(emo => {
+        setTimeout(() => {
+          TweenMax.fromTo(`.${emo}-bar`, 2, { opacity: 0, y: 100 }, { opacity: 1, y: 0, delay: delays[emo], ease: Power3.easeInOut });
+        }, 250);
+      });
+    }
+  }
+
+  handleMouseEnter(channel, attr, message) {
+    this.setState({
+      channel,
+      attr,
+      message,
+    });
+  }
+
+  handleMouseLeave() {
+    this.setState({
+      channel: '',
+      attr: '',
+      message: '',
+    });
   }
 
   renderGraph(dataObj) {
@@ -77,14 +113,22 @@ class TopChannels extends Component {
       const yCoord = 100 - height;
       const startXCoord = emoXCoords[emo];
       const color = emoColors[emo];
+      const msg = `${height}`
 
       rectangles.push(
-        <rect key={emo} className={`${channel}-${emo} chart-bar`} x={startXCoord} y={yCoord} width="10" height={height} fill={color} />
+        <rect
+          key={emo}
+          onMouseEnter={() => this.handleMouseEnter(channel, emo, msg)}
+          onMouseLeave={() => this.handleMouseLeave()}
+          className={`${emo}-bar chart-bar`}
+          x={startXCoord}
+          y={yCoord}
+          width="10"
+          height={height}
+          fill={color}
+        />
       );
 
-      setTimeout(() => {
-        TweenMax.fromTo(`.${channel}-${emo}`, 2, { opacity: 0, y: 100 }, { opacity: 1, y: 0, delay: delays[emo], ease: Power3.easeInOut });
-      }, 500);
     });
 
     return (
@@ -92,7 +136,8 @@ class TopChannels extends Component {
         <section className="channel-data">
           <h2>{channel}</h2>
           <h4>{count} messages since {dateStr}</h4>
-          <div className="chart-container">
+          <div className={`chart-container ${this.state.channel === channel ? 'active' : ''}`}>
+            <div className="chart-msg">{this.state.channel === channel ? this.state.message : ''}</div>
             <svg width="125" heigth="100" viewBox="0 0 125 100" preserveAspectRatio="none">
               <g>
                 {rectangles}
@@ -106,7 +151,7 @@ class TopChannels extends Component {
   }
 
   renderLabels(keys) {
-    return keys.map(key => <span key={key} className={`label label-${key}`}>{capitalizeFirstLetter(key)}</span>);
+    return keys.map(key => <span key={key} className={`label label-${key} ${this.state.attr === key ? 'active' : ''}`}>{capitalizeFirstLetter(key)}</span>);
   }
 
   render() {

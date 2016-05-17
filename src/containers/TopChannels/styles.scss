@@ -26,7 +26,12 @@
 
   .chart-container {
     position: relative;
-    margin: 15px 30px 115px 30px;
+    margin: 25px 30px 115px 30px;
+  }
+
+  .chart-msg {
+    position: absolute;
+    bottom: 100%;
   }
 
   svg {
@@ -39,14 +44,23 @@
     opacity: 0;
   }
 
+  .chart-bar:hover {
+    fill-opacity: 0.6;
+  }
+
   .label {
     position: absolute;
-    font-size: 80%;
+    font-size: 85%;
+    font-weight: normal;
     top: 100%;
     text-align: right;
     color: #333;
     transform-origin: 100% 50%;
     transform: rotate(-50deg);
+  }
+
+  .chart-container.active .label.active {
+    font-weight: bold;
   }
 
   .label-anger {
