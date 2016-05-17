@@ -32,5 +32,8 @@ module.exports = {
         warnings: false,
       },
     }),
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+    }),
   ],
 };
