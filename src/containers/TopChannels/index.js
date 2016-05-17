@@ -13,7 +13,7 @@ class TopChannels extends Component {
 
   renderGraph(dataObj) {
     const channel = dataObj.channel.substr(1);
-    const count = dataObj.messageCount * 5;
+    const count = dataObj.messageCount * 200;
     const emos = dataObj.emos;
 
     const emoXCoords = {
