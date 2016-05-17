@@ -3,6 +3,8 @@ import expect from 'expect';
 import * as actions from '../../actions/index';
 import reducerTone from '../../reducers/reducerTone';
 import reducerChannels from '../../reducers/reducerChannels';
+import reducerLongTermTone from '../../reducers/reducerLongTermTone';
+
 
 const initialToneState = { tone: null };
 
@@ -56,7 +58,6 @@ describe('Tone reducer:', () => {
       reducerTone(initialToneState, dummyWatsonData)
     ).toEqual(toneResult);
   });
-
 });
 
 // variables for testing Channels reducer
@@ -123,5 +124,48 @@ describe('Channels reducer:', () => {
       reducerChannels(initialChannelState, dummyGetChannelsInput)
     ).toEqual(dummyGetChannelsOutput);
   });
+});
 
+
+// variables for testing LongTermToneReducer
+
+const initialLongTermToneState = { longTermTone: null };
+
+const dummyLongTermToneData = {
+  type: actions.GET_LONGTERMTONE,
+  payload: {
+    data: [{
+      channel: '#wyld',
+      createdAt: '2016-05-17T20:16:27.288Z',
+      emos: {
+        agreeableness: 35.17,
+        anger: 39.91,
+        conscientiousness: 20.63,
+        disgust: 5.23,
+        extraversion: 48.9,
+        fear: 1.45,
+        joy: 0.02,
+        neuroticism: 74.02,
+        openness: 28,
+        sadness: 0.93,
+      },
+      id: 'b6f48467-19bc-4179-8644-6218fe3f7feb',
+      messageCount: 6,
+    }],
+  },
+};
+
+describe('longTermTone reducer:', () => {
+  it('should return the initial state when passed an empty object', () => {
+    expect(
+      reducerLongTermTone(initialLongTermToneState, {})
+    ).toEqual(initialLongTermToneState);
+  });
+
+  it('should set long term tone with new data', () => {
+    const expectedLongTermTone = { longTermTone: dummyLongTermToneData.payload.data };
+    expect(
+      reducerLongTermTone(initialLongTermToneState, dummyLongTermToneData)
+    ).toEqual(expectedLongTermTone);
+  });
 });

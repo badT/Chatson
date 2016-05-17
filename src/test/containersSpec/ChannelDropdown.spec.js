@@ -16,7 +16,7 @@ describe('<ChannelDropdown />', () => {
 
   it('should render burger for channel selection', () => {
     const wrapper = mount(<ConnectedChannelDropdown store={store} />);
-    expect(wrapper.find('line')).to.have.length(3);
+    expect(wrapper.find('line')).to.have.length(5);
   });
 
   it('should call render function', () => {

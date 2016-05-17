@@ -19,6 +19,11 @@ class ChannelDropdown extends Component {
 
   componentWillMount() {
     this.props.getChannels();
+    this.channelInt = setInterval(this.props.getChannels, 300000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.channelInt);
   }
 
   toggleDrawer() {
