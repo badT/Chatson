@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import TweenMax from 'gsap/src/minified/TweenMax.min';
 import { getLongTermTone } from '../../actions/index';
 import { styles } from './styles.scss';
+import { capitalizeFirstLetter } from '../../components/LineGraphComponents/helpers';
+
 
 const emoXCoords = {
   anger: 5,
@@ -104,7 +106,7 @@ class TopChannels extends Component {
   }
 
   renderLabels(keys) {
-    return keys.map(key => <span key={key} className={`label label-${key}`}>{key}</span>);
+    return keys.map(key => <span key={key} className={`label label-${key}`}>{capitalizeFirstLetter(key)}</span>);
   }
 
   render() {
