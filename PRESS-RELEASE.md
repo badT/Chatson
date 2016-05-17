@@ -17,7 +17,7 @@
   > Chatson is here to create a buffer between you and the negativity.
 
 ## Quote from You ##
-  > 'Hey this is pretty cool' - Ben
+  > 'Hey, this is pretty cool' - Ben
 
 ## How to Get Started ##
   > Visit the url and enjoy!
