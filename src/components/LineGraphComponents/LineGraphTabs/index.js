@@ -10,7 +10,7 @@ export default function LineGraphTabs(props) {
             className={`graph-tab ${props.activeGraph === 'emotion' ? 'tab-active' : ''}`}
             onClick={() => props.toggleGraph('emotion')}
           >
-            Channel Emotions
+            Emotional Attributes
           </h2>
           <h2
             className={`graph-tab ${props.activeGraph === 'social' ? 'tab-active' : ''}`}
