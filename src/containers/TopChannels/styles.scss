@@ -20,6 +20,10 @@
     border-bottom: 2px solid #ddd;
   }
 
+  .channel-data h4 {
+    font-size: 14px;
+  }
+
   .chart-container {
     position: relative;
     margin: 15px 30px 115px 30px;
@@ -74,6 +78,12 @@
   }
   .label-neuroticism {
     right: 8%;
+  }
+
+  @media only screen and (min-width : 992px) {
+    .channel-data h4 {
+      font-size: 18px;
+    }
   }
 
 }
