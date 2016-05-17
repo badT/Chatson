@@ -64,4 +64,24 @@ describe('routes test suite', () => {
     });
   });
 
+  describe('GET request API handler', () => {
+    it('should respond to GET requests', (done) => {
+      server
+        .get('/api/watson/toneData')
+        .end((err, res) => {
+          expect(res.body).toExist();
+          done();
+        });
+    });
+
+    it('should respond with tone data to GET requests', (done) => {
+      server
+        .get('/api/watson/toneData')
+        .end((err, res) => {
+          expect(res.body[0].channel).toExist();
+          done();
+        });
+    });
+  });
+
 });

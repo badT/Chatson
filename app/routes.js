@@ -8,7 +8,6 @@ module.exports = (app, express) => {
   app.get('/api/watson/toneData', (req, res) => {
     toneController.getToneData()
       .then((data) => {
-        console.log('get request:', data);
         res.send(data);
       })
       .catch((err) => {
@@ -53,8 +52,8 @@ module.exports = (app, express) => {
             res.send(tone);
           })
           .catch(err => {
-            res.sendStatus(500);
             console.error(err);
+            res.sendStatus(500);
           });
       // sends back error message if data is empty
       } else {

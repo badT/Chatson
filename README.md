@@ -1,10 +1,6 @@
-# Project Name
-twitchBot
+##Chatson
 
-> Pithy project description
-
-A bot that tracks & analyzes comments in Twitch's popular channels.
-
+Chatson is a live chat analyzer created to give users insight into the emotional state and crowd mentality of Twitch chat streams.
 
 ## Team
 
@@ -24,21 +20,19 @@ A bot that tracks & analyzes comments in Twitch's popular channels.
 
 ## Usage
 
-> Some usage instructions
+Open up the app and have a look at the data!
 
 ## Requirements
 
-- Node 0.12.7
+- Node 6.0.0
 - React
 - Redux
 - RethinkDB
-- etc
-- etc
 
 
-### Roadmap
+## Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/badT/Chatson/issues)
 
 
 ## Contributing
@@ -64,21 +58,21 @@ $ npm run clean
 ```
 Using rimraf clean the `dist` folder, which is the target of the `build`
 
-## Build & build:production
+## Build
 ```
 $ npm run build
 ```
 Builds the app into the 'dist' folder for deployment
+
+### Production
 ```
 $ npm run build:production
 ```
-clean the `dist` folder and rebuilds the app for deployment
-### Production
-To run your server in production simply place the `index.html` and `dist` folder into
-your `web root`.
+Cleans the `dist` folder, rebuilds the app for deployment and starts the server
 
-In development mode the app uses `hashHistory` (e.g /#/home?_k=x928123) which
-keeps track of your currently location on and the state of the page. It is adviced
+### Note on history
+In development mode the app uses `hashHistory` (e.g /#/home?k=x928123) which
+keeps track of your currently location on and the state of the page. It is advised
 for production to use `browserHistory` instead of `hashHistory`
 
 To make this change edit `src/index.js`
@@ -95,10 +89,10 @@ import { Router, Redirect, browserHistory as history } from 'react-router';
 
 ```
 
-the use of history push api requires that all your requests point to index.html
+The use of history push api requires that all your requests point to index.html
 since react-router is keeping track of the navigation (e.g this can be done with `.htaccess` file at the web root or with `nginx` configuration)
 
-## Run karma
+## Running Tests
 ```
 $ npm test
 ```
