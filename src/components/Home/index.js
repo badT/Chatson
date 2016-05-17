@@ -22,7 +22,7 @@ export function Home() {
       <div className="home-container">
         <p className="intro">Welcome to Chatson! We use Watson's tone analyzer to provide you with a visualization of the mood and attitude in a chat stream. See the menu above to read more about our process or to select one of the top currently streaming Twitch chat channels to see a live analysis.</p>
       </div>
-      <TopChannels />
+      <TopChannels longTermTone={[]} />
     </section>
   );
 }

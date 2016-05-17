@@ -50,6 +50,7 @@ class TopChannels extends Component {
   constructor(props) {
     super(props);
   }
+
   componentWillMount() {
     this.props.getLongTermTone();
   }
@@ -129,9 +130,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({ longTermTone }) {
-  if (!longTermTone.longTermTone) {
-    return { longTermTone: [] };
-  }
+  if (!longTermTone.longTermTone) return {};
   return { longTermTone: longTermTone.longTermTone };
 }
 
