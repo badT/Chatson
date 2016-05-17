@@ -1,4 +1,4 @@
-# TwitchBot JavaScript Style Guide() {
+# Chatson JavaScript Style Guide() {
 
 *A mostly reasonable approach to JavaScript*
 
