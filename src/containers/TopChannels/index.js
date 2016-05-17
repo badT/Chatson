@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import TweenMax from 'gsap/src/minified/TweenMax.min';
 import { getLongTermTone } from '../../actions/index';
 import { styles } from './styles.scss';
 
@@ -15,6 +16,19 @@ const emoXCoords = {
   extraversion: 90,
   agreeableness: 100,
   neuroticism: 110,
+};
+
+const delays = {
+  anger: 0,
+  sadness: 0.15,
+  disgust: 0.30,
+  fear: 0.45,
+  joy: 0.60,
+  openness: 0.75,
+  conscientiousness: 0.9,
+  extraversion: 1.05,
+  agreeableness: 1.20,
+  neuroticism: 1.35,
 };
 
 const emoColors = {
@@ -42,11 +56,11 @@ class TopChannels extends Component {
 
   renderGraph(dataObj) {
     const channel = dataObj.channel.substr(1);
-    let count = dataObj.messageCount * 200;
     const emos = dataObj.emos;
     const date = dataObj.createdAt.split('T')[0].split('-');
     const dateStr = `${months[parseInt(date[1]) - 1]} ${parseInt(date[2])}, ${date[0]}`;
     const rectangles = [];
+    let count = dataObj.messageCount * 200;
 
     if (count > 999) {
       count = count.toString().split('').reverse().map((dig, i) => {
@@ -61,7 +75,13 @@ class TopChannels extends Component {
       const startXCoord = emoXCoords[emo];
       const color = emoColors[emo];
 
-      rectangles.push(<rect x={startXCoord} y={yCoord} width="10" height={height} fill={color} />);
+      rectangles.push(
+        <rect key={emo} className={`${channel}-${emo} chart-bar`} x={startXCoord} y={yCoord} width="10" height={height} fill={color} />
+      );
+
+      setTimeout(() => {
+        TweenMax.fromTo(`.${channel}-${emo}`, 2, {opacity: 0, y: 100 }, { opacity: 1, y: 0, delay: delays[emo], ease: Power3.easeInOut });
+      }, 1000);
     });
 
     return (
@@ -85,7 +105,7 @@ class TopChannels extends Component {
   renderLabels(keys) {
     return keys.map(key => {
       return (
-        <span className={`label label-${key}`}>{key}</span>
+        <span key={key} className={`label label-${key}`}>{key}</span>
       );
     });
   }
