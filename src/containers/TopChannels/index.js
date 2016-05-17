@@ -56,16 +56,18 @@ class TopChannels extends Component {
 
     return (
       <div key={channel} className="col-xs-12 col-sm-6">
-        <h1>{channel}</h1>
-        <h4>{count}</h4>
-        <div className="chart-container">
-          <svg width="125" heigth="100" viewBox="0 0 125 100" preserveAspectRatio="none">
-            <g>
-              {rectangles}
-            </g>
-          </svg>
-          {this.renderLabels(Object.keys(emoXCoords))}
-        </div>
+        <section className="channel-data">
+          <h2>{channel}</h2>
+          <h4>{count}</h4>
+          <div className="chart-container">
+            <svg width="125" heigth="100" viewBox="0 0 125 100" preserveAspectRatio="none">
+              <g>
+                {rectangles}
+              </g>
+            </svg>
+            {this.renderLabels(Object.keys(emoXCoords))}
+          </div>
+        </section>
       </div>
     );
   }
