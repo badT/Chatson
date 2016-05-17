@@ -5,6 +5,7 @@
 @import 'links';
 
 $grid-gutter-width: 30px;
+$shadow: rgba(0,0,0,0.6);
 
 @mixin clearfix() {
   &:before,
@@ -29,9 +30,9 @@ $grid-gutter-width: 30px;
     position: relative;
     z-index: 1;
     background-color: #bbb;
-    margin-bottom: 140px;
+    margin-bottom: 120px;
     min-height: 100%;
-    box-shadow: 0 1px 4px #fff;
+    box-shadow: 0 1px 4px $shadow;
   }
 
   @media only screen and (min-width : 480px) {
