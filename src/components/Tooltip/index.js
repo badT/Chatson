@@ -10,3 +10,8 @@ export default function Tooltip(props) {
     </div>
   );
 }
+
+Tooltip.propTypes = {
+  position: React.PropTypes.string,
+  text: React.PropTypes.string,
+};
