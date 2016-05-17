@@ -144,11 +144,13 @@
   .splotch-holder:nth-of-type(2) .tooltip.top-side,
   .splotch-holder:nth-of-type(4) .tooltip.top-side {
     right: 0;
+    left: auto;
   }
 
   .splotch-holder:nth-of-type(2) .tooltip.top-side:after,
   .splotch-holder:nth-of-type(4) .tooltip.top-side:after {
     right: 3px;
+    left: auto;
   }
 
   // tooltips for the splotches themselves
@@ -168,12 +170,14 @@
   .splotch-holder:nth-of-type(2) .tooltip.top-center,
   .splotch-holder:nth-of-type(4) .tooltip.top-center {
     right: 50%;
+    left: auto;
     transform: translateX(8px);
   }
 
   .splotch-holder:nth-of-type(2) .tooltip.top-center:after,
   .splotch-holder:nth-of-type(4) .tooltip.top-center:after {
     right: 3px;
+    left: auto;
   }
 
   @media only screen and (min-width : 480px) {
