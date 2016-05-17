@@ -47,10 +47,6 @@ const emoColors = {
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 class TopChannels extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     this.props.getLongTermTone();
   }
@@ -59,15 +55,19 @@ class TopChannels extends Component {
     const channel = dataObj.channel.substr(1);
     const emos = dataObj.emos;
     const date = dataObj.createdAt.split('T')[0].split('-');
-    const dateStr = `${months[parseInt(date[1]) - 1]} ${parseInt(date[2])}, ${date[0]}`;
+    const dateStr = `${months[parseInt(date[1], 10) - 1]} ${parseInt(date[2], 10)}, ${date[0]}`;
     const rectangles = [];
     let count = dataObj.messageCount * 200;
 
     if (count > 999) {
-      count = count.toString().split('').reverse().map((dig, i) => {
-        if (i && i % 3 === 0) dig += ',';
-        return dig;
-      }).reverse().join('');
+      count = count.toString().split('').reverse()
+      .map((digit, i) => {
+        let newDigit = digit;
+        if (i && i % 3 === 0) newDigit += ',';
+        return newDigit;
+      })
+      .reverse()
+      .join('');
     }
 
     Object.keys(emos).forEach(emo => {
@@ -81,7 +81,7 @@ class TopChannels extends Component {
       );
 
       setTimeout(() => {
-        TweenMax.fromTo(`.${channel}-${emo}`, 2, {opacity: 0, y: 100 }, { opacity: 1, y: 0, delay: delays[emo], ease: Power3.easeInOut });
+        TweenMax.fromTo(`.${channel}-${emo}`, 2, { opacity: 0, y: 100 }, { opacity: 1, y: 0, delay: delays[emo], ease: Power3.easeInOut });
       }, 500);
     });
 
@@ -104,11 +104,7 @@ class TopChannels extends Component {
   }
 
   renderLabels(keys) {
-    return keys.map(key => {
-      return (
-        <span key={key} className={`label label-${key}`}>{key}</span>
-      );
-    });
+    return keys.map(key => <span key={key} className={`label label-${key}`}>{key}</span>);
   }
 
   render() {
