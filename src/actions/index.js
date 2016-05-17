@@ -48,7 +48,7 @@ export function unsetTone() {
 
 export const GET_LONGTERMTONE = 'GET_LONGTERMTONE';
 export function getLongTermTone() {
-  const request = axios.get('api/watson/longterm');
+  const request = axios.get('api/watson/toneData');
   return {
     type: GET_LONGTERMTONE,
     payload: request,

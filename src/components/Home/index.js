@@ -1,6 +1,6 @@
 import React from 'react';
 import DocumentMeta from 'react-document-meta';
-import { TopChannels } from '../../containers/TopChannels';
+import TopChannels from '../../containers/TopChannels';
 import { styles } from './styles.scss';
 
 const metaData = {
