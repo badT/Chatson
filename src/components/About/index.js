@@ -12,7 +12,7 @@ export function About() {
           <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <section>
               <p className="intro">
-                Welcome to Chatson, a live chat analyzer created to give users insight into the emotional state and crowd mentality
+                Chatson is a live chat analyzer created to give users insight into the emotional state and crowd mentality
                 of Twitch chat streams. Twitch is the world’s leading social video platform and community for gamers.
                 Expand the sidebar to see a list of Twitch's channels that currently have the most viewers. Select a channel for a real time visualization of its emotional and social tone, current chat stream, and chat statistics.
               </p>
