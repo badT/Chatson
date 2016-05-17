@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLongTermTone } from '../../actions/index';
+import { styles } from './styles.scss';
 
 class TopChannels extends Component {
   constructor(props) {
@@ -54,21 +55,32 @@ class TopChannels extends Component {
     });
 
     return (
-      <div key={channel} className="col-xs-12">
+      <div key={channel} className="col-xs-12 col-sm-6">
         <h1>{channel}</h1>
         <h4>{count}</h4>
-        <svg width="125" heigth="100" viewBox="0 0 125 100" preserveAspectRatio="none">
-          <g>
-            {rectangles}
-          </g>
-        </svg>
+        <div className="chart-container">
+          <svg width="125" heigth="100" viewBox="0 0 125 100" preserveAspectRatio="none">
+            <g>
+              {rectangles}
+            </g>
+          </svg>
+          {this.renderLabels(Object.keys(emoXCoords))}
+        </div>
       </div>
     );
   }
 
+  renderLabels(keys) {
+    return keys.map(key => {
+      return (
+        <span className={`label label-${key}`}>{key}</span>
+      );
+    });
+  }
+
   render() {
     return (
-      <section>
+      <section className={`${styles}`}>
         {this.props.longTermTone.map(this.renderGraph, this)}
       </section>
     );
