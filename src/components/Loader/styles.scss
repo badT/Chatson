@@ -1,6 +1,11 @@
 :local(.styles) {
 
-  $dimension: 60px;
+  $smSize: 32px;
+  $mdSize: 48px;
+  $lgSize: 70px;
+
+  // $dimension
+
   $color1: rgba(0, 0, 255, 0.6);
   $color2: rgba(255, 0, 0, 0.6);
   $color3: rgba(255, 255, 0, 0.6);
@@ -10,24 +15,49 @@
     width: 100%;
     height: 100%;
     perspective: 5000px;
-    transform: translateY(-($dimension/2));
+    transform: translateY(-($smSize/2));
+
+    @media only screen and (min-width : 480px) {
+      transform: translateY(-($mdSize/2));
+    }
+    @media only screen and (min-width : 768px) {
+      transform: translateY(-($lgSize/2));
+    }
   }
 
   .inner-container {
     position: relative;
     left: 50%;
     top: 50%;
-    width: $dimension;
-    height: $dimension;
+    width: $smSize;
+    height: $smSize;
     transform: translate(-50%, -50%) rotateX(-135deg) rotateY(135deg);
     perspective: 5000px;
     transform-style: preserve-3d;
+
+    @media only screen and (min-width : 480px) {
+      width: $mdSize;
+      height: $mdSize;
+    }
+    @media only screen and (min-width : 768px) {
+      width: $lgSize;
+      height: $lgSize;
+    }
   }
 
   .pos {
-    width: $dimension;
-    height: $dimension;
+    width: $smSize;
+    height: $smSize;
     position: absolute;
+
+    @media only screen and (min-width : 480px) {
+      width: $mdSize;
+      height: $mdSize;
+    }
+    @media only screen and (min-width : 768px) {
+      width: $lgSize;
+      height: $lgSize;
+    }
   }
     
   .section {
@@ -46,7 +76,15 @@
     
   .section:nth-of-type(1) {
     background-color: $color1;
-    animation: sec1 $duration infinite;
+    animation: sec1sm $duration infinite;
+
+    @media only screen and (min-width : 480px) {
+      animation: sec1md $duration infinite;
+    }
+    @media only screen and (min-width : 768px) {
+      animation: sec1lg $duration infinite;
+    }
+
     .face:first-of-type {
       transform-origin: 0 50%;
       animation: sec1f1 $duration infinite;
@@ -59,12 +97,30 @@
     }
   }
       
-  @keyframes sec1 {
+  @keyframes sec1sm {
     0% {
-      transform: translateZ(-$dimension / 2);
+      transform: translateZ(-$smSize / 2);
     }
     100% {
-      transform: translateZ($dimension / 2);
+      transform: translateZ($smSize / 2);
+    }
+  }
+
+  @keyframes sec1md {
+    0% {
+      transform: translateZ(-$mdSize / 2);
+    }
+    100% {
+      transform: translateZ($mdSize / 2);
+    }
+  }
+
+  @keyframes sec1lg {
+    0% {
+      transform: translateZ(-$lgSize / 2);
+    }
+    100% {
+      transform: translateZ($lgSize / 2);
     }
   }
 
@@ -89,7 +145,15 @@
   .section:nth-of-type(2) {
     background-color: $color1;
     transform-origin: 50% 0;
-    animation: sec2 $duration infinite;
+    animation: sec2sm $duration infinite;
+
+    @media only screen and (min-width : 480px) {
+      animation: sec2md $duration infinite;
+    }
+    @media only screen and (min-width : 768px) {
+      animation: sec2lg $duration infinite;
+    }
+
     .face {
       transform-origin: 50% 100%;
       transform-style: preserve-3d;
@@ -102,12 +166,30 @@
     }
   }
       
-  @keyframes sec2 {
+  @keyframes sec2sm {
     0% {
-      transform: translateZ(-$dimension / 2) rotateX(90deg);
+      transform: translateZ(-$smSize / 2) rotateX(90deg);
     }
     100% {
-      transform: translateZ($dimension / 2) rotateX(180deg);
+      transform: translateZ($smSize / 2) rotateX(180deg);
+    }
+  }
+
+  @keyframes sec2md {
+    0% {
+      transform: translateZ(-$mdSize / 2) rotateX(90deg);
+    }
+    100% {
+      transform: translateZ($mdSize / 2) rotateX(180deg);
+    }
+  }
+
+  @keyframes sec2lg {
+    0% {
+      transform: translateZ(-$lgSize / 2) rotateX(90deg);
+    }
+    100% {
+      transform: translateZ($lgSize / 2) rotateX(180deg);
     }
   }
     
@@ -123,7 +205,15 @@
   .section:nth-of-type(3) {
     background-color: $color1;
     transform-origin: 50% 0;
-    animation: sec3 $duration infinite;
+    animation: sec3sm $duration infinite;
+
+    @media only screen and (min-width : 480px) {
+      animation: sec3md $duration infinite;
+    }
+    @media only screen and (min-width : 768px) {
+      animation: sec3lg $duration infinite;
+    }
+
     .face:first-of-type {
       transform-origin: 50% 100%;
       transform-style: preserve-3d;
@@ -146,12 +236,30 @@
     }
   }
       
-  @keyframes sec3 {
+  @keyframes sec3sm {
     0% {
-      transform: translateZ(-$dimension / 2) rotateX(180deg);
+      transform: translateZ(-$smSize / 2) rotateX(180deg);
     }
     100% {
-      transform: translateZ($dimension / 2) rotateX(270deg);
+      transform: translateZ($smSize / 2) rotateX(270deg);
+    }
+  }
+
+  @keyframes sec3md {
+    0% {
+      transform: translateZ(-$mdSize / 2) rotateX(180deg);
+    }
+    100% {
+      transform: translateZ($mdSize / 2) rotateX(270deg);
+    }
+  }
+
+  @keyframes sec3lg {
+    0% {
+      transform: translateZ(-$lgSize / 2) rotateX(180deg);
+    }
+    100% {
+      transform: translateZ($lgSize / 2) rotateX(270deg);
     }
   }
 
