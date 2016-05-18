@@ -6,6 +6,7 @@ import { styles } from './styles.scss';
 import { emoXCoords, delays, emoColors, months } from './variables';
 import { addCommas, animateBars } from './helpers';
 import { capitalizeFirstLetter } from '../../components/LineGraphComponents/helpers';
+import { splotchDesc, splotchDescLT25, splotchDescLT50, splotchDescGT75 } from '../../components/LineGraphComponents/descriptions';
 
 class TopChannels extends Component {
   constructor(props) {
@@ -61,7 +62,19 @@ class TopChannels extends Component {
       const yCoord = 100 - height;
       const startXCoord = emoXCoords[emo];
       const color = emoColors[emo];
-      const msg = `Average ${capitalizeFirstLetter(emo)} score: ${avg}`;
+
+      let explanation = '';
+      if (height > 75) {
+        explanation = splotchDescGT75[emo];
+      } else if (height < 25 && splotchDescLT25[emo] !== '') {
+        explanation = splotchDescLT25[emo];
+      } else if (height < 50 && splotchDescLT50[emo] !== '') {
+        explanation = splotchDescLT50[emo];
+      } else {
+        explanation = 'This value does not indicate a strong tendency';
+      }
+
+      const msg = <span>Average {capitalizeFirstLetter(emo)} score: <b>{avg}</b><br /><i className="reading-explanation">{explanation}</i></span>;
 
       rectangles.push(
         <rect
