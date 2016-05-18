@@ -36,10 +36,19 @@
 
   .loader-msg {
     position: absolute;
-    font-size: 1.4em;
+    text-align: center;
+    font-size: 1em;
+    color: #000;
+    // font-weight: bold;
+    letter-spacing: 0.07em;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
+    display: none;
+  }
+
+  .loader-msg.loader-active {
+    display: block;
   }
 
   svg {
@@ -126,6 +135,9 @@
     .line-graph-container {
       margin: 25px 0 50px;
     }
+    .loader-msg {
+      font-size: 1.4em;
+    }
     svg {
       height: 300px;
     }
@@ -138,6 +150,9 @@
   }
 
   @media only screen and (min-width : 768px) {
+    .loader-msg {
+      font-size: 1.8em;
+    }
     svg {
       height: 400px;
     }

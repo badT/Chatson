@@ -74,9 +74,8 @@ export default class LineGraphDisplay extends Component {
             <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate that the chat sentiment is more likely to be perceived as aligning with the opposite extreme of this attribute</span>
           </div>
 
-          {/* Loading message and animation */}
+          {/* Loading animation */}
           <div className={`loader ${this.props.waitingForMsgs ? 'loader-active' : ''}`}>
-            <span className="loader-msg">Waiting for New Messages</span>
             <Loader key={this.state.windowWidth} />
           </div>
 
@@ -148,6 +147,10 @@ export default class LineGraphDisplay extends Component {
           </svg>
           <span className="x-axis-label start">30 Sec<br />Ago</span>
           <span className="x-axis-label end">Now</span>
+
+          {/* Loading message */}
+          <span className={`loader-msg ${this.props.waitingForMsgs ? 'loader-active' : ''}`}>Waiting for New Messages</span>
+
         </div>
       </div>
     );
