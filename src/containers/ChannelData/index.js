@@ -144,7 +144,9 @@ class ChannelData extends Component {
           </div>
         </div>
         <div className="row">
-          <span>Total Messages since arrival: {this.state.currentMsgCount}</span>
+          <div className="col-xs-12">
+            <span>Total Messages since arrival: {this.state.currentMsgCount}</span>
+          </div>
         </div>
       </section>
     );

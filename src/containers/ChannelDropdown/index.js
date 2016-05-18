@@ -122,7 +122,7 @@ class ChannelDropdown extends Component {
           <h4 className="about-link">
             <Link to="/about" onClick={() => this.toggleDrawer()}>About Chatson</Link>
           </h4>
-          <h4 className="channel-list-header">Active Streams</h4>
+          <h4 className="channel-list-header">Active Chat Streams</h4>
           <div className="finger-point text-center closing-copy">&#9759;</div>
           {this.props.channels.list.map(this.renderChannels, this)}
         </div>

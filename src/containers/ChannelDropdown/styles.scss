@@ -11,14 +11,12 @@
     height: 100%;
   }
 
-
   .burger {
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
     position: absolute;
     right: 0;
-    top: 50%;
-    // transform: translateY(-50%);
+    top: 0;
     cursor: pointer;
   }
 
@@ -31,7 +29,7 @@
   .drawer-overlay {
     position: fixed;
     width: 100%;
-    top: 62px;
+    top: 76px;
     left: -9999px;
     height: 100%;
     background-color: rgba(0,0,0,0);
@@ -46,7 +44,7 @@
     position: fixed;
     overflow-y: scroll;
     right: 0;
-    top: 63px;
+    top: 77px;
     bottom: 0;
     background-color: #bbb;
     transform: translateX(101%);
@@ -99,19 +97,6 @@
 
   .finger-point {
     font-size: 30;
-  }
-
-  @media only screen and (min-width : 768px) {
-    .logo h1 {
-      font-size: 2.2em;
-    }
-    .drawer-overlay {
-      top: 74px;
-    }
-
-    .drawer {
-      top: 75px;
-    }
   }
 
 }
