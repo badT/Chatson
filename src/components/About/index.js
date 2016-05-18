@@ -1,5 +1,4 @@
 import React from 'react';
-/* component styles */
 import { styles } from './styles.scss';
 const emoChart = require('./assets/emotionChart.jpg');
 const socChart = require('./assets/socialChart.jpg');

@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 import TweenMax from 'gsap/src/minified/TweenMax.min';
 import { getChannels, setChannel, unsetChannel } from '../../actions/index';
 import Logo from '../../components/Logo/index';
-/* component styles */
 import { styles } from './styles.scss';
 
 class ChannelDropdown extends Component {

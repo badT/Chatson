@@ -4,6 +4,7 @@ import MessageDisplay from '../MessageDisplay';
 import ChannelData from '../ChannelData';
 import LineGraph from '../LineGraph';
 
+// reference to socket.io connection
 const io = window.io;
 
 class DataContainer extends Component {

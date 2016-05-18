@@ -36,7 +36,6 @@ export default class MessageDisplay extends Component {
       Object.keys(emotes).forEach(i => {
         const e = emotes[i];
         Object.keys(e).forEach(j => {
-        // for (let j in e) {
           let mote = e[j];
           if (typeof mote === 'string') {
             mote = mote.split('-');
