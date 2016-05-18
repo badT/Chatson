@@ -149,9 +149,9 @@ export default class LineGraphDisplay extends Component {
 
           {/* Loading message */}
           <span className={`loader-msg ${this.props.waitingForMsgs ? 'loader-active' : ''}`}>
-            {`${this.props.firstToneIn && this.props.firstMsgIn ? 'this chat activity is. slowing. down...' : ''}`}
-            {`${!this.props.firstToneIn && this.props.firstMsgIn ? 'here it comes...' : ''}`}
-            {`${!this.props.firstToneIn && !this.props.firstMsgIn ? 'awaiting first transmission' : ''}`}
+            {`${this.props.firstToneIn && this.props.firstMsgIn ? 'This chat activity is. Slowing. Down...' : ''}`}
+            {`${!this.props.firstToneIn && this.props.firstMsgIn ? 'Here it comes...' : ''}`}
+            {`${!this.props.firstToneIn && !this.props.firstMsgIn ? 'Awaiting first transmission' : ''}`}
           </span>
 
         </div>
