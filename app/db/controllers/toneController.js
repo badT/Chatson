@@ -48,7 +48,7 @@ exports.getToneData = () => {
 };
 
 exports.saveTone = (tone) => {
-  // format for saving tone data
+  // Format for saving tone data
   const formatTone = {
     channel: tone.channel,
     messageCount: 1,
@@ -65,7 +65,7 @@ exports.saveTone = (tone) => {
       openness: tone.toneData.social.openness_big5,
     },
   };
-
+  // Checks to see if documnet ID is already cached in toneDataDocumentID
   if (!toneDataDocumentID[tone.channel]) {
     Tone.filter({ channel: formatTone.channel }).run()
       .then((data) => {

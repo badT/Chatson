@@ -44,15 +44,11 @@ function getTones(tone) {
   return tones;
 }
 
-// Success callback for tone alaysis POST request
+// Returns a flattened object with tone data
 function toneCallback(data) {
   const tone = {
     toneData: {},
   };
-
-  // Results for the updated full transcript's tone
   tone.toneData = getTones(data.document_tone);
-
-  // returns to the promise with a flattened object
   return tone;
 }

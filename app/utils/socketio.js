@@ -8,12 +8,10 @@ exports.ioConnect = server => {
   io.sockets.on('connection', socket => {
 
     socket.on('channel:subscribe', channel => {
-      console.log('subscribe to: ', channel);
       socket.join(channel);
     });
 
     socket.on('channel:unsubscribe', channel => {
-      console.log('unsubscribe from: ', channel);
       socket.leave(channel);
     });
 

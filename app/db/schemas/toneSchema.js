@@ -1,10 +1,8 @@
 const thinky = require('../config.js');
 
-// Create the model
 const Tone = thinky.thinky.createModel('Tones', {
   channel: thinky.type.string(),
   messageCount: thinky.type.number(),
-  // toneData: thinky.type.object(),
   emos: {
     anger: thinky.type.number(),
     disgust: thinky.type.number(),

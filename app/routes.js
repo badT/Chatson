@@ -25,11 +25,11 @@ module.exports = (app, express) => {
 
     req.on('end', () => {
       const channel = data.toString();
-      // Checks to see if channel has a length then then creates a connection
+      // Checks to see if channel has a length then creates a connection
       if (channel !== '') {
-        // add the new channel to the list of connected channels, if it is not included already
+        // Add the new channel to the list of connected channels, if it is not included already
         establishConnection.connect(channel);
-        // send the channel name back to the client. client leaves current socket room and joins this one
+        // Send the channel name back to the client. Client leaves current socket room and joins this one
         res.send({ channel });
       } else {
         res.status(400).send('No channel data recieved');
@@ -55,7 +55,7 @@ module.exports = (app, express) => {
             console.error(err);
             res.sendStatus(500);
           });
-      // sends back error message if data is empty
+      // Sends back error message if data is empty
       } else {
         res.status(400).send('No message data recieved');
       }
