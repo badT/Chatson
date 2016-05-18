@@ -61,10 +61,9 @@
   }
 
   .channel-list-header {
-    padding: 15px 30px;
+    padding: 15px 30px 5px 30px;
     text-align: center;
     margin: 0;
-    border-bottom: 2px solid #ddd;
     border-top: 2px solid #ddd;
     a {
       text-decoration: none;
@@ -96,6 +95,10 @@
     box-shadow: 1px 1px 3px $shadow;
     color: inherit;
     cursor: default;
+  }
+
+  .finger-point {
+    font-size: 30;
   }
 
   @media only screen and (min-width : 768px) {
