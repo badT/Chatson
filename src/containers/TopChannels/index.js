@@ -110,10 +110,11 @@ class TopChannels extends Component {
 
     Object.keys(emos).forEach(emo => {
       const height = emos[emo];
+      const avg = Math.round(height) / 100;
       const yCoord = 100 - height;
       const startXCoord = emoXCoords[emo];
       const color = emoColors[emo];
-      const msg = `${height}`
+      const msg = `Average ${capitalizeFirstLetter(emo)} score: ${avg}`;
 
       rectangles.push(
         <rect
