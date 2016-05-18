@@ -11,8 +11,15 @@ export default class LineGraphDisplay extends Component {
       btmRef: false,
       windowWidth: window.innerWidth,
     };
-
     this.handleResize = this.handleResize.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
   }
 
   handleMouseEnter(line) {
@@ -25,16 +32,8 @@ export default class LineGraphDisplay extends Component {
     if (line === 'btm') this.setState({ btmRef: false });
   }
 
-  handleResize(e) {
+  handleResize() {
     this.setState({ windowWidth: window.innerWidth });
-  }
-
-  componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
   }
 
   renderLines(colors, paths) {
@@ -74,9 +73,8 @@ export default class LineGraphDisplay extends Component {
             <span className={`graph-explanation ${this.state.btmRef ? 'visible' : ''}`}>Values below this line indicate that the chat sentiment is more likely to be perceived as aligning with the opposite extreme of this attribute</span>
           </div>
 
-          {/* Loading message and animation */}
+          {/* Loading animation */}
           <div className={`loader ${this.props.waitingForMsgs ? 'loader-active' : ''}`}>
-            <span className="loader-msg">Waiting for New Messages</span>
             <Loader key={this.state.windowWidth} />
           </div>
 
@@ -148,6 +146,14 @@ export default class LineGraphDisplay extends Component {
           </svg>
           <span className="x-axis-label start">30 Sec<br />Ago</span>
           <span className="x-axis-label end">Now</span>
+
+          {/* Loading message */}
+          <span className={`loader-msg ${this.props.waitingForMsgs ? 'loader-active' : ''}`}>
+            {`${this.props.firstToneIn && this.props.firstMsgIn ? 'this chat activity is. slowing. down...' : ''}`}
+            {`${!this.props.firstToneIn && this.props.firstMsgIn ? 'here it comes...' : ''}`}
+            {`${!this.props.firstToneIn && !this.props.firstMsgIn ? 'awaiting first transmission' : ''}`}
+          </span>
+
         </div>
       </div>
     );
@@ -157,6 +163,8 @@ export default class LineGraphDisplay extends Component {
 LineGraphDisplay.propTypes = {
   activeGraph: React.PropTypes.string,
   waitingForMsgs: React.PropTypes.bool,
+  firstMsgIn: React.PropTypes.bool,
+  firstToneIn: React.PropTypes.bool,
   emotionPaths: React.PropTypes.object,
   socialPaths: React.PropTypes.object,
 };
