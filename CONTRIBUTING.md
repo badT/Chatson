@@ -27,7 +27,7 @@ git remote add upstream https://github.com/badT/Chatson.git
 In your local copy of the repo, create a branch in which to do work. E.g.:
 
 ```
-git checkout -b `<your-branch-name>`
+git checkout -b <your-branch-name>
 ```
 
 ### Make commits to your branch.
