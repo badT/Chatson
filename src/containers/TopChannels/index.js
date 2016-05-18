@@ -1,57 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import TweenMax from 'gsap/src/minified/TweenMax.min';
 import { getLongTermTone } from '../../actions/index';
 import { styles } from './styles.scss';
+import { emoXCoords, delays, emoColors, months } from './variables';
+import { addCommas, animateBars } from './helpers';
 import { capitalizeFirstLetter } from '../../components/LineGraphComponents/helpers';
-
-
-const emoXCoords = {
-  anger: 5,
-  sadness: 15,
-  disgust: 25,
-  fear: 35,
-  joy: 45,
-  openness: 70,
-  conscientiousness: 80,
-  extraversion: 90,
-  agreeableness: 100,
-  neuroticism: 110,
-};
-
-const delays = {
-  anger: 0,
-  sadness: 0.15,
-  disgust: 0.30,
-  fear: 0.45,
-  joy: 0.60,
-  openness: 0.75,
-  conscientiousness: 0.9,
-  extraversion: 1.05,
-  agreeableness: 1.20,
-  neuroticism: 1.35,
-};
-
-const emoColors = {
-  anger: '#FF3F39',
-  sadness: '#2B56B2',
-  disgust: '#AC35B2',
-  fear: '#4ACC68',
-  joy: '#FFF348',
-  openness: '#FF3F39',
-  conscientiousness: '#2B56B2',
-  extraversion: '#AC35B2',
-  agreeableness: '#4ACC68',
-  neuroticism: '#FFF348',
-};
-
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 class TopChannels extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       channel: '',
       attr: '',
@@ -65,11 +23,7 @@ class TopChannels extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (Array.isArray(nextProps.longTermTone) && nextProps.longTermTone.length) {
-      Object.keys(emoColors).forEach(emo => {
-        setTimeout(() => {
-          TweenMax.fromTo(`.${emo}-bar`, 2, { opacity: 0, y: 100 }, { opacity: 1, y: 0, delay: delays[emo], ease: Power3.easeInOut });
-        }, 250);
-      });
+      animateBars(emoColors, delays);
     }
   }
 
@@ -98,22 +52,16 @@ class TopChannels extends Component {
     let count = dataObj.messageCount * 200;
 
     if (count > 999) {
-      count = count.toString().split('').reverse()
-      .map((digit, i) => {
-        let newDigit = digit;
-        if (i && i % 3 === 0) newDigit += ',';
-        return newDigit;
-      })
-      .reverse()
-      .join('');
+      count = addCommas(count);
     }
 
     Object.keys(emos).forEach(emo => {
       const height = emos[emo];
+      const avg = Math.round(height) / 100;
       const yCoord = 100 - height;
       const startXCoord = emoXCoords[emo];
       const color = emoColors[emo];
-      const msg = `${height}`
+      const msg = `Average ${capitalizeFirstLetter(emo)} score: ${avg}`;
 
       rectangles.push(
         <rect
@@ -137,7 +85,9 @@ class TopChannels extends Component {
           <h2>{channel}</h2>
           <h4>{count} messages since {dateStr}</h4>
           <div className={`chart-container ${this.state.channel === channel ? 'active' : ''}`}>
-            <div className="chart-msg">{this.state.channel === channel ? this.state.message : ''}</div>
+            <div className="chart-msg">
+              {this.state.channel === channel ? this.state.message : ''}
+            </div>
             <svg width="125" heigth="100" viewBox="0 0 125 100" preserveAspectRatio="none">
               <g>
                 {rectangles}

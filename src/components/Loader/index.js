@@ -27,3 +27,7 @@ export default function Loader(props) {
     </div>
   );
 }
+
+Loader.propTypes = {
+  key: React.PropTypes.string,
+};
