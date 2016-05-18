@@ -3,7 +3,7 @@
   $shadow: rgba(0,0,0,0.6);
 
   z-index: 2;
-  height: 62px;
+  height: 76px;
   position: fixed;
   width: 100%;
   padding: 20px 0;
@@ -11,7 +11,4 @@
   background: rgba(0, 0, 0, 0.8);
   box-shadow: 0 1px 3px $shadow;
 
-  @media only screen and (min-width : 768px) {
-    height: 74px;
-  }
 }
