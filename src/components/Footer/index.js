@@ -7,7 +7,6 @@ const ghIcon = require('./assets/gh-icon.png');
 export class Footer extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       hoveredIcon: '',
     };

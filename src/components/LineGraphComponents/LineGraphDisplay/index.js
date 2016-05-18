@@ -78,7 +78,7 @@ export default class LineGraphDisplay extends Component {
             <Loader key={this.state.windowWidth} />
           </div>
 
-        {/* Main Graph */}
+          {/* Main Graph */}
           <svg width="100%" height="400" viewBox="0 0 400 100" preserveAspectRatio="none">
             {/* Graph Backgrounds */}
             <rect className={`graph-bg ${this.props.activeGraph === 'emotion' ? 'bg-active' : ''}`} id="emo-graph-bg" x="0" y="0" width="400" height="100" fill="#fff" fillOpacity="0" />

@@ -89,7 +89,6 @@ class TopChannels extends Component {
           fill={color}
         />
       );
-
     });
 
     return (
