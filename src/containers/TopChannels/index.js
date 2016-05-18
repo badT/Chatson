@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import TweenMax from 'gsap/src/minified/TweenMax.min';
 import { getLongTermTone } from '../../actions/index';
 import { styles } from './styles.scss';
 import { emoXCoords, delays, emoColors, months } from './variables';

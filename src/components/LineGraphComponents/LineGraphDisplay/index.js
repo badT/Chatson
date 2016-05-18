@@ -11,8 +11,15 @@ export default class LineGraphDisplay extends Component {
       btmRef: false,
       windowWidth: window.innerWidth,
     };
-
     this.handleResize = this.handleResize.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
   }
 
   handleMouseEnter(line) {
@@ -25,16 +32,8 @@ export default class LineGraphDisplay extends Component {
     if (line === 'btm') this.setState({ btmRef: false });
   }
 
-  handleResize(e) {
+  handleResize() {
     this.setState({ windowWidth: window.innerWidth });
-  }
-
-  componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
   }
 
   renderLines(colors, paths) {
@@ -150,7 +149,9 @@ export default class LineGraphDisplay extends Component {
 
           {/* Loading message */}
           <span className={`loader-msg ${this.props.waitingForMsgs ? 'loader-active' : ''}`}>
-            {this.props.firstToneIn ? 'this chat activity is. slowing. down...' : this.props.firstMsgIn ? 'here it comes...' : 'awaiting first transmission'}
+            {`${this.props.firstToneIn && this.props.firstMsgIn ? 'this chat activity is. slowing. down...' : ''}`}
+            {`${!this.props.firstToneIn && this.props.firstMsgIn ? 'here it comes...' : ''}`}
+            {`${!this.props.firstToneIn && !this.props.firstMsgIn ? 'awaiting first transmission' : ''}`}
           </span>
 
         </div>
@@ -162,6 +163,8 @@ export default class LineGraphDisplay extends Component {
 LineGraphDisplay.propTypes = {
   activeGraph: React.PropTypes.string,
   waitingForMsgs: React.PropTypes.bool,
+  firstMsgIn: React.PropTypes.bool,
+  firstToneIn: React.PropTypes.bool,
   emotionPaths: React.PropTypes.object,
   socialPaths: React.PropTypes.object,
 };

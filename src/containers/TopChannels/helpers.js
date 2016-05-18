@@ -1,5 +1,7 @@
+import TweenMax from 'gsap/src/minified/TweenMax.min';
+
 export const addCommas = (count) => {
-  return count.toString().split('').reverse()
+  const numString = count.toString().split('').reverse()
     .map((digit, i) => {
       let newDigit = digit;
       if (i && i % 3 === 0) newDigit += ',';
@@ -7,6 +9,7 @@ export const addCommas = (count) => {
     })
     .reverse()
     .join('');
+  return numString;
 };
 
 export const animateBars = (emoColors, delays) => {
