@@ -14,6 +14,7 @@ class LineGraph extends Component {
     this.state = {
       waitingForMsgs: true,
       firstMsgIn: false,
+      firstToneIn: false,
       lastAnger: 0,
       xCoord: 440,
       activeGraph: 'emotion',
@@ -59,7 +60,7 @@ class LineGraph extends Component {
 
       if (!this.state.firstMsgIn) {
         this.setState({ firstMsgIn: true });
-        this.msgTimer = setTimeout(() => { this.setState({ waitingForMsgs: false }); }, 3000);
+        this.msgTimer = setTimeout(() => { this.setState({ waitingForMsgs: false, firstToneIn: true }); }, 3000);
       } else if (this.state.waitingForMsgs) {
         this.setState({ waitingForMsgs: false });
       }
@@ -137,6 +138,8 @@ class LineGraph extends Component {
           <LineGraphDisplay
             activeGraph={this.state.activeGraph}
             waitingForMsgs={this.state.waitingForMsgs}
+            firstMsgIn={this.state.firstMsgIn}
+            firstToneIn={this.state.firstToneIn}
             emotionPaths={this.state.emotionPaths}
             socialPaths={this.state.socialPaths}
           />

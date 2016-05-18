@@ -149,7 +149,9 @@ export default class LineGraphDisplay extends Component {
           <span className="x-axis-label end">Now</span>
 
           {/* Loading message */}
-          <span className={`loader-msg ${this.props.waitingForMsgs ? 'loader-active' : ''}`}>Waiting for New Messages</span>
+          <span className={`loader-msg ${this.props.waitingForMsgs ? 'loader-active' : ''}`}>
+            {this.props.firstToneIn ? 'this chat activity is. slowing. down...' : this.props.firstMsgIn ? 'here it comes...' : 'awaiting first transmission'}
+          </span>
 
         </div>
       </div>
