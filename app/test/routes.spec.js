@@ -19,7 +19,7 @@ describe('routes test suite', () => {
           done();
         });
     });
-    // verify post request has data
+
     it('should return an error for POST requests with no data', (done) => {
       server
       .post('/api/channels/subscribe')
@@ -52,7 +52,6 @@ describe('routes test suite', () => {
         });
     });
 
-    // verify post request has data
     it('should return an error for PUT requests with no data', (done) => {
       server
         .put('/api/watson/tone')

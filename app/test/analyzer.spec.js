@@ -2,7 +2,6 @@ const expect = require('expect');
 const analyzer = require('../watson/analyzer.js');
 
 describe('analyzer test suite', () => {
-  // console.log(routes.app.post)
   it('should expose a function', () => {
     expect(analyzer.runAnalysis).toBeA('function');
   });
@@ -22,7 +21,8 @@ describe('analyzer test suite', () => {
     return analyzer.runAnalysis(message)
     .then((data) => {
       expect(data.toneData).toNotExist();
-    }).catch((err) => {
+    })
+    .catch((err) => {
       expect(err).toExist();
     });
   });
