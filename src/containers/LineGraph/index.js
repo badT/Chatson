@@ -15,6 +15,7 @@ class LineGraph extends Component {
       waitingForMsgs: true,
       firstMsgIn: false,
       firstToneIn: false,
+      deadChannel: false,
       lastAnger: 0,
       xCoord: 440,
       activeGraph: 'emotion',
@@ -48,14 +49,22 @@ class LineGraph extends Component {
     // get the data animation out of whack
     TweenMax.ticker.useRAF(false);
     TweenMax.lagSmoothing(0);
+
+    this.deadChannelTimer = setTimeout(() => {
+      this.setState({ deadChannel: true });
+    }, 12000);
   }
 
   componentWillReceiveProps(props) {
     if (props.emotion) {
-      // clear the timer if it is set...
+      // clear the timers if they are set...
       if (this.msgTimer) {
         clearTimeout(this.msgTimer);
         this.msgTimer = null;
+      }
+      if (this.deadChannelTimer) {
+        clearTimeout(this.deadChannelTimer);
+        this.deadChannelTimer = null;
       }
 
       if (!this.state.firstMsgIn) {
@@ -110,6 +119,9 @@ class LineGraph extends Component {
     if (this.msgTimer) {
       clearTimeout(this.msgTimer);
     }
+    if (this.deadChannelTimer) {
+      clearTimeout(this.deadChannelTimer);
+    }
   }
 
   toggleGraph(graph) {
@@ -120,6 +132,13 @@ class LineGraph extends Component {
   render() {
     return (
       <div className={`${styles}`}>
+        {/* DEAD CHANNEL WARNING */}
+        <div className={`dead-channel-warning ${this.state.deadChannel ? 'active' : ''}`}>
+          <div className="dead-channel-msg">
+            <h2>This channel seems dead! Please choose another channel from the menu above.</h2>
+          </div>
+        </div>
+
         {/* TAB DISPLAY */}
         <LineGraphTabs
           activeGraph={this.state.activeGraph}

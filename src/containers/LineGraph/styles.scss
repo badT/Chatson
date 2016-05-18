@@ -4,6 +4,37 @@
 
   margin: 0 15px;
 
+  .dead-channel-warning {
+    position: fixed;
+    width: 100%;
+    left: -9999px;
+    top: 76px;
+    bottom: 0;
+    background: $shadow;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+
+  .dead-channel-warning.active {
+    opacity: 1;
+    left: 0;
+  }
+
+  .dead-channel-msg {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    text-align: center;
+  }
+
+  .dead-channel-msg h2 {
+    margin: -36px 0 0 0;
+    padding: 0 30px;
+  }
+
   .graph-main {
     background-color: $bg-color;
     border-radius: 0 0 3px 3px;
