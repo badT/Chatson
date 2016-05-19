@@ -5,7 +5,7 @@ const watson = require('../watson/analyzer');
 const storedMessages = {
   '#bacon_donut': [],
   '#wyld': [],
-  '#ZiggyDLive': [],
+  '#giantwaffle': [],
   '#reynad27': [],
 };
 
