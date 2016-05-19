@@ -3,7 +3,7 @@ const chooseChannel = require('./tmiConfig');
 const eventEmitter = require('./eventEmitter');
 
 exports.establishConnection = () => {
-  const channelList = ['#bacon_donut', '#wyld', '#ZiggyDLive', '#reynad27'];
+  const channelList = ['#bacon_donut', '#wyld', '#giantwaffle', '#reynad27'];
   const twitchClient = new tmi.client(chooseChannel(channelList));
 
   twitchClient.connect();
