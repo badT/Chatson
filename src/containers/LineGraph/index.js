@@ -67,6 +67,11 @@ class LineGraph extends Component {
         this.deadChannelTimer = null;
       }
 
+      // reset deadChannel if it is set to false
+      if (this.state.deadChannel) {
+        this.setState({ deadChannel: false });
+      }
+
       if (!this.state.firstMsgIn) {
         this.setState({ firstMsgIn: true });
         this.msgTimer = setTimeout(() => { this.setState({ waitingForMsgs: false, firstToneIn: true }); }, 3000);
