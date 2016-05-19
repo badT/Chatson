@@ -11,13 +11,20 @@ export default class Logo extends Component {
     this.state = {
       logo: new TimelineMax,
       hatson: new TimelineMax,
-      fullLogo: false,
-      animating: false,
+      animating: true,
     };
   }
 
   componentDidMount() {
-    setTimeout(() => { this.toggleAnimation(); }, 2000);
+    const shrink = new TimelineMax;
+    shrink.to('#hhh', 0, { scale: 0.25 })
+      .to('#aaa', 0, { scale: 0.25 })
+      .to('#ttt', 0, { scale: 0.25 })
+      .to('#sss', 0, { scale: 0.25 })
+      .to('#ooo', 0, { scale: 0.25 })
+      .to('#nnn', 0, { scale: 0.25 });
+
+    setTimeout(() => { this.logoAnimate().forward(); }, 1500);
   }
 
   logoAnimate() {
@@ -27,62 +34,46 @@ export default class Logo extends Component {
         .to('.eyes', 2, { rotation: 90, x: 41, y: -4 }, '-=2')
         .to('#left_ball', 0.75, { opacity: 0, x: 5, y: -45 }, '-=1.15')
         .to('#right_ball', 0.75, { opacity: 0, x: 25, y: -35 }, '-=0.8')
-        .duration(2);
+        .duration(1.5)
+        .eventCallback('onReverseComplete', () => { setTimeout(() => { this.state.logo.timeScale(2.5).play(); }, 300); });
 
-      this.state.hatson.to('#hhh', 0, { scale: 0.25 })
-        .to('#aaa', 0, { scale: 0.25 })
-        .to('#ttt', 0, { scale: 0.25 })
-        .to('#sss', 0, { scale: 0.25 })
-        .to('#ooo', 0, { scale: 0.25 })
-        .to('#nnn', 0, { scale: 0.25 })
-        .to('#hhh', 0.75, { delay: 2, opacity: 100, scale: 1.8, y: 4 })
+      this.state.hatson
+        .to('#hhh', 0.75, { opacity: 100, scale: 1.8, y: 4 })
         .to('#aaa', 0.75, { opacity: 100, scale: 1.7, x: 12, y: 3 }, '-=0.5')
         .to('#ttt', 0.75, { opacity: 100, scale: 1.7, x: 22, y: -0.65 }, '-=0.5')
         .to('#sss', 0.75, { opacity: 100, scale: 1.7, x: 32, y: 3 }, '-=0.5')
         .to('#ooo', 0.75, { opacity: 100, scale: 1.7, x: 42, y: 3 }, '-=0.5')
         .to('#nnn', 0.75, { opacity: 100, scale: 1.7, x: 54, y: 3 }, '-=0.5')
-        .duration(2);
+        .duration(1.5)
+        .eventCallback('onReverseComplete', () => { setTimeout(() => { this.state.hatson.timeScale(2.5).play(); }, 300); })
+        .eventCallback('onComplete', () => { this.setState({ animating: false }); });
     };
 
-    const reverse = () => {
-      this.state.logo.reverse(0);
-      this.state.hatson.reverse(0);
-      this.setState({
-        logo: new TimelineMax,
-        hatson: new TimelineMax,
-      });
+    const rewind = () => {
+      if (!this.state.animating) {
+        this.setState({ animating: true });
+
+        this.state.logo
+        .timeScale(3)
+        .reverse(0);
+
+        this.state.hatson
+        .timeScale(3)
+        .reverse(0);
+      }
     };
 
     return {
       forward,
-      reverse,
+      rewind,
     };
-  }
-
-  toggleAnimation() {
-    if (this.state.animating) return;
-    this.setState({ animating: true });
-
-    if (this.state.fullLogo) {
-      this.logoAnimate().reverse();
-      this.setState({ fullLogo: false });
-      setTimeout(() => {
-        this.setState({ animating: false });
-      }, 2000);
-    } else {
-      this.setState({ fullLogo: true });
-      this.logoAnimate().forward();
-      setTimeout(() => {
-        this.setState({ animating: false });
-      }, 2000);
-    }
   }
 
   render() {
     return (
-      <div className={`${styles}`} onMouseEnter={() => { this.toggleAnimation(); }}>
+      <div className={`${styles}`}>
         <span className="logo-holder">
-          <svg className="logo" width="60" height="60" viewBox="-2 -2 64 74">
+          <svg className="logo" width="60" height="60" viewBox="-2 -2 64 74" onMouseEnter={() => { this.logoAnimate().rewind(); }}>
             <g className="eyes">
               <line id="left_eye" fill="none" stroke="#ffffff" strokeWidth="3" stroke-miterlimit="10" x1="12.5" y1="8.9" x2="24.3" y2="8.9" />
               <line id="right_eye" fill="none" stroke="#ffffff" strokeWidth="3" stroke-miterlimit="10" x1="35.8" y1="8.9" x2="47.7" y2="8.9" />
